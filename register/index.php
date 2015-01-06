@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 							
 							 if ($executequery === 23000) {
                                  $status = 'Email Id already exists!Please choose another one!';
-                                 var_dump($executequery);
                              }
 						}
 								 	
@@ -100,16 +99,17 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 	<img src="../assets/images/landing.jpg" class="keeper-bg">
 	<div class="container">
 		
-		<?php if(isset($status) && isset($_POST['submit'])): ?>
-		<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<p><?php echo $status; ?></p>
-		</div>
-		<?php endif; ?>
 
-		<form action="/gnooble/register/index.php" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
+
+            <form action="/index.php" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Register with an account. <br><small>Its free!</small></h3>
+            <?php if(isset($status) && isset($_POST['submit'])): ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <p><?php echo $status; ?></p>
+                </div>
+            <?php endif; ?>
 		  <div class="form-group">
 		    <label for="input-name" class="col-sm-4 control-label">Full Name</label>
 		    <div class="col-sm-8">
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4 col-sm-8">
-		      <button type="submit" class="btn btn-success pull-right">Register</button>
+		      <button type="submit" name="submit" class="btn btn-success pull-right">Register</button>
 		    </div>
 		  </div>
 
