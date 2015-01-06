@@ -73,7 +73,7 @@ public function insert($conn,$bindings,$query)
 		 
 	 catch(PDOException $e)
 	 { 
-		  return  $e;
+		  return  (int)$e->getCode();
 	  }
 }
 
