@@ -1,5 +1,10 @@
 <?php
-
+/*  Author : Diljit Ramachandran
+ *  Date : 10th August,2014
+ *  Last Modified : 6 January,2015
+ *
+ *
+ */
 
 class DatabaseConnect
 {
@@ -24,7 +29,7 @@ public function __construct($config)
 public function connect()
 	{
 		
-		// Return a connection string if successfull else return false..	
+		// Return a connection string if successful else return false..
 	
 		try {
 			

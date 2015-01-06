@@ -16,8 +16,8 @@
 		<p class="lead">Gnooble is an application to automate programming assignments on the cloud.</p>
 		<p>Register and start practicing right away.</p>
 		<div class="row action-block">
-			<a href="/register/" class="btn btn-lg btn-success">Register</a>
-			<a href="/login/" class="btn btn-lg btn-primary">Login</a>
+			<a href="register/" class="btn btn-lg btn-success">Register</a>
+			<a href="login/" class="btn btn-lg btn-primary">Login</a>
 		</div>
 	</div>
 	</div>
