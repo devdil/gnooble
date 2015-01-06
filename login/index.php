@@ -2,6 +2,7 @@
 
 include '../includes/config.php';
 include '../includes/DatabaseConnect.php';
+include '../includes/Authenticate.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 {
@@ -32,18 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 					if (($result->rowCount())>0)
 					{
 						$rows = $result->fetchAll();
-						session_start();
-						$_SESSION['username'] = $rows[0]['Name'];
-						$_SESSION['emailid'] = $rows[0]['EmailId'];
-						$_SESSION['department'] = $rows[0]['Department'];
-						$_SESSION['userid'] = $rows[0]['UserId'];
-							unset($status);
-						  //redirect to student.php if the user is a student else welcome.php for teachers
-						  	 if ($rows[0]['Type']=='S')
-						  	 	header('Location: student/student.php');
-						  	 else
-						  	 	header('Location: admin/welcome.php');
-						
+                        $userAuthentication = new Authenticate();
+                        $userAuthentication->login( $rows[0]['Name'],$rows[0]['EmailId'],$rows[0]['Department'],$rows[0]['UserId'],$rows[0]['Type']);
+                        $userAuthentication->redirect();
+                        unset($status);
+
+
 					}
 				
 					else
@@ -74,27 +69,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 <body class="gatekeeper">
 	<img src="../assets/images/landing.jpg" class="keeper-bg">
 	<div class="container">
-		<?php if (!empty($status) && isset($status)): ?>
-			<div class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<p>
-					<?php echo "Alert! ".$status; ?>
-				</p>  
-			</div>
-		<?php endif; ?>
-		<form class="col-xs-4 login-form center-block pull-none entry-form">
+		<form method="post" action="/gnooble/login/index.php" class="col-xs-4 login-form center-block pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Login</h3>
+            <?php if (!empty($status) && isset($status)): ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <p>
+                        <?php echo "Alert! ".$status; ?>
+                    </p>
+                </div>
+            <?php endif; ?>
 		  <div class="form-group">
 		    <label for="email">Email address</label>
-		    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+		    <input type="email" name="useremail" class="form-control" id="email" placeholder="Enter your email">
 		  </div>
 		  <div class="form-group">
 		    <label for="pass">Password</label>
-		    <input type="password" class="form-control" id="pass" placeholder="Password">
+		    <input type="password" name="password" class="form-control" id="pass" placeholder="Password">
 		  </div>
 		  
-		  <button type="submit" class="btn btn-success pull-right">Submit</button>
+		  <button type="submit" name="login" class="btn btn-success pull-right">Submit</button>
 		</form>
 	</div>
 	
