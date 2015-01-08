@@ -15,7 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
-.idea/
+.idea/*.*
 
 # External tool builders
 .externalToolBuilders/
@@ -224,4 +224,4 @@ node_modules/
 .sass_cache/
 
 # PHPStorm
-.idea/
+.idea/**
