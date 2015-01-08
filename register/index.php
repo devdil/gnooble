@@ -99,12 +99,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 	<div class="container">
 		
 
-<<<<<<< HEAD
-
-            <form action="/register/" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
-=======
-	   <form action="<?php echo dirname($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
->>>>>>> 27593e54a30be5a664865e2628d186c5557e1bd9
+	   <form action="/register/" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Register with an account. <br><small>Its free!</small></h3>
             <?php if(isset($status) && isset($_POST['submit'])): ?>
