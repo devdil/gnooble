@@ -8,17 +8,17 @@
 
 class Authenticate
 {
-    private $isLogged = false;
+    private $isLogged;
 
     public function __construct()
     {
-
         session_start();
+        $islogged = false;
 
     }
     public function isLoggedIn()
     {
-        return isset($_SESSION['username']);
+        return islogged;
     }
 
     public function login($name,$emailId,$department,$userID,$type)
@@ -29,19 +29,33 @@ class Authenticate
         $_SESSION['userid']     = $userID;
         $_SESSION['type']       = $type;
 
+        $this->isLogged = true;
+
     }
 
     public function redirect()
     {
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
-        if ($_SESSION['Type']=='S')
+        if ($_SESSION['type']=='S')
             header('Location: ../student/');
         else
             header('Location: ../admin/');
 
 
     }
+
+    public getUserType()
+        {
+
+
+        }
+
+    public setUserType()
+    {
+
+    }
+
 
     public function logout()
     {
