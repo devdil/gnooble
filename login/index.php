@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 <body class="gatekeeper">
 	<img src="../assets/images/landing.jpg" class="keeper-bg">
 	<div class="container">
-		<form method="post" action="/gnooble/login/index.php" class="col-xs-4 login-form center-block pull-none entry-form">
+		<form method="post" action="/login/" class="col-xs-4 login-form center-block pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Login</h3>
             <?php if (!empty($status) && isset($status)): ?>
