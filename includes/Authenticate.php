@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: Diljit Ramachandran
  * Date: 6/1/15
  * Time: 1:57 PM
@@ -9,16 +8,18 @@
 class Authenticate
 {
     private $isLogged;
+    private $userType;
 
     public function __construct()
     {
         session_start();
-        $islogged = false;
+        $this->isLogged = false;
+
 
     }
     public function isLoggedIn()
     {
-        return islogged;
+        return $this->isLogged;
     }
 
     public function login($name,$emailId,$department,$userID,$type)
@@ -37,23 +38,26 @@ class Authenticate
     {
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
-        if ($_SESSION['type']=='S')
+        if ($_SESSION['type']=='S') {
+            $this->setUserType("Student");
             header('Location: ../student/');
+        }
         else
+            $this->setUserType("Admin");
             header('Location: ../admin/');
 
 
     }
 
-    public getUserType()
+    public function getUserType($userType)
         {
-
+                $this->userType = $userType;
 
         }
 
-    public setUserType()
+    public function setUserType($userType)
     {
-
+            return $this->userType;
     }
 
 
