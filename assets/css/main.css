@@ -17,15 +17,15 @@ html, body{
 }
 
 .gatekeeper{
-	overflow: hidden;
+   background: url("../images/landing.jpg") no-repeat scroll 0% 0% / cover transparent;
 }
 
-.gatekeeper .keeper-bg{
+/*.gatekeeper .keeper-bg{
 	position: absolute;
 	width: 100%;
 	height: auto;
 	-webkit-filter: blur(4px) sepia(0.4) grayscale(0.2);
-}
+}*/
 
 .action-block{
 	margin-top: 60px;
@@ -48,7 +48,7 @@ html, body{
 }
 
 .features{
-	margin-top: 84px;
+	margin: 84px auto;
 }
 
 .feature-img{
@@ -151,16 +151,22 @@ section.col-sm-3.col-md-2.sidebar{
 }
 
 .entry-form{
-	margin-top: 15%;
+	margin: 15% auto 5%;
 	background: #fff;
 	padding: 20px;
 	border-radius: 3px;
 	border: thin solid #525252;
 	box-shadow: 0 0 22px #313111;
+    max-width: 400px;
+    width: 100%;
 }
 
 .entry-form h3{
-	margin-bottom: 48px;
+	margin-bottom: 28px;
+}
+
+.register-form{
+   max-width: 500px;
 }
 
 #editor{
