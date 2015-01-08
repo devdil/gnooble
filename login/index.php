@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 </head>
 <body class="gatekeeper">
 	<div class="container-fluid">
+        <!-- action="/login/-->
 		<form method="post" action="/login/" class="clearfix col-xs-4 login-form center-block pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Login</h3>
