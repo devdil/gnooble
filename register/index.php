@@ -96,12 +96,15 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 
 </head>
 <body class="gatekeeper">
-	<img src="../assets/images/landing.jpg" class="keeper-bg">
 	<div class="container">
 		
 
+<<<<<<< HEAD
 
             <form action="/register/" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
+=======
+	   <form action="<?php echo dirname($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
+>>>>>>> 27593e54a30be5a664865e2628d186c5557e1bd9
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Register with an account. <br><small>Its free!</small></h3>
             <?php if(isset($status) && isset($_POST['submit'])): ?>
@@ -113,25 +116,25 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		  <div class="form-group">
 		    <label for="input-name" class="col-sm-4 control-label">Full Name</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control" name="name" id="input-name" placeholder="What is your full name?">
+		      <input required type="text" class="form-control" name="name" id="input-name" placeholder="What is your full name?">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="input-email" class="col-sm-4 control-label">Email</label>
 		    <div class="col-sm-8">
-		      <input type="email" class="form-control" name="emailid" input-email" placeholder="Your email address?">
+		      <input required type="email" class="form-control" name="emailid" id="input-email" placeholder="Your email address?">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="input-tel" class="col-sm-4 control-label">Contact Number</label>
 		    <div class="col-sm-8">
-		      <input type="tel" class="form-control" name="contactnumber" input-tel" placeholder="Your contact number?">
+		      <input required type="tel" class="form-control" name="contactnumber" id="input-tel" placeholder="Your contact number?">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="input-dept" class="col-sm-4 control-label">Department</label>
 		    <div class="col-sm-8">
-		    	<select name="department" id="input-dept" class="form-control">
+		    	<select required name="department" id="input-dept" class="form-control">
 		    		<option value="CSE">Computer Science</option>
 		    		<option value="EE">Electrical Engineering</option>
 		    		<option value="ECE">Electronics Engineering</option>
@@ -143,13 +146,13 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		  <div class="form-group">
 		    <label for="input-password" class="col-sm-4 control-label">Password</label>
 		    <div class="col-sm-8">
-		      <input type="password" class="form-control" name="password" id="input-password" placeholder="Password">
+		      <input required type="password" class="form-control" name="password" id="input-password" placeholder="Password">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="input-secureid" class="col-sm-4 control-label">Secure ID</label>
 		    <div class="col-sm-8">
-		      <input type="password" class="form-control" name="secureid" id="input-secureid" placeholder="Secure ID" >
+		      <input required type="password" class="form-control" name="secureid" id="input-secureid" placeholder="Secure ID" >
 		    </div>
 		  </div>
 		  

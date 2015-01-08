@@ -67,9 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 
 </head>
 <body class="gatekeeper">
+<<<<<<< HEAD
 	<img src="../assets/images/landing.jpg" class="keeper-bg">
 	<div class="container">
 		<form method="post" action="/login/" class="col-xs-4 login-form center-block pull-none entry-form">
+=======
+	<div class="container-fluid">
+		<form method="post" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>" class="clearfix col-xs-4 login-form center-block pull-none entry-form">
+>>>>>>> 27593e54a30be5a664865e2628d186c5557e1bd9
 		  <h1 class="page-header">Gnooble</h1>
 		  <h3>Login</h3>
             <?php if (!empty($status) && isset($status)): ?>
@@ -82,11 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
             <?php endif; ?>
 		  <div class="form-group">
 		    <label for="email">Email address</label>
-		    <input type="email" name="useremail" class="form-control" id="email" placeholder="Enter your email">
+		    <input type="email" required name="useremail" class="form-control" id="email" placeholder="Enter your email">
 		  </div>
 		  <div class="form-group">
 		    <label for="pass">Password</label>
-		    <input type="password" name="password" class="form-control" id="pass" placeholder="Password">
+		    <input type="password" required name="password" class="form-control" id="pass" placeholder="Password">
 		  </div>
 		  
 		  <button type="submit" name="login" class="btn btn-success pull-right">Submit</button>
