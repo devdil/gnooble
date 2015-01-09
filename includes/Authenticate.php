@@ -53,13 +53,13 @@ class Authenticate
 
     public function getUserType($userType)
         {
-                $this->userType = $userType;
+            return $this->userType;
 
         }
 
     public function setUserType($userType)
     {
-            return $this->userType;
+            $this->userType = $userType;
     }
 
 
