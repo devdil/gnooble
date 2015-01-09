@@ -42,9 +42,11 @@ class Authenticate
             $this->setUserType("Student");
             header('Location: ../student/');
         }
-        else
+        else{
             $this->setUserType("Admin");
             header('Location: ../admin/');
+        }
+
 
 
     }
