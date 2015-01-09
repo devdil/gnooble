@@ -88,11 +88,11 @@
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar">
 		  <ul class="nav nav-sidebar">
-		    <li class="active"><a href="http://getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Reports</a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Analytics</a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Export</a></li>
-		  </ul>
+                <li class="active"><a href="/">Practice <span class="sr-only">(current)</span></a></li>
+                <li><a href="">MySubmissions</a></li>
+                <li><a href="">Tutorials</a></li>
+                <li><a href="">Algorithms and Data Structures</a></li>
+            </ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>
 		    <li><a href="">Nav item again</a></li>
@@ -128,7 +128,22 @@
 		      		<td><?php echo $result["questionId"]; ?></td>
 		      		<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
 		      		<td><?php echo $result["assignedBy"]; ?></td>
-		      		<td><?php echo $result["difficulty"]; ?></td>
+		      		<td><?php switch($result["difficulty"])
+                        {
+                            case 20:
+                                echo "Easy";
+                                break;
+                            case 50:
+                                echo "Meduim";
+                                break;
+                            case 100:
+                                echo "Hard";
+                                break;
+                            default:
+                                echo "Not Assigned";
+                        }
+                        ?>
+                    </td>
 		      		<td><?php echo $result["solvedBy"]; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
