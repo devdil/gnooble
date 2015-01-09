@@ -224,4 +224,4 @@ node_modules/
 .sass_cache/
 
 # PHPStorm
-.idea/
+.idea/**
