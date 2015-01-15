@@ -40,6 +40,7 @@
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+				 <img class="user-img img-rounded" src="https://pbs.twimg.com/profile_images/437217294507180033/0_a2QewN_400x400.jpeg" alt="Sougata Nair"/>
 	          	<?php echo $_SESSION['username']; ?>
 	          	<span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
@@ -78,14 +79,36 @@
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		  <h1 class="page-header">Home</h1>
-		  <p class="lead">Welcome Aboard.</p>
+		  <p class="lead">Welcome Aboard!</p>
 
-            <p>Image</p>
-            <p>Name</p>
-            <p>Department</p>
-            <p>Questions Solved</p>
-            <p>ContactNumber</p>
-            <p>Address</p>
+
+		   <div class="row">
+			  <div class="col-md-6 clearfix user-profile">
+				 <img class="user-img pull-left img-rounded img-responsive col-md-4 col-sm-4 col-xs-4" src="https://pbs.twimg.com/profile_images/437217294507180033/0_a2QewN_400x400.jpeg" alt="Sougata Nair"/>
+
+				 <div class="user-info pull-left col-md-7 col-md-7 col-xs-7">
+					<h2><strong>Sougata Nair</strong></h2>
+
+					<p class="dept meta">Computer Science Department</p>
+
+					<p class="contact meta"><strong>Phone: </strong>+918981006579</p>
+
+					<p class="meta addr"><strong>Address: </strong>Baishali Garden, Jothshibrampur, Maheshtala, Kolkata - 700141</p>
+
+				 </div>
+			  </div>
+			  <div class="col-md-5 num-questions">
+				 <h3>Recently solved questions</h3>
+				 <!-- Try to put only a few questions here, no more than 5 -->
+				 <ul class="recent-qlist list-unstyled">
+					<li><a href="#">Sample Question</a></li>
+					<li><a href="#">Sample Question</a></li>
+					<li><a href="#">Sample Question</a></li>
+					<li><a href="#">Sample Question</a></li>
+					<li><a href="#">Sample Question</a></li>
+				 </ul>
+			  </div>
+		   </div>
 
 
 		</section>

@@ -16,16 +16,16 @@ html, body{
 	border-radius: 0;;
 }
 
+.navbar .user-img{
+   max-width: 2em;
+   margin-top: -15px;
+   margin-right: 8px;
+   margin-bottom: -15px;
+}
+
 .gatekeeper{
    background: url("../images/landing.jpg") no-repeat scroll 0% 0% / cover transparent;
 }
-
-/*.gatekeeper .keeper-bg{
-	position: absolute;
-	width: 100%;
-	height: auto;
-	-webkit-filter: blur(4px) sepia(0.4) grayscale(0.2);
-}*/
 
 .action-block{
 	margin-top: 60px;
@@ -84,6 +84,63 @@ html, body{
 
 .page-header{
 	margin-top: 0;
+}
+
+.user-profile, .num-questions{
+   padding: 1em;
+   border: thin solid #cccccc;
+   -webkit-border-radius: 0.5em;
+   -moz-border-radius: 0.5em;
+   border-radius: 0.5em;
+   -webkit-box-shadow: 0 0 4px #cccccc;
+   -moz-box-shadow: 0 0 4px #cccccc;
+   box-shadow: 0 0 4px #cccccc;
+}
+
+.num-questions{
+   margin-left: 1em;
+   padding-bottom: 0;
+}
+
+.num-questions h3{
+   margin-top: 0;
+}
+
+.recent-qlist{
+   margin-bottom: 0;
+}
+
+.recent-qlist li{
+   margin-right: -15px;
+   margin-left: -15px;
+}
+
+.recent-qlist li a{
+   display: block;
+   padding: 10px 15px;
+   border-top: thin solid #d8d8d8;
+}
+
+.recent-qlist li:first-child a{
+   border-top: thin solid #999999;
+}
+
+.user-profile .user-img{
+   margin-right: 1em;
+   padding: 0;
+}
+
+.user-info{
+   padding: 0;
+}
+
+.user-info h2{
+   margin-top: 0.3em;
+}
+
+.user-info .dept{
+   padding-bottom: 1em;
+   border-bottom: thin solid #bbbbbb;
 }
 
 @media (min-width: 768px){
