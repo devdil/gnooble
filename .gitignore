@@ -225,3 +225,4 @@ node_modules/
 
 # PHPStorm
 .idea/**
+.idea/workspace.xml
