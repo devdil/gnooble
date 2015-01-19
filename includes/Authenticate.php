@@ -3,72 +3,67 @@
  * User: Diljit Ramachandran
  * Date: 6/1/15
  * Time: 1:57 PM
+ * Last Modified : 19th Jan,2015
  */
+session_start();
 
 class Authenticate
 {
-    private $isLogged;
-    private $userType;
 
-    public function __construct()
+    public static function isLoggedIn()
     {
-        session_start();
-        $this->isLogged = false;
-
-
-    }
-    public function isLoggedIn()
-    {
-        return $this->isLogged;
+        return isset($_SESSION['username']);
     }
 
-    public function login($name,$emailId,$department,$userID,$type)
+    public static function login($databaseQuery)
     {
-        $_SESSION['username']   = $name;
-        $_SESSION['emailid']    = $emailId;
-        $_SESSION['department'] = $department;
-        $_SESSION['userid']     = $userID;
-        $_SESSION['type']       = $type;
+        if (($databaseQuery->rowCount()) > 0) {
 
-        $this->isLogged = true;
+            $rows = $databaseQuery->fetchAll();
+            $_SESSION['username'] = $rows[0]['Name'];
+            $_SESSION['emailid'] = $rows[0]['EmailId'];
+            $_SESSION['department'] = $rows[0]['Department'];
+            $_SESSION['userid'] = $rows[0]['UserId'];
+            self::setUserType($rows[0]['Type']);
+            return isset($_SESSION['username']);
+        }
 
+        return false;
     }
 
-    public function redirect()
+
+
+    public static function redirect()
     {
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
-        if ($_SESSION['type']=='S') {
-            $this->setUserType("Student");
+        if (self::getUserType() == "STUDENT")
             header('Location: ../student/');
-        }
-        else{
-            $this->setUserType("Admin");
+        else
             header('Location: ../admin/');
-        }
-
-
-
     }
 
-    public function getUserType($userType)
+    public static function getUserType()
         {
-            return $this->userType;
+            return $_SESSION['type'];
 
         }
 
-    public function setUserType($userType)
+    public static function setUserType($userType)
     {
-            $this->userType = $userType;
+        if($userType == 'S')
+            $_SESSION['type'] = "STUDENT";
+        else
+            $_SESSION['type'] = "ADMIN";
+
     }
 
 
-    public function logout()
+    public static function logout()
     {
         session_start();
         session_destroy();
         $_SESSION = array();
-        $this->isLogged = false;
         header('Location: ../login/');
     }
 
