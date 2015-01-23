@@ -1,40 +1,20 @@
 <?php 
-		include '../../includes/DatabaseConnect.php';
-		include '../../includes/config.php';
-		session_start();
-		
-		if (!isset($_SESSION['username']))
+		include '../../includes/Authenticate.php';
+		include '../../classes/student.php';
+
+		//check whether the user is logged in or not,
+		if (!Authenticate::isLoggedIn())
 		{
-			header('Location: ../../login/');
+			Authenticate::logout();
 		}
-		
-		$dbinstance = new DatabaseConnect($config);
-		$connection = $dbinstance->connect();
-		
-		$dbinstance = new DatabaseConnect($config);
-		$connection = $dbinstance->connect();
-			
-		if ($connection)
+		//protects the student section
+		if (Authenticate::getUserType() == "ADMIN")
 		{
-				
-			$queryString = 'SELECT questionId,questionName,assignedBy,difficulty,solvedBy FROM PracticeQuestions';
-			$bindings = array();
-			
-			$result = $dbinstance->read($connection,$bindings,$queryString);
-		
-			$numberOfRows = $result->rowCount();
-			if ($numberOfRows>0)
-			{
-				$queryResult = $result->fetchAll();
-			}
-		
-			else
-			{
-				$status = 'Something might be wrong wih the Database!';
-			}
-		
+			Authenticate::redirect();
 		}
-		
+
+		$queryResult = Student::viewPracticeQuestions();
+
 
 
 ?>
@@ -86,13 +66,14 @@
 
 	<div class="container-fluid">
 	<div class="row">
-		<section class="col-sm-3 col-md-2 sidebar">
-		  <ul class="nav nav-sidebar">
-                <li class="active"><a href="/">Practice <span class="sr-only">(current)</span></a></li>
-                <li><a href="">MySubmissions</a></li>
-                <li><a href="">Tutorials</a></li>
-                <li><a href="">Algorithms and Data Structures</a></li>
-            </ul>
+		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
+				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
+				<li class="active"><a href="/student/practice/">Practice</a></li>
+				<li><a href="/student/submissions/">MySubmissions</a></li>
+				<li><a href="/student/tutorials/">Tutorials</a></li>
+				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
+				<li><a href="/student/algorithms/">Notifications</a></li>
+			</ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>
 		    <li><a href="">Nav item again</a></li>
@@ -110,6 +91,7 @@
 		  <h1 class="page-header">Practice</h1>
 		  <p class="lead">Start working on your coding skills right away.</p>
 
+
 		  <div class="table-responsive">
 		    <table class="table">
 		      <thead>
@@ -122,7 +104,6 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		      	<?php if(isset($numberOfRows) && $numberOfRows > 0): ?>
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
 		      		<td><?php echo $result["questionId"]; ?></td>
@@ -134,7 +115,7 @@
                                 echo "Easy";
                                 break;
                             case 50:
-                                echo "Meduim";
+                                echo "Medium";
                                 break;
                             case 100:
                                 echo "Hard";
@@ -147,7 +128,6 @@
 		      		<td><?php echo $result["solvedBy"]; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
-		      <?php endif; ?>
 		        
 		      </tbody>
 		    </table>

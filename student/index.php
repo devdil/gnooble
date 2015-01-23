@@ -40,7 +40,6 @@
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-				 <img class="user-img img-rounded" src="https://pbs.twimg.com/profile_images/437217294507180033/0_a2QewN_400x400.jpeg" alt="Sougata Nair"/>
 	          	<?php echo $_SESSION['username']; ?>
 	          	<span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
@@ -58,11 +57,11 @@
 	<div class="container-fluid">
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
-                <li class="active"><a href="/practice/">Home <span class="sr-only">(current)</span></a></li>
-                <li><a href="">Practice</a></li>
-                <li><a href="">MySubmissions</a></li>
-                <li><a href="">Tutorials</a></li>
-                <li><a href="">Algorithms and Data Structures</a></li>
+                <li class="active"><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
+                <li><a href="/student/practice/">Practice</a></li>
+                <li><a href="/student/submissions/">MySubmissions</a></li>
+                <li><a href="/student/tutorials/">Tutorials</a></li>
+                <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
             </ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>
@@ -84,16 +83,13 @@
 
 		   <div class="row">
 			  <div class="col-md-6 clearfix user-profile">
-				 <img class="user-img pull-left img-rounded img-responsive col-md-4 col-sm-4 col-xs-4" src="https://pbs.twimg.com/profile_images/437217294507180033/0_a2QewN_400x400.jpeg" alt="Sougata Nair"/>
+				 <img class="user-img pull-left img-rounded img-responsive col-md-4 col-sm-4 col-xs-4" src="https://cdn2.iconfinder.com/data/icons/flat-style-svg-icons-part-2/512/hacker_user_thief_spy_skull-512.png" alt="Sougata Nair"/>
 
 				 <div class="user-info pull-left col-md-7 col-md-7 col-xs-7">
 					<h2><strong>Sougata Nair</strong></h2>
 
 					<p class="dept meta">Computer Science Department</p>
 
-					<p class="contact meta"><strong>Phone: </strong>+918981006579</p>
-
-					<p class="meta addr"><strong>Address: </strong>Baishali Garden, Jothshibrampur, Maheshtala, Kolkata - 700141</p>
 
 				 </div>
 			  </div>

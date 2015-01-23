@@ -6,6 +6,7 @@
  * Last Modified : 19th Jan,2015
  */
 session_start();
+include 'Database.php';
 
 class Authenticate
 {
@@ -15,16 +16,23 @@ class Authenticate
         return isset($_SESSION['username']);
     }
 
-    public static function login($databaseQuery)
+    public static function login($useremail,$password)
     {
-        if (($databaseQuery->rowCount()) > 0) {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'SELECT * FROM UserDetails WHERE EmailId = :useremail AND Password = :password';
+        $bindings = array(
+            'useremail' => $useremail,
+            'password'  =>  $password
+        );
+        $result = $db->select($queryString,$bindings);
+        if ($result != false)
+        {
 
-            $rows = $databaseQuery->fetchAll();
-            $_SESSION['username'] = $rows[0]['Name'];
-            $_SESSION['emailid'] = $rows[0]['EmailId'];
-            $_SESSION['department'] = $rows[0]['Department'];
-            $_SESSION['userid'] = $rows[0]['UserId'];
-            self::setUserType($rows[0]['Type']);
+            $_SESSION['username'] = $result[0]['Name'];
+            $_SESSION['emailid'] = $result[0]['EmailId'];
+            $_SESSION['department'] = $result[0]['Department'];
+            $_SESSION['userid'] = $result[0]['UserId'];
+            self::setUserType($result[0]['Type']);
             return isset($_SESSION['username']);
         }
 

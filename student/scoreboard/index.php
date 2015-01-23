@@ -89,13 +89,13 @@ if ($connection)
 
 	<div class="container-fluid">
 	<div class="row">
-		<section class="col-sm-3 col-md-2 sidebar">
-		  <ul class="nav nav-sidebar">
-		    <li class="active"><a href="http://getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Reports</a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Analytics</a></li>
-		    <li><a href="http://getbootstrap.com/examples/dashboard/#">Export</a></li>
-		  </ul>
+		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
+				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
+				<li class="active"><a href="/student/practice/">Practice</a></li>
+				<li><a href="/student/submissions/">MySubmissions</a></li>
+				<li><a href="/student/tutorials/">Tutorials</a></li>
+				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
+			</ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>
 		    <li><a href="">Nav item again</a></li>

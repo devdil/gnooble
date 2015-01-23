@@ -14,31 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 		$password = htmlspecialchars($_POST['password']);
 		
 			//validate user and password from the database
-			
-				
-				
-				$dbinstance = new DatabaseConnect($config);
-				$connection = $dbinstance->connect();
-					
-				if ($connection)
-				{
-					
-					$queryString = 'SELECT * FROM UserDetails WHERE EmailId = :useremail AND Password = :password';
-					$bindings = array(
-										'useremail' => $useremail,
-										'password'  =>  $password
-								 );
-					$result = $dbinstance->read($connection,$bindings,$queryString);
-						
-					if (($result->rowCount())>0)
+					if(Authenticate::login($useremail,$password))
 					{
-						$rows = $result->fetchAll();
-                        $userAuthentication = new Authenticate();
-                        $userAuthentication->login( $rows[0]['Name'],$rows[0]['EmailId'],$rows[0]['Department'],$rows[0]['UserId'],$rows[0]['Type']);
-                        $userAuthentication->redirect();
-                        unset($status);
-
-
+						Authenticate::redirect();
+						unset($status);
 					}
 				
 					else
@@ -46,9 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 						$status = 'Invalid Login Credentials !';
 					}
 				
-				} 
 
-		}
+
+	}
 	else
 		//the user has submitted empty form .Notify :Empty Form Submitted
 	$status = 'Empty Form Submitted!';
