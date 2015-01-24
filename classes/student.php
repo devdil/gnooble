@@ -20,8 +20,14 @@ class Student
 
     }
 
-    public static function getQuestion()
+    public static function getQuestion($questionID)
     {
+
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT questionName,questionStatement,assignedBy,difficulty,solvedBy FROM PracticeQuestions where questionId=:qid';
+        $bindings = array('qid' => $questionID);
+
+        return $db->select($query,$bindings);
 
 
 
