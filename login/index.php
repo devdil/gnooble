@@ -1,7 +1,5 @@
 <?php 
 
-include '../includes/config.php';
-include '../includes/DatabaseConnect.php';
 include '../includes/Authenticate.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
