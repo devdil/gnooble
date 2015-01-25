@@ -154,7 +154,10 @@ include '../../classes/student.php';
 
 		 </div>
 
+		 <hr class="hidden-md hidden-lg visible-sm-12 visible-xs-12"/>
+
 		 <div class="col-md-6 col-sm-12">
+			<h3 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Solve the problem below</strong></h3>
 			<form class="answer-form">
 			   <label for="language">Select Language:</label>
 			   <select name="language" id="language">
@@ -166,6 +169,10 @@ include '../../classes/student.php';
 			   <textarea class="form-control" name="sourcecode" id="sourcecode" placeholder="Type in your solution here..."></textarea>
 
 			</form>
+
+			<hr class="hidden-md hidden-lg visible-sm-12 visible-xs-12"/>
+			<h4 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Output</strong></h4>
+
 			<div class="alert alert-default output-msg">
 			   <ul class="list-unstyled">
 				  <li id="status">
