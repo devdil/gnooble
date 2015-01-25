@@ -22,42 +22,18 @@ include '../../classes/student.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="utf-8">
-	<title>Bootstrap 3, from LayoutIt!</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-
-	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
-	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
-	<!--script src="js/less-1.3.3.min.js"></script-->
-	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
-
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../css/style.css" rel="stylesheet">
-
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<![endif]-->
-
-	<!-- Fav and touch icons -->
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../img/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../img/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../img/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="img/favicon.png">
-
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/scripts.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <title>Gnooble: Student</title>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../../assets/css/main.css">
 	<script>
 		$(document).ready(function(){
 			$('form').on('submit', function (e) {
-				$("#compile").attr("disabled", "disabled")
+				$("#compile").attr("disabled", "disabled");
 				e.preventDefault();
 
 				$.ajax({
@@ -68,12 +44,12 @@ include '../../classes/student.php';
 					dataType: "json",
 					success:function(result){
 						alert("Compiling Source Code");
-						$('#status').html("TestCases : "+result.testcases);
-						$('#output').html("Output :"+result['output']);
-						$('#memory').html("Memory :"+result['memory']);
-						$('#time').html("Time :"+result['time']);
-						$('#compilemessage').html("Compilation Message :"+((result['compilemessage']).replace(/\n/g,"<br>")));
-						$('#error').html("Error :"+result['error']);
+						$('#status').find('p').html("TestCases : "+result.testcases);
+						$('#output').find('p').html(result['output']);
+						$('#memory').find('p').html(result['memory']);
+						$('#time').find('p').html(result['time']);
+						$('#compilemessage').find('p').html(((result['compilemessage']).replace(/\n/g,"<br>")));
+						$('#error').find('p').html(result['error']);
 						$("#compile").removeAttr("disabled")
 					},
 					error: function (msg) {
@@ -88,135 +64,143 @@ include '../../classes/student.php';
 </head>
 
 <body>
-<br>
-<br>
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<ul class="nav nav-pills">
-				<li>
-					<a href="student.php">Home</a>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Practice<strong class="caret"></strong></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="practice.php">Practice Programming</a>
-						</li>
-						<li>
-							<a href="mysubmissions.php">MySubmissions</a>
-						</li>
-						<li>
-							<a href="grade.php">My Grade</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">Separated link</a>
-						</li>
-					</ul>
-				</li>
-				<li class="enabled">
-					<a href="notification.php">Notifications</a>
-				</li>
-				<li class="dropdown pull-right">
-					<a href="#" data-toggle="dropdown" class="dropdown-toggle">Account<strong class="caret"></strong></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="logout.php">Logout</a>
-						</li>
-						<li>
-							<a href="#">Another action</a>
-						</li>
-						<li>
-							<a href="#">Something else here</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">Separated link</a>
-						</li>
-					</ul>
-				</li>
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+   <div class="container-fluid">
+	  <!-- Brand and toggle get grouped for better mobile display -->
+	  <div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		 </button>
+		 <a class="navbar-brand" href="#">Gnooble</a>
+	  </div>
+
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+		 <ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+			   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+				  <?php echo $_SESSION['username']; ?>
+				  <span class="caret"></span></a>
+			   <ul class="dropdown-menu" role="menu">
+				  <li><a href="#">Settings</a></li>
+				  <li><a href="#">Scoreboard</a></li>
+				  <li class="divider"></li>
+				  <li><a href="#">Logout</a></li>
+			   </ul>
+			</li>
+		 </ul>
+	  </div><!-- /.navbar-collapse -->
+   </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+   <div class="row">
+	  <section class="col-sm-3 col-md-2 sidebar">
+		 <ul class="nav nav-sidebar">
+			<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
+			<li class="active"><a href="/student/practice/">Practice</a></li>
+			<li><a href="/student/submissions/">MySubmissions</a></li>
+			<li><a href="/student/tutorials/">Tutorials</a></li>
+			<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
+			<li><a href="/student/algorithms/">Notifications</a></li>
+		 </ul>
+		 <ul class="nav nav-sidebar">
+			<li><a href="">Nav item</a></li>
+			<li><a href="">Nav item again</a></li>
+			<li><a href="">One more nav</a></li>
+			<li><a href="">Another nav item</a></li>
+			<li><a href="">More navigation</a></li>
+		 </ul>
+		 <ul class="nav nav-sidebar">
+			<li><a href="">Nav item again</a></li>
+			<li><a href="">One more nav</a></li>
+			<li><a href="">Another nav item</a></li>
+		 </ul>
+	  </section>
+	  <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<!--		 <h1 class="page-header">Practice</h1>-->
+		 <p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
+
+
+		 <div role="tabpanel" class="col-md-6 col-sm-12">
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+			   <li role="presentation" class="active"><a href="#problem" aria-controls="problem" role="tab" data-toggle="tab">Problem</a></li>
+			   <li role="presentation"><a href="#hint" aria-controls="hint" role="tab" data-toggle="tab">Hint</a></li>
+			   <li role="presentation"><a href="#solution" aria-controls="solution" role="tab" data-toggle="tab">Solution</a></li>
+			   <li role="presentation"><a href="#readings" aria-controls="readings" role="tab" data-toggle="tab">Readings</a></li>
 			</ul>
-			<h3 class="text-success">
-				Welcome <?php echo $_SESSION['username'] ?>
-			</h3>
 
-
-			<br><br>
-
-		</div>
-
-		<div class="col-md-6 column">
-			<div class="tabbable" id="tabs-478371">
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a href="#panel-805009" data-toggle="tab">Problem</a>
-					</li>
-					<li>
-						<a href="#panel-805010" data-toggle="tab">Hint</a>
-					</li>
-					<li>
-						<a href="#panel-805011" data-toggle="tab">Solution</a>
-					</li>
-					<li>
-						<a href="#panel-805012" data-toggle="tab">Readings</a>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="panel-805009"  style="border: 1px solid #CCC;
-padding: 20px;
-height: 375px;
-overflow-y: scroll;">
-
-						<h4>Question : <?php echo $queryResult[0]['questionName']; ?></h4>
-						<h4>Statement:</h4>
-						<p><?php echo nl2br($queryResult[0]['questionStatement']);?></p>
-
-						<br><br>
-					</div>
-					<div class="tab-pane" id="panel-805010">
-						<p>
-							Howdy, I'm in Section 10.
-						</p>
-					</div>
-					<div class="tab-pane" id="panel-805011">
-						<p>
-							Howdy, I'm in Section 11.
-						</p>
-					</div>
-					<div class="tab-pane" id="panel-805012">
-						<p>
-							Howdy, I'm in Section 12.
-						</p>
-					</div>
-				</div>
+			<!-- Tab panes -->
+			<div class="tab-content">
+			   <div role="tabpanel" class="tab-pane fade in active" id="problem">
+				  <p><?php echo nl2br($queryResult[0]['questionStatement']); ?></p>
+			   </div>
+			   <div role="tabpanel" class="tab-pane fade" id="hint">
+				  <p>This section contains hints</p>
+			   </div>
+			   <div role="tabpanel" class="tab-pane fade" id="solution">
+				  <p>This section contains solutions</p>
+			   </div>
+			   <div role="tabpanel" class="tab-pane fade" id="readings">
+				  <p>This section contains readings</p>
+			   </div>
 			</div>
-		</div>
-		<div class="col-md-6 column">
-			<form>
-				<label>Select Language:</label>
-				<select name="language" id="language">
-					<option value="1">C</option>
-					<option value="5">Python</option>
-					<option value="3">Java</option>
-				</select>
-				<input type="submit" value="Compile and Check" class="btn btn-default btn-primary"  name="submit" id="compile">
-				<textarea rows="30" cols="150" name="sourcecode" id="sourcecode" style="width: 601px; height: 384px; overflow-y: scroll; background: none repeat scroll 0% 0% rgb(68, 68, 68); color: aliceblue;"></textarea>
-				<br>
 
+		 </div>
+
+		 <div class="col-md-6 col-sm-12">
+			<form class="answer-form">
+			   <label for="language">Select Language:</label>
+			   <select name="language" id="language">
+				  <option value="1">C</option>
+				  <option value="5">Python</option>
+				  <option value="3">Java</option>
+			   </select>
+			   <input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="submit" id="compile">
+			   <textarea class="form-control" name="sourcecode" id="sourcecode" placeholder="Type in your solution here..."></textarea>
 
 			</form>
-		</div>
-	</div>
-
-	<p id="status" class="text-success"></p>
-	<p id="output" ></p>
-	<p id="memory"></p>
-	<p id="time"></p>
-	<p id="compilemessage" class="text-danger"></p>
-	<p id="error"></p>
+			<div class="alert alert-default output-msg">
+			   <ul class="list-unstyled">
+				  <li id="status">
+					 <strong>Status: </strong>
+					 <p>Submit yout code to check status</p>
+				  </li>
+				  <li id="output">
+					 <strong>Output: </strong>
+					 <p>No output yet</p>
+				  </li>
+				  <li id="memory">
+					 <strong>Memory: </strong>
+					 <p>No memory consumed yet</p>
+				  </li>
+				  <li id="time">
+					 <strong>Time: </strong>
+					 <p>No time consumed yet</p>
+				  </li>
+				  <li id="compilemessage">
+					 <strong>Message: </strong>
+					 <p>Nothing to report</p>
+				  </li>
+				  <li id="error">
+					 <strong>Error: </strong>
+					 <p>No errors!</p>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+	  </section>
+   </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>
