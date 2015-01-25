@@ -196,23 +196,12 @@ section.col-sm-3.col-md-2.sidebar{
 	padding: 20px;
 }
 
-.mobile-editor-head{
-   display: none;
-}
-
 @media (min-width: 768px){
 	.main {
 		padding-right: 40px;
 		padding-left: 40px;
 	   margin-top: 51px;
 	}
-}
-
-@media (max-width: 992px){
-   .mobile-editor-head{
-	  display: block;
-	  margin-bottom: 2em;
-   }
 }
 
 .question-form{
@@ -261,6 +250,12 @@ section.col-sm-3.col-md-2.sidebar{
 
 .answer-form #compile{
    margin-top: -0.6em;
+}
+
+.answer-block{
+   margin-top: 1em;
+   padding-bottom: 2em;
+   border-top: thin solid #bbbbbb;
 }
 
 .tab-pane{

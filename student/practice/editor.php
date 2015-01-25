@@ -122,11 +122,12 @@ include '../../classes/student.php';
 		 </ul>
 	  </section>
 	  <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<!--		 <h1 class="page-header">Practice</h1>-->
 		 <p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
 
 
-		 <div role="tabpanel" class="col-md-6 col-sm-12">
+		 <div role="tabpanel" class="col-md-12 col-sm-12">
+
+			<a class="btn btn-success pull-right" href="#solve">Solve Question</a>
 
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
@@ -154,9 +155,7 @@ include '../../classes/student.php';
 
 		 </div>
 
-		 <hr class="hidden-md hidden-lg visible-sm-12 visible-xs-12"/>
-
-		 <div class="col-md-6 col-sm-12">
+		 <div class="col-md-12 col-sm-12 answer-block" id="solve">
 			<h3 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Solve the problem below</strong></h3>
 			<form class="answer-form">
 			   <label for="language">Select Language:</label>
@@ -170,8 +169,7 @@ include '../../classes/student.php';
 
 			</form>
 
-			<hr class="hidden-md hidden-lg visible-sm-12 visible-xs-12"/>
-			<h4 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Output</strong></h4>
+			<h4 class="visible-sm-12 visible-xs-12"><strong>Output</strong></h4>
 
 			<div class="alert alert-default output-msg">
 			   <ul class="list-unstyled">

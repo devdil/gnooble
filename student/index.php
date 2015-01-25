@@ -90,6 +90,12 @@
 
 					<p class="dept meta">Computer Science Department</p>
 
+					<p class="contact meta"><strong>Rank: </strong>10000</p>
+
+					<p class="meta addr"><strong>Questions Solved: </strong>45</p>
+
+					<p class="meta streak"><strong>Highest Streak: </strong>8 days</p>
+
 
 				 </div>
 			  </div>
