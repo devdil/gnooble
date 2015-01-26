@@ -96,9 +96,8 @@
 		    <table class="table">
 		      <thead>
 		        <tr>
-		          <th>Question No.</th>
 		          <th>Question</th>
-		          <th>Assigned By</th>
+		          <th>Authored By</th>
 		          <th>Difficulty</th>
 		          <th>Solved By</th>
 		        </tr>
@@ -106,7 +105,6 @@
 		      <tbody>
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
-		      		<td><?php echo $result["questionId"]; ?></td>
 		      		<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
 		      		<td><?php echo $result["assignedBy"]; ?></td>
 		      		<td><?php switch($result["difficulty"])
