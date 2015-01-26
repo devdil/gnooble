@@ -13,6 +13,7 @@ class DatabaseManager
 
     public static function getConnection($name = 'default')
     {
+
         // Let check if we have this connection initialized
         if (isset(self::$connections[$name])) {
             return self::$connections[$name];
@@ -44,10 +45,12 @@ class Database
         // Create the pdo connection
         $this->pdo = new PDO($connectionString[0], $connectionString[1], $connectionString[2]);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
     }
 
     public function select($query, $param = null)
     {
+
         $sh = $this->pdo->prepare($query);
         $sh->execute($param);
         $sh->execute();
@@ -72,7 +75,6 @@ class Database
         $sh->execute($param);
         // Let do the hard way!
         $sh->execute();
-        return $sh->fetchAll();
 
     }
 

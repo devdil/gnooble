@@ -30,38 +30,39 @@ include '../../classes/student.php';
    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
    <link rel="stylesheet" href="../../assets/css/main.css">
-	<script>
-		$(document).ready(function(){
-			$('form').on('submit', function (e) {
-				$("#compile").attr("disabled", "disabled");
-				e.preventDefault();
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('form').on('submit', function (e) {
+					$("#compile").attr("disabled", "disabled");
+					e.preventDefault();
 
-				$.ajax({
-					url:"http://localhost/autocode/student/validatecode.php?qid=<?php echo $_GET['id'];?>",
-					type : "POST",
-					crossDomain: true,
-					data: $('form').serialize(),
-					dataType: "json",
-					success:function(result){
-						alert("Compiling Source Code");
-						$('#status').find('p').html("TestCases : "+result.testcases);
-						$('#output').find('p').html(result['output']);
-						$('#memory').find('p').html(result['memory']);
-						$('#time').find('p').html(result['time']);
-						$('#compilemessage').find('p').html(((result['compilemessage']).replace(/\n/g,"<br>")));
-						$('#error').find('p').html(result['error']);
-						$("#compile").removeAttr("disabled")
-					},
-					error: function (msg) {
-						console.log(msg);
-						$("#compile").removeAttr("disabled");
-					}
+					$.ajax({
+						url:"validatecode.php?qid=<?php echo $_GET['id'];?>",
+						type : "POST",
+						crossDomain: true,
+						data: $('form').serialize(),
+						dataType: "json",
+						success:function(result){
+							alert("Compiling Source Code");
+							$('#status').find('p').html("TestCases : "+result.testcases);
+							$('#output').find('p').html(result['output']);
+							$('#memory').find('p').html(result['memory']);
+							$('#time').find('p').html(result['time']);
+							$('#compilemessage').find('p').html(((result['compilemessage']).replace(/\n/g,"<br>")));
+							$('#error').find('p').html(result['error']);
+							$("#compile").removeAttr("disabled")
+						},
+						error: function (msg) {
+							console.log(msg);
+							$("#compile").removeAttr("disabled");
+						}
+					});
+
 				});
-
 			});
-		});
-	</script>
-</head>
+		</script>
+	</head>
 
 <body>
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
