@@ -13,7 +13,13 @@ class Student
     public static function viewPracticeQuestions()
     {
            $db =  DatabaseManager::getConnection();
-           $query = 'SELECT questionId,questionName,assignedBy,difficulty,solvedBy FROM PracticeQuestions';
+           $query = 'SELECT count(Scoreboard.UserId) as solvedBy,AuthoredBy,Scoreboard.questionId as questionId,questionName,questionStatement,difficulty
+                     FROM
+                          (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,questionStatement,difficulty
+                           FROM UserDetails JOIN PracticeQuestions
+                           ON UserDetails.UserId = PracticeQuestions.UserId )AS PracticeQuestions JOIN Scoreboard
+                      ON Scoreboard.questionId = PracticeQuestions.questionId
+                      GROUP BY questionId ';
            return  $db->select($query);
 
 
@@ -23,20 +29,20 @@ class Student
     {
 
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT questionName,questionStatement,assignedBy,difficulty,solvedBy FROM PracticeQuestions where questionId=:qid';
+        $query = 'SELECT questionName,questionStatement FROM PracticeQuestions where questionId=:qid';
         $bindings = array('qid' => $questionID);
 
         return $db->select($query,$bindings);
 
     }
 
-    public static function isSolvedQuestion($emailId,$questionId)
+    public static function isSolvedQuestion($userId,$questionId)
     {
 
             $db    =  DatabaseManager::getConnection();
-            $query = 'SELECT Status FROM Scoreboard WHERE EmailId=:emailid and questionId=:qid';
+            $query = 'SELECT Status FROM Scoreboard WHERE UserId=:userId and questionId=:qid';
             $bindings = array(
-                                    'emailid' =>$emailId,
+                                    'userId' =>$userId,
                                     'qid' => $questionId
                                 );
             $result = $db->select($query,$bindings);
@@ -77,20 +83,15 @@ class Student
 
     }
 
-    public static function updateMyScoreBoard($questionId,$username,$emailID,$department,$status,$memory,$time,$sourceCode,$userId)
+    public static function updateMyScoreBoard($questionId,$userId,$status,$sourceCode)
     {
         $db    =  DatabaseManager::getConnection();
-        $queryString = 'INSERT INTO Scoreboard VALUES(:qid,:Name,:EmailId,:Department,:Status,:Memory,:Time,:SourceCode,:UserId)';
+        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode WHERE questionID=:qid and UserId=:userId';
         $bindings = array(
             'qid' => $questionId,
-            'Name' => $username,
-            'EmailId'=>$emailID,
-            'Department'=>$department,
-            'Status'=> $status,
-            'Memory'=> $memory,
-            'Time'=>  $time,
-            'SourceCode'=> $sourceCode,
-            'UserId' => $userId
+            'status'=> $status,
+            'sourceCode'=> $sourceCode,
+            'userId' => $userId
         );
 
         $db->insert($queryString,$bindings);

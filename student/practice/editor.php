@@ -33,8 +33,11 @@ include '../../classes/student.php';
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
+				$('#output').hide();
+				$('#compiler-response').hide();
 				$('form').on('submit', function (e) {
 					$("#compile").attr("disabled", "disabled");
+					$('#compiler-response tbody').remove();
 					e.preventDefault();
 
 					$.ajax({
@@ -45,13 +48,25 @@ include '../../classes/student.php';
 						dataType: "json",
 						success:function(result){
 							alert("Compiling Source Code");
-							$('#status').find('p').html("TestCases : "+result.testcases);
-							$('#output').find('p').html(result['output']);
-							$('#memory').find('p').html(result['memory']);
-							$('#time').find('p').html(result['time']);
-							$('#compilemessage').find('p').html(((result['compilemessage']).replace(/\n/g,"<br>")));
-							$('#error').find('p').html(result['error']);
+							var trHTML = '';
+							trHTML += "<tr><th>TestCase</th><th>Status</th><th>Time</th><th>Memory</th></tr>";
+							$.each(result, function (i, item) {
+
+								trHTML += '<tr><td>';
+								if (item.sample == true)
+								    trHTML += "TestCase "+(i+1)+"(Sample)";
+								if (item.sample == false)
+									trHTML += "TestCase "+(i+1);
+								if (item.isPassed == "Passed")
+									trHTML +=  '</td><td bgcolor="#00FF00">' + item.isPassed+"";
+								if (item.isPassed == "Failed")
+									trHTML +=  '</td><td bgcolor="#FF0000">' + item.isPassed+"";
+								trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td></tr>';
+							});
+							$('#compiler-response').append(trHTML);
 							$("#compile").removeAttr("disabled")
+							$('#output').show();
+							$('#compiler-response').show();
 						},
 						error: function (msg) {
 							console.log(msg);
@@ -104,10 +119,10 @@ include '../../classes/student.php';
 		 <ul class="nav nav-sidebar">
 			<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
 			<li class="active"><a href="/student/practice/">Practice</a></li>
-			<li><a href="/student/submissions/">MySubmissions</a></li>
-			<li><a href="/student/tutorials/">Tutorials</a></li>
-			<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-			<li><a href="/student/algorithms/">Notifications</a></li>
+			 <li><a href="/student/submissions/">MySubmissions</a></li>
+			 <li><a href="/student/tutorials/">Tutorials</a></li>
+			 <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
+			 <li><a href="/student/algorithms/">Training</a></li>
 		 </ul>
 		 <ul class="nav nav-sidebar">
 			<li><a href="">Nav item</a></li>
@@ -170,36 +185,10 @@ include '../../classes/student.php';
 
 			</form>
 
-			<h4 class="visible-sm-12 visible-xs-12"><strong>Output</strong></h4>
+			 <p id="Output"></p>
+				<table id="compiler-response" border ="1">
 
-			<div class="alert alert-default output-msg">
-			   <ul class="list-unstyled">
-				  <li id="status">
-					 <strong>Status: </strong>
-					 <p>Submit yout code to check status</p>
-				  </li>
-				  <li id="output">
-					 <strong>Output: </strong>
-					 <p>No output yet</p>
-				  </li>
-				  <li id="memory">
-					 <strong>Memory: </strong>
-					 <p>No memory consumed yet</p>
-				  </li>
-				  <li id="time">
-					 <strong>Time: </strong>
-					 <p>No time consumed yet</p>
-				  </li>
-				  <li id="compilemessage">
-					 <strong>Message: </strong>
-					 <p>Nothing to report</p>
-				  </li>
-				  <li id="error">
-					 <strong>Error: </strong>
-					 <p>No errors!</p>
-				  </li>
-			   </ul>
-			</div>
+				</table>
 		 </div>
 	  </section>
    </div>

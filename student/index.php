@@ -62,6 +62,7 @@
                 <li><a href="/student/submissions/">MySubmissions</a></li>
                 <li><a href="/student/tutorials/">Tutorials</a></li>
                 <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
+				<li><a href="/student/algorithms/">Training</a></li>
             </ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>

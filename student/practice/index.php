@@ -68,11 +68,10 @@
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li class="active"><a href="/student/practice/">Practice</a></li>
-				<li><a href="/student/submissions/">MySubmissions</a></li>
+				<li class="active"><a href="/student/practice/">Practice</a></li><li><a href="/student/submissions/">MySubmissions</a></li>
 				<li><a href="/student/tutorials/">Tutorials</a></li>
 				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Notifications</a></li>
+				<li><a href="/student/algorithms/">Training</a></li>
 			</ul>
 		  <ul class="nav nav-sidebar">
 		    <li><a href="">Nav item</a></li>
@@ -106,7 +105,7 @@
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
 		      		<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
-		      		<td><?php echo $result["assignedBy"]; ?></td>
+		      		<td><?php echo $result["AuthoredBy"]; ?></td>
 		      		<td><?php switch($result["difficulty"])
                         {
                             case 20:

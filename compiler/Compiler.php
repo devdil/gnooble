@@ -14,13 +14,13 @@ class Compiler
 	private $time;
 	private $apiOutput;
 
-	public function __construct($sourceCode,$language,$inputCases,$outputCases,$apiKey = 'apiKey1')
+	public function __construct($sourceCode,$language,$inputTestCases,$outputTestCases,$apiKey = 'apiKey1')
 	{
 		global $apiKeys;
 		$this->sourceCode = $sourceCode;
 		$this->language = $language;
-		$this->inputCases = $inputCases;
-		$this->outputCases = $outputCases;
+		$this->inputCases = $inputTestCases;
+		$this->outputCases = $outputTestCases;
 		$this->apikey = $apiKeys[$apiKey];
 
 	}
@@ -28,7 +28,8 @@ class Compiler
 	public function compile()
 	{
 		$query['source'] = urlencode($this->sourceCode);
-		$query['testcases'] = urlencode(json_encode(array($this->inputCases)));
+		//$query['testcases'] = urlencode(json_encode(array($this->inputCases)));
+		$query['testcases'] = urlencode(json_encode($this->inputCases));
 		$query['lang'] = $this->language;
 		$query['api_key'] = urlencode($this->apikey);
 		$url = 'http://api.hackerrank.com/checker/submission.json';
@@ -56,37 +57,55 @@ class Compiler
 		
 		$this->apiOutput = json_decode($result,true);
 	}
+	public function getApiDump()
+	{
+		return $this->apiOutput;
+	}
 	
 	public function isPassed()
 	{
-		$compilerOutput = trim($this->apiOutput["result"]["stdout"][0]);
-		$expectedOutput = trim($this->outputCases);
-		if (strcmp($compilerOutput,$expectedOutput) == 0)
-			return True;
-		else
-			return False;
+		$isPassed = array();
+		for($index = 0;$index < sizeof($this->inputCases) ; $index++)
+		{
+
+			$compilerOutput = rtrim($this->getOutput($index));
+			$expectedOutput = rtrim(str_replace("\r\n", "\n",$this->outputCases[$index]));
+
+			//if the corresponding input TestCase and Output TestCase match
+			if (strcmp($compilerOutput,$expectedOutput) == 0)
+			{
+				if (!isset($isPassed[$index]))
+					$isPassed[$index] = "Passed";
+
+			}
+			else
+				  $isPassed[$index] = "Failed";
+
+		}
+
+		return $isPassed;
 			
 	}
 	
-	public function getOutput()
+	public function getOutput($index)
 	{
-	   return $this->apiOutput["result"]["stdout"][0];
+	   return $this->apiOutput["result"]["stdout"][$index];
 	}
 	
-	public function getError()
+	public function getError($index)
 	{
 		
-		return $this->apiOutput["result"]["stderr"][0];
+		return $this->apiOutput["result"]["stderr"][$index];
 	}
 	
-	public function getMemory()
+	public function getMemory($index)
 	{
-		return $this->apiOutput["result"]["memory"][0];
+		return $this->apiOutput["result"]["memory"][$index];
 	}
 	
-	public function getTime()
+	public function getTime($index)
 	{
-		return $this->apiOutput["result"]["time"][0];
+		return $this->apiOutput["result"]["time"][$index];
 	}
 	
 	public function getApiResult()
@@ -99,6 +118,11 @@ class Compiler
 			return "Compiled Successfully!";
 		else
 			return $this->apiOutput["result"]["compilemessage"];
+	}
+
+	public function getOuputCase($index)
+	{
+		return $this->outputCases[$index];
 	}
 	
 	
