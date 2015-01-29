@@ -4,5 +4,6 @@
 	session_destroy();
 	$_SESSION = array();
 	header('Location: ../login/');
+	exit(0);
 
 ?>

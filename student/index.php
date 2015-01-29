@@ -1,10 +1,20 @@
-<?php 
-	
-	session_start();
-	if (!isset($_SESSION['username']))
-	{
-		header('Location: ../signin.php');
-	}
+<?php
+
+include '../includes/Authenticate.php';
+include '../classes/student.php';
+
+//check whether the user is logged in or not,
+if (!Authenticate::isLoggedIn())
+{
+	Authenticate::logout();
+}
+//protects the student section
+if (Authenticate::getUserType() == "ADMIN")
+{
+	Authenticate::redirect();
+}
+
+ $queryResult = Student::getQuestionsSolved($_SESSION['userid']);
 
 ?>
 
@@ -46,7 +56,7 @@
 	            <li><a href="#">Settings</a></li>
 	            <li><a href="#">Scoreboard</a></li>
 	            <li class="divider"></li>
-	            <li><a href="#">Logout</a></li>
+	            <li><a href="../../logout/">Logout</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -64,18 +74,7 @@
                 <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
 				<li><a href="/student/algorithms/">Training</a></li>
             </ul>
-		  <ul class="nav nav-sidebar">
-		    <li><a href="">Nav item</a></li>
-		    <li><a href="">Nav item again</a></li>
-		    <li><a href="">One more nav</a></li>
-		    <li><a href="">Another nav item</a></li>
-		    <li><a href="">More navigation</a></li>
-		  </ul>
-		  <ul class="nav nav-sidebar">
-		    <li><a href="">Nav item again</a></li>
-		    <li><a href="">One more nav</a></li>
-		    <li><a href="">Another nav item</a></li>
-		  </ul>
+
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		  <h1 class="page-header">Home</h1>
@@ -93,7 +92,7 @@
 
 					<p class="contact meta"><strong>Rank: </strong>10000</p>
 
-					<p class="meta addr"><strong>Questions Solved: </strong>45</p>
+					<p class="meta addr"><strong>Questions Solved: </strong><?php if (isset($queryResult[0]['questionsSolved'])) echo $queryResult[0]['questionsSolved']?></p>
 
 					<p class="meta streak"><strong>Highest Streak: </strong>8 days</p>
 

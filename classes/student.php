@@ -13,16 +13,15 @@ class Student
     public static function viewPracticeQuestions()
     {
            $db =  DatabaseManager::getConnection();
-           $query = 'SELECT count(Scoreboard.UserId) as solvedBy,AuthoredBy,Scoreboard.questionId as questionId,questionName,questionStatement,difficulty
+           $query = "SELECT count(Scoreboard.UserId) as attempted,AuthoredBy,PracticeQuestions.questionId as questionId,questionName,difficulty,SUM(CASE WHEN Scoreboard.Status = 'Solved' THEN 1 ELSE 0 END) AS solved
                      FROM
-                          (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,questionStatement,difficulty
+                          (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,difficulty
                            FROM UserDetails JOIN PracticeQuestions
-                           ON UserDetails.UserId = PracticeQuestions.UserId )AS PracticeQuestions JOIN Scoreboard
+                           ON UserDetails.UserId = PracticeQuestions.UserId )AS PracticeQuestions LEFT OUTER JOIN Scoreboard
                       ON Scoreboard.questionId = PracticeQuestions.questionId
-                      GROUP BY questionId ';
-           return  $db->select($query);
+                      GROUP BY questionId";
 
-
+        return  $db->select($query);
     }
 
     public static function getQuestion($questionID)
@@ -97,9 +96,68 @@ class Student
         $db->insert($queryString,$bindings);
 
     }
+    public static function viewScoreboard($questionId)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name
+                  FROM Scoreboard join UserDetails
+                  ON Scoreboard.UserId = UserDetails.UserId
+                  where Scoreboard.questionId=:qid';
 
+        $bindings = array('qid' => $questionId);
 
+        return $db->select($query,$bindings);
+    }
 
+    public static function getQuestionsSolved($userId)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT count(DISTINCT questionId) as questionsSolved
+                  FROM Scoreboard
+                  WHERE Scoreboard.UserId=:uid';
+
+        $bindings = array('uid' => $userId);
+
+        return $db->select($query,$bindings);
+    }
+    public static function getMySubmissions($userId)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT PracticeQuestions.questionName as questionName,PracticeQuestions.difficulty as difficulty,Scoreboard.Status as Status,Scoreboard.questionId as questionId
+                  FROM Scoreboard join PracticeQuestions ON Scoreboard.questionId = PracticeQuestions.questionId
+                  WHERE Scoreboard.UserId=:uid';
+
+        $bindings = array('uid' => $userId);
+
+        return $db->select($query,$bindings);
+    }
+    public static function isUserInScoreboard($userId,$questionId)
+    {
+
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT questionId,UserId
+                  FROM Scoreboard
+                  WHERE UserId=:uid AND questionID=:qid';
+
+        $bindings = array('uid' => $userId,'qid' => $questionId);
+
+        return $db->select($query,$bindings);
+    }
+
+    public static function insertIntoScoreboard($userID,$questionId)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'INSERT INTO  Scoreboard(questionId,Status,UserId) VALUES(:qid,:status,:userid)';
+
+        $bindings = array(
+            'qid' => $questionId,
+            'status' => "Attempted",
+            'userid' => $userID,
+
+        );
+        $db->insert($queryString,$bindings);
+
+    }
 
 
 

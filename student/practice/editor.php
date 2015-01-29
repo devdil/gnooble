@@ -13,9 +13,16 @@ include '../../classes/student.php';
 					Authenticate::redirect();
 				}
 
-
+			//check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
+			$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['id']);
+			if($isUserInScoreboard == false) {
+				//var_dump($isUserInScoreboard);
+				Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid']);
+			}
+			//retrieve the question from the database
 			$queryResult = Student::getQuestion($_GET['id']);
-		
+
+
 		
 
 
@@ -104,8 +111,8 @@ include '../../classes/student.php';
 			   <ul class="dropdown-menu" role="menu">
 				  <li><a href="#">Settings</a></li>
 				  <li><a href="#">Scoreboard</a></li>
-				  <li class="divider"></li>
-				  <li><a href="#">Logout</a></li>
+				   <li class="divider"></li>
+				   <li><a href="../logout/">Logout</a></li>
 			   </ul>
 			</li>
 		 </ul>
@@ -124,18 +131,7 @@ include '../../classes/student.php';
 			 <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
 			 <li><a href="/student/algorithms/">Training</a></li>
 		 </ul>
-		 <ul class="nav nav-sidebar">
-			<li><a href="">Nav item</a></li>
-			<li><a href="">Nav item again</a></li>
-			<li><a href="">One more nav</a></li>
-			<li><a href="">Another nav item</a></li>
-			<li><a href="">More navigation</a></li>
-		 </ul>
-		 <ul class="nav nav-sidebar">
-			<li><a href="">Nav item again</a></li>
-			<li><a href="">One more nav</a></li>
-			<li><a href="">Another nav item</a></li>
-		 </ul>
+
 	  </section>
 	  <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		 <p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>

@@ -55,8 +55,8 @@
 	          <ul class="dropdown-menu" role="menu">
 	            <li><a href="#">Settings</a></li>
 	            <li><a href="#">Scoreboard</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">Logout</a></li>
+				  <li class="divider"></li>
+				  <li><a href="../../logout/">Logout</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -73,18 +73,7 @@
 				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
 				<li><a href="/student/algorithms/">Training</a></li>
 			</ul>
-		  <ul class="nav nav-sidebar">
-		    <li><a href="">Nav item</a></li>
-		    <li><a href="">Nav item again</a></li>
-		    <li><a href="">One more nav</a></li>
-		    <li><a href="">Another nav item</a></li>
-		    <li><a href="">More navigation</a></li>
-		  </ul>
-		  <ul class="nav nav-sidebar">
-		    <li><a href="">Nav item again</a></li>
-		    <li><a href="">One more nav</a></li>
-		    <li><a href="">Another nav item</a></li>
-		  </ul>
+
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		  <h1 class="page-header">Practice</h1>
@@ -98,7 +87,7 @@
 		          <th>Question</th>
 		          <th>Authored By</th>
 		          <th>Difficulty</th>
-		          <th>Solved By</th>
+		          <th>Scoreboard(Solved/Attempted)</th>
 		        </tr>
 		      </thead>
 		      <tbody>
@@ -122,7 +111,7 @@
                         }
                         ?>
                     </td>
-		      		<td><?php echo $result["solvedBy"]; ?></td>
+		      		<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>".$result["solved"]."/".$result["attempted"];?></td>
 		      	</tr>
 		      <?php endforeach; ?>
 		        
