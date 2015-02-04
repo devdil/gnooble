@@ -144,15 +144,15 @@ class Student
         return $db->select($query,$bindings);
     }
 
-    public static function insertIntoScoreboard($userID,$questionId)
+    public static function insertIntoScoreboard($questionId,$userId)
     {
         $db = DatabaseManager::getConnection();
         $queryString = 'INSERT INTO  Scoreboard(questionId,Status,UserId) VALUES(:qid,:status,:userid)';
 
         $bindings = array(
             'qid' => $questionId,
-            'status' => "Attempted",
-            'userid' => $userID,
+            'status' => 'Attempted',
+            'userid' => $userId,
 
         );
         $db->insert($queryString,$bindings);

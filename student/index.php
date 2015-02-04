@@ -9,7 +9,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() == "ADMIN")
+if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
@@ -98,17 +98,6 @@ if (Authenticate::getUserType() == "ADMIN")
 
 
 				 </div>
-			  </div>
-			  <div class="col-md-5 num-questions">
-				 <h3>Recently solved questions</h3>
-				 <!-- Try to put only a few questions here, no more than 5 -->
-				 <ul class="recent-qlist list-unstyled">
-					<li><a href="#">Sample Question</a></li>
-					<li><a href="#">Sample Question</a></li>
-					<li><a href="#">Sample Question</a></li>
-					<li><a href="#">Sample Question</a></li>
-					<li><a href="#">Sample Question</a></li>
-				 </ul>
 			  </div>
 		   </div>
 

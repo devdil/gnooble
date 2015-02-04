@@ -53,7 +53,6 @@ class Database
 
         $sh = $this->pdo->prepare($query);
         $sh->execute($param);
-        $sh->execute();
          if ( $sh->rowCount() > 0 )
              return $sh->fetchAll();
          else
@@ -64,8 +63,7 @@ class Database
     {
         $sh = $this->pdo->prepare($query);
         $sh->execute($param);
-        // Let do the hard way!
-        $sh->execute();
+
         return $sh->fetchAll() ? (($sh->rowCount()) > 0) : false ;
 
     }
@@ -73,8 +71,6 @@ class Database
     {
         $sh = $this->pdo->prepare($query);
         $sh->execute($param);
-        // Let do the hard way!
-        $sh->execute();
 
     }
 

@@ -14,16 +14,9 @@ include '../../classes/student.php';
 				}
 
 			//check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
-			$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['id']);
-			if($isUserInScoreboard == false) {
-				//var_dump($isUserInScoreboard);
-				Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid']);
-			}
+
 			//retrieve the question from the database
 			$queryResult = Student::getQuestion($_GET['id']);
-
-
-		
 
 
 ?>
@@ -46,7 +39,8 @@ include '../../classes/student.php';
 					$("#compile").attr("disabled", "disabled");
 					$('#compiler-response tbody').remove();
 					e.preventDefault();
-
+					$("#loading").show(); //show loading
+					$("#status-compiling").show(); //show loading
 					$.ajax({
 						url:"validatecode.php?qid=<?php echo $_GET['id'];?>",
 						type : "POST",
@@ -54,7 +48,6 @@ include '../../classes/student.php';
 						data: $('form').serialize(),
 						dataType: "json",
 						success:function(result){
-							alert("Compiling Source Code");
 							var trHTML = '';
 							trHTML += "<tr><th>TestCase</th><th>Status</th><th>Time</th><th>Memory</th></tr>";
 							$.each(result, function (i, item) {
@@ -74,6 +67,10 @@ include '../../classes/student.php';
 							$("#compile").removeAttr("disabled")
 							$('#output').show();
 							$('#compiler-response').show();
+						},
+						complete: function(){
+							$("#loading").hide(); //hide loading here
+							$("#status-compiling").hide();
 						},
 						error: function (msg) {
 							console.log(msg);
@@ -176,6 +173,8 @@ include '../../classes/student.php';
 				  <option value="5">Python</option>
 				  <option value="3">Java</option>
 			   </select>
+				<label id="status-compiling" style="display: none">Compiling....</label>
+				<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/>
 			   <input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="submit" id="compile">
 			   <textarea class="form-control" name="sourcecode" id="sourcecode" placeholder="Type in your solution here..."></textarea>
 

@@ -20,6 +20,13 @@ if (Authenticate::getUserType() == "ADMIN")
 		$sourceCode = $_POST['sourcecode'];
 		$language = $_POST['language'];
 
+		$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['qid']);
+
+		if($isUserInScoreboard == false) {
+			//var_dump($isUserInScoreboard);
+			Student::insertIntoScoreboard($_GET['qid'],$_SESSION['userid']);
+		}
+
 		//retrieve the number of test cases
 		$queryResult = Validator::getTestCases($_GET['qid']);
 		$isSample = Validator::getIsSample($queryResult);
@@ -53,7 +60,7 @@ if (Authenticate::getUserType() == "ADMIN")
 	$areAllPassed = true;
 	for( $index = 0 ; $index < count($isPassed); $index++)
 		{
-			if ($isPassed[$index] == "Passed")
+			if ($isPassed[$index] == "Failed")
 				$areAllPassed = false;
 
 			$statusEachTestCase = array(
