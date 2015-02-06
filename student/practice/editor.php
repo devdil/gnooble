@@ -180,10 +180,37 @@ include '../../classes/student.php';
 
 			</form>
 
-			 <p id="Output"></p>
-				<table id="compiler-response" border ="1">
+			<div>
+			   <p id="output"></p>
+			</div>
+			<table class="table" id="compiler-response">
+			   <caption>Response returned by the compiler</caption>
+			   <thead>
+				  <tr>
+					 <th> </th>
+					 <th>Response</th>
+				  </tr>
+			   </thead>
+			   <tbody>
+				  <tr>
+					 <th>Test case number</th>
+					 <td></td>
+				  </tr>
+				  <tr>
+					 <th>Test case status</th>
+					 <td></td>
+				  </tr>
+				  <tr>
+					 <th>Time</th>
+					 <td></td>
+				  </tr>
+				  <tr>
+					 <th>Memory</th>
+					 <td></td>
+				  </tr>
+			   </tbody>
 
-				</table>
+			</table>
 		 </div>
 	  </section>
    </div>

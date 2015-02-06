@@ -271,3 +271,7 @@ section.col-sm-3.col-md-2.sidebar{
 div.mce-edit-area, .mce-window .mce-container-body{
    padding: .3em;
 }
+
+#compiler-response{
+   max-width: 30em;
+}
