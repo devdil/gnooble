@@ -74,65 +74,39 @@
                             <textarea class="form-control" id="input-qtext" placeholder="Describe the problem statement"></textarea>
                         </div>
                     </div>
-                    <label for="input-qtext" class="col-sm-2 control-label">Test Cases</label>
-                    <p class="help-block">Put the inputs and expected outputs in a text file and upload it here.</p>
-                    <table border="1px" style="width:100%">
-                        <tr>
-                            <thead>
-                            Expected Input
-                            </thead>
-                            <thead>Expected Output</thead>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Test Cases</label>
+                        <div class="col-sm-10">
+                            <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Expected Input</th>
+                                    <th>Expected Output</th>
+                                </tr>
+                                <tr>
+                                    <td><input id="input-expected" type="file"></td>
+                                    <td><input id="output-expected" type="file"></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="input-expected" type="file"></td>
+                                    <td><input id="output-expected" type="file"></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="input-expected" type="file"></td>
+                                    <td><input id="output-expected" type="file"></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="input-expected" type="file"></td>
+                                    <td><input id="output-expected" type="file"></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="input-expected" type="file"></td>
+                                    <td><input id="output-expected" type="file"></td>
+                                </tr>
+                            </table>
+                        </div>
 
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label>Sample</label>  <input type="file" id="input-expected">
-
-                                </td>
-                              <td>
-                                  <label>Sample</label>  <input type="file" id="output-expected">
-                              </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
-                        </tr>
-
-
-                    </table>
+                    </div>
                     <div class="form-group">
                         <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
                         <div class="col-sm-10">
