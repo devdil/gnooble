@@ -64,9 +64,9 @@ include '../../classes/student.php';
 								trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td></tr>';
 							});
 							$('#compiler-response').append(trHTML);
-							$("#compile").removeAttr("disabled")
+							$("#compile").removeAttr("disabled");
 							$('#output').show();
-							$('#compiler-response').show();
+							$('#compiler-response').show().focus();
 						},
 						complete: function(){
 							$("#loading").hide(); //hide loading here
