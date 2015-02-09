@@ -1,3 +1,64 @@
+<?php
+
+include '../../../includes/Authenticate.php';
+include '../../../classes/Admin.php';
+
+
+		//check whether the user is logged in or not,
+if (!Authenticate::isLoggedIn())
+{
+    Authenticate::logout();
+}
+//protects the student section
+if (Authenticate::getUserType() != "ADMIN")
+{
+    Authenticate::redirect();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
+{
+
+
+        if (!empty($_POST['input-qName']) && !empty($_POST['input-qDesc']))
+        {
+
+            $questionName = htmlspecialchars($_POST['input-qName']);
+            $questionStatement= htmlspecialchars($_POST['input-qDesc']);
+            $inputCases = trim(str_replace("\r\n","\n",file_get_contents($_FILES['input-inputTestCase']['tmp_name'])));
+            $outputCases =trim(str_replace("\r\n","\n",file_get_contents($_FILES['output-outputTestCase']['tmp_name'])));
+            $userId = $_SESSION['userid'];
+
+            //assign difficult a integer value corresponding to their difficulty.
+            switch ($_POST['difficulty']) {
+                case "Easy":
+                    $difficulty = 20;
+                    break;
+                case "Medium":
+                    $difficulty = 50;
+                    break;
+                case "Difficult":
+                    $difficulty = 100;
+                    break;
+            }
+
+            //validate user and password from the database
+
+            $isQuestionAddSuccessful = Admin::addQuestion($questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId);
+           // var_dump($isQuestionAddSuccessful);
+            if ($isQuestionAddSuccessful)
+                    $status  = 'Question Added Successfully!';
+            else
+                    $status = 'Please Check your form fields. and their values';
+
+
+            }
+
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +68,8 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../assets/css/main.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="../../scripts/addQuestion.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -59,84 +121,59 @@
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Add Questions</h1>
-
+            <p><?php if (isset($status)) echo $status;?></p>
             <div>
-                <form class="form-horizontal col-sm-9 center-block pull-none question-form">
+                <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-9 center-block pull-none question-form">
                     <div class="form-group">
                         <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="input-qname" placeholder="What's the programming question? Be specific.">
+                            <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="input-qtext" class="col-sm-2 control-label">Question Description</label>
+                        <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="input-qtext" placeholder="Describe the problem statement"></textarea>
+                            <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
                         </div>
                     </div>
-                    <label for="input-qtext" class="col-sm-2 control-label">Test Cases</label>
-                    <p class="help-block">Put the inputs and expected outputs in a text file and upload it here.</p>
-                    <table border="1px" style="width:100%">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Test Cases</label>
+                <div class="col-sm-10">
+                    <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
+                    <table class="table table-bordered">
                         <tr>
-                            <thead>
-                            Expected Input
-                            </thead>
-                            <thead>Expected Output</thead>
-
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label>Sample</label>  <input type="file" id="input-expected">
-
-                                </td>
-                              <td>
-                                  <label>Sample</label>  <input type="file" id="output-expected">
-                              </td>
+                            <th>Expected Input</th>
+                            <th>Expected Output</th>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
+                            <td><input id="input-expected" type="file" name="input-inputTestCase"></td>
+                            <td><input id="output-expected" type="file" name="output-outputTestCase"></td>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
+                            <td><input id="input-expected" type="file"></td>
+                            <td><input id="output-expected" type="file"></td>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
+                            <td><input id="input-expected" type="file"></td>
+                            <td><input id="output-expected" type="file"></td>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="file" id="input-expected">
-
-                            </td>
-                            <td>
-                                <input type="file" id="output-expected">
-                            </td>
+                            <td><input id="input-expected" type="file"></td>
+                            <td><input id="output-expected" type="file"></td>
                         </tr>
-
-
+                        <tr>
+                            <td><input id="input-expected" type="file"></td>
+                            <td><input id="output-expected" type="file"></td>
+                        </tr>
                     </table>
+                </div>
+            </div>
+
                     <div class="form-group">
                         <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
                         <div class="col-sm-10">
-                            <select id="difficulty" class="form-control">
+                            <select id="difficulty" name="difficulty" class="form-control">
                                 <option value="Easy">Easy</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Hard">Hard</option>
@@ -146,7 +183,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10 pull-right">
-                            <button type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Question</button>
+                            <button id="addQuestion" name="addQuestion" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Question</button>
                         </div>
                     </div>
                 </form>
@@ -154,14 +191,12 @@
         </section>
     </div>
 </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../../../assets/js/bootstrap.min.js"></script>
 <script src="../../../assets/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     tinymce.init({
-        selector: "#input-qtext",
+        selector: "#input-qDesc",
         content_css : "../../assets/css/bootstrap.min.css",
         menubar: false,
         schema: "html5",

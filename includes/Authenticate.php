@@ -18,6 +18,7 @@ class Authenticate
 
     public static function login($useremail,$password)
     {
+
         $db = DatabaseManager::getConnection();
         $queryString = 'SELECT * FROM UserDetails WHERE EmailId = :useremail AND Password = :password';
         $bindings = array(
@@ -41,14 +42,16 @@ class Authenticate
 
 
 
+
     public static function redirect()
     {
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
-        if (self::getUserType() == "STUDENT")
+        if (self::getUserType() === "STUDENT")
             header('Location: ../student/');
-        else
+        if (self::getUserType() ===  "ADMIN")
             header('Location: ../admin/');
+
     }
 
     public static function getUserType()
@@ -73,6 +76,19 @@ class Authenticate
         session_destroy();
         $_SESSION = array();
         header('Location: ../login/');
+        exit(0);
+    }
+
+    public static function areFieldsFilled($fields)
+    {
+        $flag = true;
+        foreach($fields as $fieldItem)
+        {
+            if(!isset($fieldItem))
+                $flag = false;
+
+        }
+        return $flag;
     }
 
 

@@ -1,9 +1,7 @@
 <?php
-	session_start();
 
-	session_destroy();
-	$_SESSION = array();
-	header('Location: ../login/');
-	exit(0);
 
+	include '../includes/Authenticate.php';
+
+	Authenticate::logout();
 ?>

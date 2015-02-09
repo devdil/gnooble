@@ -15,6 +15,7 @@ if (Authenticate::getUserType() != "STUDENT")
 }
 
  $queryResult = Student::getQuestionsSolved($_SESSION['userid']);
+ $queryUserDetails = Student::getUserDetails($_SESSION['userid']);
 
 ?>
 
@@ -56,7 +57,7 @@ if (Authenticate::getUserType() != "STUDENT")
 	            <li><a href="#">Settings</a></li>
 	            <li><a href="#">Scoreboard</a></li>
 	            <li class="divider"></li>
-	            <li><a href="../../logout/">Logout</a></li>
+				  <li><a href="../../logout/">Logout</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -68,11 +69,11 @@ if (Authenticate::getUserType() != "STUDENT")
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
                 <li class="active"><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-                <li><a href="/student/practice/">Practice</a></li>
-                <li><a href="/student/submissions/">MySubmissions</a></li>
-                <li><a href="/student/tutorials/">Tutorials</a></li>
-                <li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+                <li><a href="practice/">Practice</a></li>
+                <li><a href="submissions/">MySubmissions</a></li>
+                <li><a href="tutorials/">Tutorials</a></li>
+                <li><a href="algorithms/">Algorithms and Data Structures</a></li>
+				<li><a href="training/">Training</a></li>
             </ul>
 
 		</section>
@@ -86,9 +87,12 @@ if (Authenticate::getUserType() != "STUDENT")
 				 <img class="user-img pull-left img-rounded img-responsive col-md-4 col-sm-4 col-xs-4" src="https://cdn2.iconfinder.com/data/icons/flat-style-svg-icons-part-2/512/hacker_user_thief_spy_skull-512.png" alt="Sougata Nair"/>
 
 				 <div class="user-info pull-left col-md-7 col-md-7 col-xs-7">
-					<h2><strong>Sougata Nair</strong></h2>
+				<?php if (isset($queryResult) && isset($queryUserDetails)): ?>
+					<h2><strong><?php echo $queryUserDetails[0]['Name'];?></strong></h2>
 
-					<p class="dept meta">Computer Science Department</p>
+					<p class="dept meta"><?php echo $queryUserDetails[0]['Department'];?></p>
+
+					<p class="dept meta"><?php echo $queryUserDetails[0]['EmailId'];?></p>
 
 					<p class="contact meta"><strong>Rank: </strong>10000</p>
 
@@ -96,6 +100,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 					<p class="meta streak"><strong>Highest Streak: </strong>8 days</p>
 
+				<?php endif; ?>
 
 				 </div>
 			  </div>

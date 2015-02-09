@@ -1,7 +1,7 @@
 <?php
 
-include '../../includes/Authenticate.php';
-include '../../classes/student.php';
+include '../../../includes/Authenticate.php';
+include '../../../classes/student.php';
 
 //check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -9,12 +9,12 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() == "ADMIN")
+if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
 
-$queryResult = Student::viewScoreboard($_GET['qid']);
+$queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 
 
 ?>
@@ -56,7 +56,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 						<li><a href="#">Settings</a></li>
 						<li><a href="#">Scoreboard</a></li>
 						<li class="divider"></li>
-						<li><a href="../logout/">Logout</a></li>
+						<li><a href="../../../logout/">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -76,33 +76,26 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h1 class="page-header">Scoreboard</h1>
-			<p class="lead">Here are the latest standings.</p>
+			<h1 class="page-header">Source Code</h1>
+			<p class="lead">Here is the detailed description</p>
+
+			<?php if (isset($queryResult)): ?>
+			<?php var_dump($queryResult); ?>
+			<?php foreach ($queryResult as $item): ?>
+
+			  <p>Status : <?php echo $item["Status"]; ?> </p>
+			  <p>StartTime : <?php echo $item["startTime"]; ?> </p>
+			  <p>EndTime : <?php echo $item["endTime"]; ?> </p>
+
+			<textarea>SourceCode : <?php echo $item["SourceCode"]; ?> </textarea>
 
 
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-					<tr>
-						<th>Name</th>
-						<th>Status</th>
-						<th>Solved In</th>
-					</tr>
-					</thead>
-					<tbody>
-					<?php foreach($queryResult as $result): ?>
-						<tr>
+			<?php endforeach; ?>
 
-							<td><?php echo $result["Name"]; ?></td>
-							<td><?php echo $result["Status"]; ?></td>
-							<td><?php echo "Time" ?></td>
+			<?php endif; ?>
 
-						</tr>
-					<?php endforeach; ?>
 
-					</tbody>
-				</table>
-			</div>
+
 		</section>
 	</div>
 </div>

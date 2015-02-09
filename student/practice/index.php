@@ -8,7 +8,7 @@
 			Authenticate::logout();
 		}
 		//protects the student section
-		if (Authenticate::getUserType() == "ADMIN")
+		if (Authenticate::getUserType() != "STUDENT")
 		{
 			Authenticate::redirect();
 		}
@@ -80,6 +80,7 @@
 		  <p class="lead">Start working on your coding skills right away.</p>
 
 
+
 		  <div class="table-responsive">
 		    <table class="table">
 		      <thead>
@@ -87,9 +88,12 @@
 		          <th>Question</th>
 		          <th>Authored By</th>
 		          <th>Difficulty</th>
-		          <th>Scoreboard(Solved/Attempted)</th>
+		          <th>Solved/Attempted</th>
+				  <th>Scoreboard</th>
 		        </tr>
 		      </thead>
+
+				<?php if (($queryResult)): ?>
 		      <tbody>
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
@@ -111,13 +115,18 @@
                         }
                         ?>
                     </td>
-		      		<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>".$result["solved"]."/".$result["attempted"];?></td>
+		      		<td><?php echo $result["solved"]."/".$result["attempted"];?></td>
+					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Scoreboard"; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
 		        
 		      </tbody>
+				<?php endif; ?>
 		    </table>
 		  </div>
+
+
+
 		</section>
 	</div>	
 	</div>

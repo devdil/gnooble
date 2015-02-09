@@ -56,7 +56,7 @@ class Validator
         foreach ($query as $queryItem) {
 
             if (!isset($isSample[$index])) {
-                if ($queryItem['isSample'] == 'Y')
+                if ($queryItem['isSample'] === 'Y')
                     $isSample[$index] = true;
                 else
                     $isSample[$index] = false;

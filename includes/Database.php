@@ -11,6 +11,10 @@ class DatabaseManager
 {
     protected static $connections = array();
 
+   const PRIMARY_KEY_VIOLATED = '23000';
+   const INVALID_FIELDS = 'HY093';
+   const INSERT_SUCCESS = true;
+
     public static function getConnection($name = 'default')
     {
 
@@ -59,6 +63,10 @@ class Database
              return false;
 
     }
+    public function getLastInsertId($columnName = null)
+    {
+            return $this->pdo->lastInsertId($columnName);
+    }
     public function delete($query,$param=null)
     {
         $sh = $this->pdo->prepare($query);
@@ -69,8 +77,17 @@ class Database
     }
     public function insert($query,$param=null)
     {
-        $sh = $this->pdo->prepare($query);
-        $sh->execute($param);
+        try
+            {
+                $sh = $this->pdo->prepare($query);
+                ($sh->execute($param));
+                return true;
+
+            }
+            catch (PDOException $e)
+                {
+                    return $e->getMessage();
+                }
 
     }
 

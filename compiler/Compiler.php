@@ -68,8 +68,8 @@ class Compiler
 		for($index = 0;$index < sizeof($this->inputCases) ; $index++)
 		{
 
-			$compilerOutput = rtrim($this->getOutput($index));
-			$expectedOutput = rtrim(str_replace("\r\n", "\n",$this->outputCases[$index]));
+			$compilerOutput = trim($this->getOutput($index));
+			$expectedOutput = trim(str_replace("\r\n", "\n",$this->outputCases[$index]));
 
 			//if the corresponding input TestCase and Output TestCase match
 			if (strcmp($compilerOutput,$expectedOutput) == 0)
@@ -115,14 +115,19 @@ class Compiler
 	public function getCompileMessage()
 	{
 		if(empty($this->apiOutput["result"]["compilemessage"]))
-			return "Compiled Successfully!";
+			return "CompiledSuccessfully";
 		else
 			return $this->apiOutput["result"]["compilemessage"];
 	}
 
-	public function getOuputCase($index)
+	public function getOutputCase($index)
 	{
 		return $this->outputCases[$index];
+	}
+
+	public function getMessage($index)
+	{
+		return $this->apiOutput["result"]["message"][$index];
 	}
 	
 	

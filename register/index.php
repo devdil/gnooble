@@ -6,12 +6,9 @@ Last Modified :6th January 2015.
 
 */
 
- include '../includes/DatabaseConnect.php';
- include '../includes/config.php';
+ include '../includes/Authenticate.php';
+ include '../classes/User.php';
 
-//name value constants
-define('STUDENT',14300);
-define('ADMIN',00341);
 
 if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 	{
@@ -23,62 +20,32 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		$secureid = htmlspecialchars(trim($_POST['secureid']));
 		$contactnumber = htmlspecialchars(trim($_POST['contactnumber']));
 
+		$fields = array($name,$department,$emailid,$password,$secureid,$contactnumber);
         // check if the secure id entered is "14300" if yes then set the user type to student else admin
-		if ($secureid == STUDENT)
-			$type = 'S';
-		else if ($secureid == ADMIN)
-			$type = 'T';
-		else 
-			$type = 'Invalid';
+		if (Authenticate::areFieldsFilled($fields))
+		{
 
-		if (!empty($name) && !empty($department) && !empty($password) && !empty($secureid) && !empty($emailid))
+			if (User::isValidUser($secureid))
 			{
-					
-					if ($type === 'Invalid')
-					{
-						$status =  'Invalid Secure Id!';
-					}
-					else
-					{
-						
-						$dbinstance = new DatabaseConnect($config);
-						$connection = $dbinstance->connect();
-						
-						if ($connection)
-						{
-							$queryString = 'INSERT into UserDetails(Name,EmailId,Department,ContactNumber,Type,Password) VALUES(:username,:emailid,:department,:contactnumber,:type,:password)';
-							$bindings = array(
-											  'username' => $name,
-											  'emailid' => $emailid,
-											  'department' => $department,
-											  'contactnumber' => $contactnumber,
-									          'type' => $type,
-									          'password' => $password
-									
-											 );
 
-							$executequery = $dbinstance->insert($connection,$bindings,$queryString);
-							
-							 if ($executequery === true)
-							 {
-							 	$status = 'Successfully Registered!';
-							 }
-							 
-							
-							 if ($executequery === 23000) {
-                                 $status = 'Email Id already exists!Please choose another one!';
-                             }
-						}
-								 	
-					}
+				$type = User::getUserType($secureid);
+				//register the user
+				$isRegistrationSuccessful = User::register($name,$emailid,$department,$contactnumber,$type,$password);
+
+				if ($isRegistrationSuccessful === DatabaseManager::PRIMARY_KEY_VIOLATED)
+					$status = "Email Id already Exists!";
+				elseif ($isRegistrationSuccessful === DatabaseManager::INSERT_SUCCESS)
+					$status = "Successfully Registered ";
+				else
+					$status =$isRegistrationSuccessful;
 			}
-	
 			else
-			{
-                //either of the user fields might be missing.Alert the user with an appropiate message
-				$status = 'Please fill up the form correctly!';
-			
-			}
+				$status = 'Invalid secure Id';
+		}
+		else
+		   $status = 'Please fill up the form correctly!';
+
+
 	}
 
 ?>

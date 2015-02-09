@@ -9,7 +9,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() == "ADMIN")
+if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
@@ -91,6 +91,7 @@ $queryResult = Student::getMySubmissions($_SESSION['userid']);
 						<th>View SourceCode</th>
 					</tr>
 					</thead>
+					<?php if ($queryResult): ?>
 					<tbody>
 					<?php foreach($queryResult as $result): ?>
 						<tr>
@@ -121,8 +122,11 @@ $queryResult = Student::getMySubmissions($_SESSION['userid']);
 					<?php endforeach; ?>
 
 					</tbody>
+					<?php endif; ?>
 				</table>
 			</div>
+
+
 		</section>
 	</div>
 </div>

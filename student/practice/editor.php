@@ -8,7 +8,7 @@ include '../../classes/student.php';
 					Authenticate::logout();
 				}
 			//protects the student section
-			if (Authenticate::getUserType() == "ADMIN")
+				if (Authenticate::getUserType() != "STUDENT")
 				{
 					Authenticate::redirect();
 				}
@@ -30,28 +30,42 @@ include '../../classes/student.php';
    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
    <link rel="stylesheet" href="../../assets/css/main.css">
+	<style type="text/css" media="screen">
+	#editor {
+	width: 1024px;
+	height: 200px;
+	}
+	</style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script>
+	<script>
+			/*var editor = ace.edit("editor");
+			editor.setTheme("ace/theme/monokai");
+			editor.getSession().setMode("ace/mode/c_cpp");*/
 			$(document).ready(function(){
 				$('#output').hide();
 				$('#compiler-response').hide();
-				$('form').on('submit', function (e) {
+				$('#compile').click(function (e) {
 					$("#compile").attr("disabled", "disabled");
+					$('#compiler-response').hide();
 					$('#compiler-response tbody').remove();
 					e.preventDefault();
 					$("#loading").show(); //show loading
 					$("#status-compiling").show(); //show loading
+
+					var sourcecode = editor.getValue();
+					var language = $('#language').val();
 					$.ajax({
-						url:"validatecode.php?qid=<?php echo $_GET['id'];?>",
+						url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id'];?>",
 						type : "POST",
 						crossDomain: true,
-						data: $('form').serialize(),
+						data:{ sourcecode: sourcecode,
+							  language: language
+							 },
 						dataType: "json",
 						success:function(result){
 							var trHTML = '';
-							trHTML += "<tr><th>TestCase</th><th>Status</th><th>Time</th><th>Memory</th></tr>";
+							trHTML += "<tr><th>TestCase</th><th>Status</th><th>Time</th><th>Memory</th><th>StandardErr</th><th>Message</th></tr>";
 							$.each(result, function (i, item) {
-
 								trHTML += '<tr><td>';
 								if (item.sample == true)
 								    trHTML += "TestCase "+(i+1)+"(Sample)";
@@ -61,8 +75,9 @@ include '../../classes/student.php';
 									trHTML +=  '</td><td bgcolor="#00FF00">' + item.isPassed+"";
 								if (item.isPassed == "Failed")
 									trHTML +=  '</td><td bgcolor="#FF0000">' + item.isPassed+"";
-								trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td></tr>';
+								trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td><td>' + item.stderror + '</td><td>' + item.message + '</td></tr>';
 							});
+							///$('#compile-message').html(compileMessage);
 							$('#compiler-response').append(trHTML);
 							$("#compile").removeAttr("disabled")
 							$('#output').show();
@@ -109,7 +124,7 @@ include '../../classes/student.php';
 				  <li><a href="#">Settings</a></li>
 				  <li><a href="#">Scoreboard</a></li>
 				   <li class="divider"></li>
-				   <li><a href="../logout/">Logout</a></li>
+				   <li><a href="../../logout/">Logout</a></li>
 			   </ul>
 			</li>
 		 </ul>
@@ -149,7 +164,9 @@ include '../../classes/student.php';
 			<!-- Tab panes -->
 			<div class="tab-content">
 			   <div role="tabpanel" class="tab-pane fade in active" id="problem">
-				  <p><?php echo nl2br($queryResult[0]['questionStatement']); ?></p>
+				  <?php //nl2br
+				  			echo html_entity_decode($queryResult[0]['questionStatement']);
+				  			 ?>
 			   </div>
 			   <div role="tabpanel" class="tab-pane fade" id="hint">
 				  <p>This section contains hints</p>
@@ -166,31 +183,78 @@ include '../../classes/student.php';
 
 		 <div class="col-md-12 col-sm-12 answer-block" id="solve">
 			<h3 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Solve the problem below</strong></h3>
-			<form class="answer-form">
-			   <label for="language">Select Language:</label>
-			   <select name="language" id="language">
-				  <option value="1">C</option>
-				  <option value="5">Python</option>
-				  <option value="3">Java</option>
-			   </select>
-				<label id="status-compiling" style="display: none">Compiling....</label>
-				<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/>
-			   <input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="submit" id="compile">
-			   <textarea class="form-control" name="sourcecode" id="sourcecode" placeholder="Type in your solution here..."></textarea>
 
-			</form>
+			 <form class="answer-form">
+				 <label for="language">Select Language:</label>
+				 <select name="language" id="language" onchange="changeLanguage()">
+					 <option value="1">C</option>
+					 <option value="5">Python</option>
+					 <option value="3">Java</option>
+				 </select>
+				 <label id="status-compiling" style="display: none">Compiling....</label>
+				 <img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/>
+				 <input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="compile" id="compile">
+				 <br><br>
+				 <div id="editor"></div>
 
-			 <p id="Output"></p>
-				<table id="compiler-response" border ="1">
+			 </form>
 
-				</table>
+			 <table class="table" id="compiler-response">
+				 <caption>Response returned by the compiler</caption>
+				 <thead>
+				 <tr>
+					 <th>Response</th>
+				 </tr>
+				 </thead>
+			 </table>
 		 </div>
 	  </section>
    </div>
 </div>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/ace-builds-master/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/ace-builds-master/src-noconflict/ext-language_tools.js"></script>
+<script type="text/javascript">
+	ace.require("ace/ext/language_tools");
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/cobalt");
+	editor.setShowPrintMargin(false);
+	editor.setHighlightActiveLine(true);
+	editor.setFontSize("18px");
+	editor.getSession().setMode("ace/mode/c_cpp");
+	editor.setFontSize = "40";
+	editor.resize();
+	editor.setOptions({
+		enableBasicAutocompletion: true,
+		enableSnippets: true,
+		enableLiveAutocompletion: true
+	});
+
+	function changeLanguage()
+	{
+		var ace_lang;
+		var language = document.getElementById("language").value;
+		switch(language)
+		{
+			case "1":
+				ace_lang = 'c_cpp';
+				break;
+			case "5":
+				ace_lang = 'python';
+				break;
+			case "3":
+				ace_lang = 'java';
+				break;
+			default:
+				ace_lang ='c_cpp';
+				break;
+		}
+		alert(ace_lang);
+		editor.getSession().setMode("ace/mode/"+ace_lang);
+	}
+
+</script>
+
 </body>
 </html>
