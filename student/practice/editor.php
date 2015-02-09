@@ -250,7 +250,7 @@ include '../../classes/student.php';
 				ace_lang ='c_cpp';
 				break;
 		}
-		alert(ace_lang);
+		//alert(ace_lang);
 		editor.getSession().setMode("ace/mode/"+ace_lang);
 	}
 
