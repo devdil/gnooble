@@ -9,7 +9,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() == "ADMIN")
+if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
@@ -68,8 +68,8 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li class="active"><<a href="/student/practice/">Practice</a></li>
-				<li><a href="/student/submissions/">MySubmissions</a></li>
+				<li ><a href="/student/practice/">Practice</a></li>
+				<li class="active"><a href="/student/submissions/">MySubmissions</a></li>
 				<li><a href="/student/tutorials/">Tutorials</a></li>
 				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
 				<li><a href="/student/algorithms/">Training</a></li>
@@ -79,7 +79,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<h1 class="page-header">Scoreboard</h1>
 			<p class="lead">Here are the latest standings.</p>
-
+<?php if ($queryResult != false): ?>
 
 			<div class="table-responsive">
 				<table class="table">
@@ -87,7 +87,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 					<tr>
 						<th>Name</th>
 						<th>Status</th>
-						<th>Solved In</th>
+						<th>Solved In(secs)</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -100,7 +100,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 													if ($result["Status"] == 'Attempted')echo "#eb9316";?>">
 								<?php echo $result["Status"]; ?>
 							</td>
-							<td><?php echo "Time" ?></td>
+							<td><?php echo $result["solvedIn"]  ?></td>
 
 						</tr>
 					<?php endforeach; ?>
@@ -108,6 +108,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 					</tbody>
 				</table>
 			</div>
+<?php endif; ?>
 		</section>
 	</div>
 </div>

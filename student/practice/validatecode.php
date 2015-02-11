@@ -20,11 +20,15 @@ if (Authenticate::getUserType() == "ADMIN")
 		$sourceCode = $_POST['sourcecode'];
 		$language = $_POST['language'];
 
+		date_default_timezone_set('Asia/Kolkata');
+		$attemptedTime = date('Y-m-d H:i:s');
+		$endTime = '0000-00-00 00:00:00';
+
 		$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['qid']);
 
 		if($isUserInScoreboard == false) {
 			//var_dump($isUserInScoreboard);
-			Student::insertIntoScoreboard($_GET['qid'],$_SESSION['userid']);
+			Student::insertIntoScoreboard($_GET['qid'],$_SESSION['userid'],$attemptedTime,$endTime);
 		}
 
 		//retrieve the number of test cases
@@ -58,19 +62,23 @@ if (Authenticate::getUserType() == "ADMIN")
 	$isPassed = $result->isPassed();
 	$jsonOutput = array();
 	$areAllPassed = true;
+    $flag_compile_message = true;
 	for( $index = 0 ; $index < count($isPassed); $index++)
 		{
 			if ($isPassed[$index] == "Failed")
 				$areAllPassed = false;
 
 			$statusEachTestCase = array(
+
 				"isPassed" => $isPassed[$index],
 				"time" =>  $result->getTime($index),
 				"memory" => $result->getMemory($index),
 				"error" => $result->getError($index),
 				"sample" =>$isSample[$index],
-				"output" => $result->getOutput($index),
-				"outputTestCase" => $result->getOuputCase($index)
+				"message" => $result->getMessage($index),
+				"outputTestCase" => $result->getOutputCase($index),
+				"apiresult" => $result->getApiDump(),
+				"stderror" => $result->getError($index)
 
 				);
 			$jsonOutput[$index] = $statusEachTestCase;
@@ -85,13 +93,15 @@ if (Authenticate::getUserType() == "ADMIN")
 			  $status = 'All Test Cases Passed!';
 
 			  //check whether the user has already solved the question
-
-			   $isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
+			  //get the time
+				date_default_timezone_set('Asia/Kolkata');
+				$solvedTime = date('Y-m-d H:i:s');
+			    $isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
 
 			// if the user hasn't solved the question then update the scoreboard
 
 				if (!$isSolved)
-					Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode);
+					Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime);
 
 		}
 		else
