@@ -17,20 +17,8 @@ if (Authenticate::getUserType() == "ADMIN")
 	if (!empty($_POST['sourcecode']))
 	{
 		
-		$sourceCode = $_POST['sourcecode'];
+		$sourceCode = ($_POST['sourcecode']);
 		$language = $_POST['language'];
-
-		date_default_timezone_set('Asia/Kolkata');
-		$attemptedTime = date('Y-m-d H:i:s');
-		$endTime = '0000-00-00 00:00:00';
-
-		$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['qid']);
-
-		if($isUserInScoreboard == false) {
-			//var_dump($isUserInScoreboard);
-			Student::insertIntoScoreboard($_GET['qid'],$_SESSION['userid'],$attemptedTime,$endTime);
-		}
-
 		//retrieve the number of test cases
 		$queryResult = Validator::getTestCases($_GET['qid']);
 		$isSample = Validator::getIsSample($queryResult);
@@ -63,6 +51,7 @@ if (Authenticate::getUserType() == "ADMIN")
 	$jsonOutput = array();
 	$areAllPassed = true;
     $flag_compile_message = true;
+    $compilerOutput = array();
 	for( $index = 0 ; $index < count($isPassed); $index++)
 		{
 			if ($isPassed[$index] == "Failed")
@@ -77,7 +66,6 @@ if (Authenticate::getUserType() == "ADMIN")
 				"sample" =>$isSample[$index],
 				"message" => $result->getMessage($index),
 				"outputTestCase" => $result->getOutputCase($index),
-				"apiresult" => $result->getApiDump(),
 				"stderror" => $result->getError($index)
 
 				);
@@ -85,7 +73,8 @@ if (Authenticate::getUserType() == "ADMIN")
 
 		}
 
-
+		$compilerOutput["compilationError"] = $result->getCompileMessage();
+		$compilerOutput["compilationResult"] = $jsonOutput;
 
 		if ($areAllPassed)
 		{
@@ -115,7 +104,8 @@ if (Authenticate::getUserType() == "ADMIN")
 
 
 	//echo json_encode($json_output);
-	echo json_encode($jsonOutput);
+	//echo json_encode($jsonOutput);
+     echo json_encode($compilerOutput);
 	
 	
 	 ?>

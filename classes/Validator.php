@@ -35,7 +35,7 @@ class Validator
             $isInput = 'inputCase';
         else
             $isInput = 'outputCase';
-        $inputTestCase = [];
+        $inputTestCase = array();
         $index = 0;
         foreach($testCases as $testCase)
         {
@@ -51,7 +51,7 @@ class Validator
 
     public static function getIsSample($query)
     {
-        $isSample = [];
+        $isSample = array();
         $index = 0;
         foreach ($query as $queryItem) {
 

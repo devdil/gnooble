@@ -35,7 +35,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 				if ($isRegistrationSuccessful === DatabaseManager::PRIMARY_KEY_VIOLATED)
 					$status = "Email Id already Exists!";
 				elseif ($isRegistrationSuccessful === DatabaseManager::INSERT_SUCCESS)
-					$status = "Successfully Registered ";
+				{
+					if (Authenticate::login($emailid,$password))
+						Authenticate::redirect();
+				}
+
 				else
 					$status =$isRegistrationSuccessful;
 			}
