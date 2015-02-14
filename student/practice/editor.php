@@ -193,14 +193,14 @@ if (Authenticate::getUserType() != "STUDENT")
 				<h3 class="visible-sm-12 visible-xs-12 mobile-editor-head"><strong>Solve the problem below</strong></h3>
 
 				<form class="answer-form">
-					<label for="language">Select Language:</label>
-					<select name="language" id="language" onchange="changeLanguage()">
+					<div class="col-sm-5 pull-left"><label for="language">Select Language:</label>
+					<select name="language" id="language" class="form-control" onchange="changeLanguage()">
 						<option value="1">C</option>
 						<option value="5">Python</option>
 						<option value="3">Java</option>
 					</select>
 					<label id="status-compiling" style="display: none">Compiling....</label>
-					<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/>
+					<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/></div>
 					<input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="compile" id="compile">
 					<br><br>
 					<div id="editor"></div>
@@ -209,7 +209,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 				<table class="table" id="compiler-response">
 					<caption>Response returned by the compiler</caption>
-					<textarea id="compilationError"  style="width: 1021px; height: 119px;background-color:#003399;color:#eb9316;font-weight:bold;" readonly></textarea>
+					<textarea id="compilationError" style="width: 1021px; height: 119px;background-color:#003399;color:#eb9316;font-weight:bold;" readonly></textarea>
 					<thead>
 					<tr>
 						<th>Response</th>

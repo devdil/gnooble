@@ -237,6 +237,7 @@ section.col-sm-3.col-md-2.sidebar{
 
 .answer-form{
    margin-bottom: 1em;
+   padding: 1.4em 0;
 }
 
 .answer-form #sourcecode{
