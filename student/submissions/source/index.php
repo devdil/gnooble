@@ -16,7 +16,6 @@ if (Authenticate::getUserType() != "STUDENT")
 
 $queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,8 +24,8 @@ $queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Gnooble: Student</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../assets/css/main.css">
 
 </head>
 <body>
@@ -80,14 +79,15 @@ $queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 			<p class="lead">Here is the detailed description</p>
 
 			<?php if (isset($queryResult)): ?>
-			<?php var_dump($queryResult); ?>
 			<?php foreach ($queryResult as $item): ?>
 
 			  <p>Status : <?php echo $item["Status"]; ?> </p>
 			  <p>StartTime : <?php echo $item["startTime"]; ?> </p>
 			  <p>EndTime : <?php echo $item["endTime"]; ?> </p>
 
-			<textarea>SourceCode : <?php echo $item["SourceCode"]; ?> </textarea>
+			<?php // The trick is to use a <div> with a contenteditable attribute so that the area grows without any fancy JS! ?>
+			<p>Sourcecode : </p>
+			<div class="well well-sm" contenteditable="true"><?php echo nl2br($item["SourceCode"]); ?> </div>
 
 
 			<?php endforeach; ?>
@@ -102,6 +102,6 @@ $queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>
