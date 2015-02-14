@@ -52,15 +52,15 @@ if (Authenticate::getUserType() != "STUDENT")
 			$('#compiler-response').hide();
 			$('#compilationError').hide();
 			$('#compile').click(function (e) {
-				$("#compile").attr("disabled", "disabled");
+				$(this).attr("disabled", "disabled");
 				$('#compiler-response').hide();
-				$('#compiler-response tbody').remove();
+				$('#compiler-response').find('tbody tr').remove();
 				e.preventDefault();
 				$("#loading").show(); //show loading
 				$("#status-compiling").show(); //show loading
 				$('#compilationError').show();
-				var sourcecode = editor.getValue();
-				var language = $('#language').val();
+				var sourcecode = editor.getValue(),
+					language = $('#language').val();
 				$.ajax({
 					url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id'];?>",
 					type : "POST",
@@ -70,9 +70,10 @@ if (Authenticate::getUserType() != "STUDENT")
 					},
 					dataType: "json",
 					success:function(result){
-						var trHTML = '';
-						var compilationError = result["compilationError"];
-						trHTML += "<tr><th>TestCase</th><th>Status</th><th>Expected Output</th><th>Your Output</th><th>Time</th><th>Memory</th><th>StandardErr</th><th>Message</th></tr>";
+						var trHTML = '',
+							compilationError = result["compilationError"],
+					    	responseTable = document.getElementById('compiler-response');
+
 						$.each(result["compilationResult"], function (i, item) {
 							trHTML += '<tr><td>';
 							if (item.sample == true)
@@ -80,17 +81,18 @@ if (Authenticate::getUserType() != "STUDENT")
 							if (item.sample == false)
 								trHTML += "TestCase "+(i+1);
 							if (item.isPassed == "Passed")
-								trHTML +=  '</td><td bgcolor="#00FF00">' + item.isPassed+"";
+								trHTML +=  '</td><td class="alert alert-success">' + item.isPassed+"";
 							if (item.isPassed == "Failed")
-								trHTML +=  '</td><td bgcolor="#FF0000">' + item.isPassed+"";
+								trHTML +=  '</td><td class="alert alert-danger">' + item.isPassed+"";
 							trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td><td>' + item.stderror + '</td><td>' + item.message + '</td></tr>';
 						});
 						///$('#compile-message').html(compileMessage);
-						$('#compiler-response').append(trHTML);
-						$('#compilationError').html(compilationError);
-						$("#compile").removeAttr("disabled")
+						$(responseTable).append(trHTML);
+						$('#compilationError').find(".content").text(compilationError);
+						$("#compile").removeAttr("disabled");
 						$('#output').show();
-						$('#compiler-response').show();
+						$(responseTable).show();
+					    responseTable.scrollIntoView();
 					},
 					complete: function(){
 						$("#loading").hide(); //hide loading here
@@ -194,7 +196,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 				<form class="answer-form">
 					<div class="col-sm-5 pull-left"><label for="language">Select Language:</label>
-					<select name="language" id="language" class="form-control" onchange="changeLanguage()">
+					<select name="language" id="language" onchange="changeLanguage()">
 						<option value="1">C</option>
 						<option value="5">Python</option>
 						<option value="3">Java</option>
@@ -207,15 +209,33 @@ if (Authenticate::getUserType() != "STUDENT")
 
 				</form>
 
-				<table class="table" id="compiler-response">
-					<caption>Response returned by the compiler</caption>
-					<textarea id="compilationError" style="width: 1021px; height: 119px;background-color:#003399;color:#eb9316;font-weight:bold;" readonly></textarea>
+			   <div id="compilationError" class="alert alert-danger alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <p><strong>Compilation Error!</strong></p>
+				  <p class="content">
+
+				  </p>
+			   </div>
+
+			   <div class="table-responsive">
+			   <table class="table" id="compiler-response">
+				   <caption><strong>Response from compiler</strong></caption>
 					<thead>
 					<tr>
-						<th>Response</th>
+					   <th>TestCase</th>
+					   <th>Status</th>
+					   <th>Expected Output</th>
+					   <th>Your Output</th>
+					   <th>Time</th>
+					   <th>Memory</th>
+					   <th>Standard Error</th>
+					   <th>Message</th>
 					</tr>
 					</thead>
+				   <tbody>
+				   </tbody>
 				</table>
+			   </div>
 			</div>
 		</section>
 	</div>

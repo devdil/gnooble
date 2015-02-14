@@ -264,6 +264,7 @@ section.col-sm-3.col-md-2.sidebar{
 }
 
 #editor{
+   width: 100% !important;
 	min-height: 50em;
 	max-width: 100%;
 	border-radius: 4px;
@@ -271,8 +272,4 @@ section.col-sm-3.col-md-2.sidebar{
 
 div.mce-edit-area, .mce-window .mce-container-body{
    padding: .3em;
-}
-
-#compiler-response{
-   max-width: 30em;
 }
