@@ -48,13 +48,14 @@ if (Authenticate::getUserType() != "STUDENT")
 		 editor.setTheme("ace/theme/monokai");
 		 editor.getSession().setMode("ace/mode/c_cpp");*/
 		$(document).ready(function(){
+		    var responseTable = document.getElementById('compiler-response');
 			$('#output').hide();
-			$('#compiler-response').hide();
+			$(responseTable).hide();
 			$('#compilationError').hide();
 			$('#compile').click(function (e) {
 				$(this).attr("disabled", "disabled");
-				$('#compiler-response').hide();
-				$('#compiler-response').find('tbody tr').remove();
+				$(responseTable).hide();
+				$(responseTable).find('tbody tr').remove();
 				e.preventDefault();
 				$("#loading").show(); //show loading
 				$("#status-compiling").show(); //show loading
@@ -71,8 +72,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					dataType: "json",
 					success:function(result){
 						var trHTML = '',
-							compilationError = result["compilationError"],
-					    	responseTable = document.getElementById('compiler-response');
+							compilationError = result["compilationError"];
 
 						$.each(result["compilationResult"], function (i, item) {
 							trHTML += '<tr><td>';
