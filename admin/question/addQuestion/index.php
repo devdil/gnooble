@@ -122,20 +122,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Add Questions</h1>
             <p><?php if (isset($status)) echo $status;?></p>
+            <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-10 center-block pull-none question-form">
             <div>
-                <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-9 center-block pull-none question-form">
-                    <div class="form-group">
-                        <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
-                        </div>
+                <div class="form-group">
+                    <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
                     </div>
-                    <div class="form-group">
-                        <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
                     </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Test Cases</label>
@@ -170,24 +170,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
                 </div>
             </div>
 
-                    <div class="form-group">
-                        <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
-                        <div class="col-sm-10">
-                            <select id="difficulty" name="difficulty" class="form-control">
-                                <option value="Easy">Easy</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Hard">Hard</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10 pull-right">
-                            <button id="addQuestion" name="addQuestion" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Question</button>
-                        </div>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
+                <div class="col-sm-10">
+                    <select id="difficulty" name="difficulty" class="form-control">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
             </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10 pull-right">
+                    <button id="addQuestion" name="addQuestion" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Question</button>
+                </div>
+            </div>
+            </form>
         </section>
     </div>
 </div>
