@@ -65,7 +65,8 @@ if (Authenticate::getUserType() == "ADMIN")
 				"error" => $result->getError($index),
 				"sample" =>$isSample[$index],
 				"message" => $result->getMessage($index),
-				"outputTestCase" => $result->getOutputCase($index),
+				"expectedOutput" => $result->getOutputCase($index),
+				"codeOutput" => $result->getOutput($index),
 				"stderror" => $result->getError($index)
 
 				);

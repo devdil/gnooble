@@ -15,7 +15,7 @@ if (Authenticate::getUserType() != "STUDENT")
 }
 
 $queryResult = Student::viewScoreboard($_GET['qid']);
-
+$index = 0;
 
 ?>
 <!DOCTYPE html>
@@ -27,6 +27,16 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-59768309-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
 
 </head>
 <body>
@@ -85,6 +95,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 				<table class="table">
 					<thead>
 					<tr>
+						<th>Sl no</th>
 						<th>Name</th>
 						<th>Status</th>
 						<th>Solved In(secs)</th>
@@ -93,7 +104,7 @@ $queryResult = Student::viewScoreboard($_GET['qid']);
 					<tbody>
 					<?php foreach($queryResult as $result): ?>
 						<tr>
-
+							<td><?php echo ++$index; ?></td>
 							<td><?php echo $result["Name"]; ?></td>
 							<td  style="color:<?php if ($result["Status"] == 'Solved') echo "#398439";
 													if ($result["Status"] == 'Failed') echo "#c12e2a";

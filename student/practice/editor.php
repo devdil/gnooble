@@ -44,6 +44,16 @@ if (Authenticate::getUserType() != "STUDENT")
 	</style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-59768309-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+	<script>
 		/*var editor = ace.edit("editor");
 		 editor.setTheme("ace/theme/monokai");
 		 editor.getSession().setMode("ace/mode/c_cpp");*/
@@ -73,18 +83,23 @@ if (Authenticate::getUserType() != "STUDENT")
 					success:function(result){
 						var trHTML = '',
 							compilationError = result["compilationError"];
+						var showExpctdOutput ='';
 
 						$.each(result["compilationResult"], function (i, item) {
-							trHTML += '<tr><td>';
-							if (item.sample == true)
-								trHTML += "TestCase "+(i+1)+"(Sample)";
-							if (item.sample == false)
-								trHTML += "TestCase "+(i+1);
+							trHTML += '<tr>';
+							if (item.sample == true) {
+								trHTML += "<td>"+"TestCase " + (i + 1) + "(Sample)"+"</td>";
+								showExpctdOutput = '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
+							}
+							if (item.sample == false) {
+								trHTML += "<td>"+"TestCase " + (i + 1)+"</td>";
+								showExpctdOutput = '<td>------</td><td>-----</td>';
+							}
 							if (item.isPassed == "Passed")
-								trHTML +=  '</td><td class="alert alert-success">' + item.isPassed+"";
+								trHTML +=  '<td class="alert alert-success">' + item.isPassed+"</td>";
 							if (item.isPassed == "Failed")
-								trHTML +=  '</td><td class="alert alert-danger">' + item.isPassed+"";
-							trHTML += '</td><td >' + item.time + '</td><td>' + item.memory + '</td><td>' + item.stderror + '</td><td>' + item.message + '</td></tr>';
+								trHTML +=  '</td><td class="alert alert-danger">' + item.isPassed+"</td>";
+							trHTML += showExpctdOutput+'<td >' + item.time + '</td><td>' + item.memory + '</td><td>' + item.stderror + '</td><td>' + item.message + '</td></tr>';
 						});
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
@@ -211,7 +226,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 			   <div id="compilationError" class="alert alert-danger alert-dismissible" role="alert">
 				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				  <p><strong>Compilation Error!</strong></p>
+				  <p><strong>Compilation Message</strong></p>
 				  <p class="content">
 
 				  </p>
@@ -225,7 +240,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					   <th>TestCase</th>
 					   <th>Status</th>
 					   <th>Expected Output</th>
-					   <th>Your Output</th>
+					   <th>Code Output</th>
 					   <th>Time</th>
 					   <th>Memory</th>
 					   <th>Standard Error</th>

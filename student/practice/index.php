@@ -15,7 +15,7 @@
 
 		$queryResult = Student::viewPracticeQuestions();
 
-
+		$index = 0;
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,16 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+		ga('create', 'UA-59768309-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
 </head>
 <body>
 
@@ -85,6 +94,7 @@
 		    <table class="table">
 		      <thead>
 		        <tr>
+				  <th>Sl no</th>
 		          <th>Question</th>
 		          <th>Authored By</th>
 		          <th>Difficulty</th>
@@ -92,11 +102,11 @@
 				  <th>Scoreboard</th>
 		        </tr>
 		      </thead>
-
 				<?php if (($queryResult)): ?>
 		      <tbody>
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
+					<td><?php echo ++$index; ?></td>
 		      		<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
 		      		<td><?php echo $result["AuthoredBy"]; ?></td>
 		      		<td><?php switch($result["difficulty"])
