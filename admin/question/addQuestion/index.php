@@ -132,8 +132,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Add Questions</h1>
             <p><?php if (isset($status)) echo $status;?></p>
-            <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-10 center-block pull-none question-form">
+            <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-10 center-block pull-none question-form" id="question">
             <div>
+                <label>Select Question Type</label>
+                <select  id="qType" name="qType" onchange="onChangeSelectBox(this.value)">
+                    <option value="practice">Practice Question</option>
+                    <option value="assignment">Assignment</option>
+                    <option value="challenge">Challenge</option>
+                </select>
                 <div class="form-group">
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
@@ -206,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
 <script type="text/javascript">
     tinymce.init({
         selector: "#input-qDesc",
-        content_css : "../../assets/css/bootstrap.min.css",
+        content_css : "../../../assets/css/bootstrap.min.css",
         menubar: false,
         schema: "html5",
         plugins: "preview,code,image,link,paste",
@@ -248,6 +254,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
         paste_retain_style_properties: " "
     });
 </script>
+<script>
 
+
+    function onChangeSelectBox(questionType)
+    {
+        switch(questionType)
+        {
+            case "practice":
+                alert("you selected practice");
+            break;
+
+            case "assignment":
+                alert("you selected practice");
+            break;
+
+            case "challenge":
+                alert("you selected challenge");
+                var startDate = document.createElement("input");
+                var endDate = document.createElement("input");
+                var addContest = document.createElement("button");
+                startDate.setAttribute("type","date");
+                endDate.setAttribute("type","date");
+                addContest.setAttribute("type","submit");
+                addContest.setAttribute("id","addChallenge");
+                addContest.setAttribute("value","Add Challenge");
+                document.getElementById("question").appendChild(startDate);
+                document.getElementById("question").appendChild(endDate);
+                document.getElementById("question").appendChild(addContest);
+                document.getElementById("addChallenge").innerText="Add Challenge";
+                document.getElementById("addQuestion").remove();
+                document.get
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
+
+</script>
 </body>
 </html>

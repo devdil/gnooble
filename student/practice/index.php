@@ -98,7 +98,7 @@
 		          <th>Question</th>
 		          <th>Authored By</th>
 		          <th>Difficulty</th>
-		          <th>Solved/Attempted</th>
+		          <th>Accuracy</th>
 				  <th>Scoreboard</th>
 		        </tr>
 		      </thead>
@@ -125,7 +125,7 @@
                         }
                         ?>
                     </td>
-		      		<td><?php echo $result["solved"]."/".$result["attempted"];?></td>
+		      		<td><?php echo ((($result["solved"])/($result["attempted"]))*100)."%";?></td>
 					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Scoreboard"; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
