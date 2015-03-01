@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: diljit
- * Date: 23/2/15
- * Time: 9:20 PM
- */
 CREATE TABLE IF NOT EXISTS UserDetails
 (
     Name VARCHAR (200) NOT NULL,
@@ -38,6 +32,8 @@ CREATE TABLE IF NOT EXISTS Scoreboard
     questionId INT NOT NULL ,
     Status VARCHAR(200) NOT NULL,
     SourceCode LONGTEXT NOT NULL,
+    Time VARCHAR(200) NOT NULL,
+    Memory VARCHAR(200) NOT NULL,
     UserId INT NOT NULL,
     startTime DATETIME NOT NULL,
     endTime DATETIME NOT NULL,

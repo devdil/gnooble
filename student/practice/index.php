@@ -125,7 +125,11 @@
                         }
                         ?>
                     </td>
-		      		<td><?php echo ((($result["solved"])/($result["attempted"]))*100)."%";?></td>
+		      		<td><?php
+							if ($result["attempted"] === "0")
+								echo "0%";
+						    else
+								echo ((($result["solved"])/($result["attempted"]))*100)."%";?></td>
 					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Scoreboard"; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>

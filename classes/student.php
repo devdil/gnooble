@@ -82,16 +82,18 @@ class Student
 
     }
 
-    public static function updateMyScoreBoard($questionId,$userId,$status,$sourceCode,$solvedTime)
+    public static function updateMyScoreBoard($questionId,$userId,$status,$sourceCode,$solvedTime,$Time,$Memory)
     {
         $db    =  DatabaseManager::getConnection();
-        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode,endTime=:endTime WHERE questionID=:qid and UserId=:userId';
+        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode,endTime=:endTime,Time=:time,Memory=:memory WHERE questionID=:qid and UserId=:userId';
         $bindings = array(
             'qid' => $questionId,
             'status'=> $status,
             'sourceCode'=> $sourceCode,
             'userId' => $userId,
-            'endTime' => $solvedTime
+            'endTime' => $solvedTime,
+            'time' => $Time,
+            'memory' => $Memory
         );
 
         $db->insert($queryString,$bindings);

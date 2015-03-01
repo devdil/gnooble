@@ -99,6 +99,8 @@ $index = 0;
 						<th>Name</th>
 						<th>Status</th>
 						<th>Solved In(secs)</th>
+						<th>Time</th>
+						<th>Memory</th>
 					</tr>
 					</thead>
 					<tbody>

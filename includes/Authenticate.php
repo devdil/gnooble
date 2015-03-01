@@ -47,11 +47,17 @@ class Authenticate
     {
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
-        if (self::getUserType() === "STUDENT")
+        if (self::getUserType() === "STUDENT") {
             header('Location: ../student/');
-        if (self::getUserType() ===  "ADMIN")
+            exit(0);
+        }
+        else if (self::getUserType() === "ADMIN")
+        {
             header('Location: ../admin/');
-
+            exit(0);
+        }
+        else
+            header('Location: ../login/');
     }
 
     public static function getUserType()

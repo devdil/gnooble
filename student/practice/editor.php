@@ -305,6 +305,39 @@ if (Authenticate::getUserType() != "STUDENT")
 
 	}
 </script>
+<script>
+	// AJAX Code Here
+	$('#submit').click(function() {
+		// Okay, we need to get value from textbox name and score
+		var txtname = $('#name').val();
+		var txtvalue = $('#score').val(); // silly me
 
+		// When user click on the add button
+		// Let make a AJAX request
+		$.ajax({
+			url: 'ajax.php',
+			dataType: 'json',
+			type: 'POST', // making a POST request
+			data: {
+				name: txtname,
+				score: txtvalue
+			},
+
+			success: function(data) {
+				// this function will be trigger when our PHP successfully
+				// response (does not mean it will successfully add to database)
+
+				// select the table body
+				var row = "<tr>";
+				row += "<td>" + data.id + "</td>";
+				row += "<td>" + data.name + "</td>";
+				row += "<td>" + data.score + "</td>";
+				row += "</tr>";
+
+				$('#list tbody').prepend(row);
+			}
+		})
+	});
+</script>
 </body>
 </html>

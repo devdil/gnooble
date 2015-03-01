@@ -52,10 +52,15 @@ if (Authenticate::getUserType() == "ADMIN")
 	$areAllPassed = true;
     $flag_compile_message = true;
     $compilerOutput = array();
+	$avgTime = 0;
+    $avgMem = 0;
 	for( $index = 0 ; $index < count($isPassed); $index++)
 		{
 			if ($isPassed[$index] == "Failed")
 				$areAllPassed = false;
+
+			$avgMem += $result->getMemory($index);
+			$avgTime += $result->getTime($index);
 
 			$statusEachTestCase = array(
 
@@ -74,6 +79,9 @@ if (Authenticate::getUserType() == "ADMIN")
 
 		}
 
+		$avgMem = $avgMem/$index;
+        $avgTime = $avgTime/$index;
+
 		$compilerOutput["compilationError"] = $result->getCompileMessage();
 		$compilerOutput["compilationResult"] = $jsonOutput;
 
@@ -91,13 +99,17 @@ if (Authenticate::getUserType() == "ADMIN")
 			// if the user hasn't solved the question then update the scoreboard
 
 				if (!$isSolved)
-					Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime);
+					Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
 
 		}
 		else
 		{
 
 			$status = 'All Test Cases Failed!';
+			Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Attempted",$sourceCode,'0000-00-00 00:00:00',"NA","NA");
+
+
+
 		}
 
 	//$jsonOutput[count($jsonOutput)] = array ("status" => $status);

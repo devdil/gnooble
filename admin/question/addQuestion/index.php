@@ -14,48 +14,6 @@ if (Authenticate::getUserType() != "ADMIN")
 {
     Authenticate::redirect();
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
-{
-
-
-        if (!empty($_POST['input-qName']) && !empty($_POST['input-qDesc']))
-        {
-
-            $questionName = htmlspecialchars($_POST['input-qName']);
-            $questionStatement= htmlspecialchars($_POST['input-qDesc']);
-            $inputCases = trim(str_replace("\r\n","\n",file_get_contents($_FILES['input-inputTestCase']['tmp_name'])));
-            $outputCases =trim(str_replace("\r\n","\n",file_get_contents($_FILES['output-outputTestCase']['tmp_name'])));
-            $userId = $_SESSION['userid'];
-
-            //assign difficult a integer value corresponding to their difficulty.
-            switch ($_POST['difficulty']) {
-                case "Easy":
-                    $difficulty = 20;
-                    break;
-                case "Medium":
-                    $difficulty = 50;
-                    break;
-                case "Difficult":
-                    $difficulty = 100;
-                    break;
-            }
-
-            //validate user and password from the database
-
-            $isQuestionAddSuccessful = Admin::addQuestion($questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId);
-           // var_dump($isQuestionAddSuccessful);
-            if ($isQuestionAddSuccessful)
-                    $status  = 'Question Added Successfully!';
-            else
-                    $status = 'Please Check your form fields. and their values';
-
-
-            }
-
-}
-
-
 ?>
 
 
@@ -68,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../assets/css/main.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="../../scripts/addQuestion.js" type="text/javascript"></script>
     <script>
@@ -80,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
         ga('send', 'pageview');
 
     </script>
-</head>
+    </head>
 <body>
 
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -131,16 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Add Questions</h1>
-            <p><?php if (isset($status)) echo $status;?></p>
-            <form method="POST" action="index.php" enctype="multipart/form-data" class="form-horizontal col-sm-10 center-block pull-none question-form" id="question">
-            <div>
+
+            <div class="alert-success" id="status"></div>
+
                 <label>Select Question Type</label>
-                <select  id="qType" name="qType" onchange="onChangeSelectBox(this.value)">
-                    <option value="practice">Practice Question</option>
-                    <option value="assignment">Assignment</option>
-                    <option value="challenge">Challenge</option>
+                <select  id="qType" name="qType">
+                    <option value="0">Practice Question</option>
+                    <option value="1">Challenge</option>
                 </select>
+                <form class="form" id="form0">
                 <div class="form-group">
+                    <input type="text" value="Question" name="type" hidden/>
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
@@ -149,10 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
                 <div class="form-group">
                     <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
+                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"></textarea>
                     </div>
                 </div>
-            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Test Cases</label>
                 <div class="col-sm-10">
@@ -163,24 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
                             <th>Expected Output</th>
                         </tr>
                         <tr>
-                            <td><input id="input-expected" type="file" name="input-inputTestCase"></td>
-                            <td><input id="output-expected" type="file" name="output-outputTestCase"></td>
-                        </tr>
-                        <tr>
-                            <td><input id="input-expected" type="file"></td>
-                            <td><input id="output-expected" type="file"></td>
-                        </tr>
-                        <tr>
-                            <td><input id="input-expected" type="file"></td>
-                            <td><input id="output-expected" type="file"></td>
-                        </tr>
-                        <tr>
-                            <td><input id="input-expected" type="file"></td>
-                            <td><input id="output-expected" type="file"></td>
-                        </tr>
-                        <tr>
-                            <td><input id="input-expected" type="file"></td>
-                            <td><input id="output-expected" type="file"></td>
+                            <td><textarea id="input-expected" name="input-inputTestCase"></textarea></td>
+                            <td><textarea id="output-expected" name="output-outputTestCase"></textarea></td>
                         </tr>
                     </table>
                 </div>
@@ -199,10 +142,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 pull-right">
-                    <button id="addQuestion" name="addQuestion" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Question</button>
+                    <input type="submit" id="submit" name="addQuestion" value="addQuestion" class="btn btn-default btn-lg btn-success pull-right">
                 </div>
             </div>
             </form>
+                <form class="form" id="form1" method="post">
+                <div class="form-group">
+                    <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-qDesc" class="col-sm-2 control-label">Challenge Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="startDate" class="col-sm-2 control-label">Start Date</label>
+                    <input type="date" id="startDate" name="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="endDate" class="col-sm-2 control-label">End Date</label>
+                    <input type="date" id="endDate" name="endDate">
+                </div>
+                <div class="form-group">
+                    <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
+                    <div class="col-sm-10">
+                        <select id="cType" name="cType" class="form-control">
+                            <option value="Contest">Contest</option>
+                            <option value="Assignment">Assignment</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 pull-right">
+                        <button id="submit" name="addChallenge" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Challenge</button>
+                    </div>
+                </div>
+                </form>
         </section>
     </div>
 </div>
@@ -255,45 +234,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addQuestion']))
     });
 </script>
 <script>
-
-
-    function onChangeSelectBox(questionType)
-    {
-        switch(questionType)
-        {
-            case "practice":
-                alert("you selected practice");
-            break;
-
-            case "assignment":
-                alert("you selected practice");
-            break;
-
-            case "challenge":
-                alert("you selected challenge");
-                var startDate = document.createElement("input");
-                var endDate = document.createElement("input");
-                var addContest = document.createElement("button");
-                startDate.setAttribute("type","date");
-                endDate.setAttribute("type","date");
-                addContest.setAttribute("type","submit");
-                addContest.setAttribute("id","addChallenge");
-                addContest.setAttribute("value","Add Challenge");
-                document.getElementById("question").appendChild(startDate);
-                document.getElementById("question").appendChild(endDate);
-                document.getElementById("question").appendChild(addContest);
-                document.getElementById("addChallenge").innerText="Add Challenge";
-                document.getElementById("addQuestion").remove();
-                document.get
-                break;
-            default:
-                break;
-
-        }
-
-    }
-
-
+    $(document).ready(function(){
+        $('#status').hide();
+        $('#form1').hide();
+        $('#qType').change(function() {
+            $('.form').hide();
+            $('#form' + this.value).show();
+        });
+    });
+</script>
+<script>
+    // AJAX Code Here
+    $(document).ready(function() {
+        $('#form' + ($('#qType').val())).on('submit', function (e) {
+            // Okay, we need to get value from textbox name and score
+            // When user click on the add button
+            // Let make a AJAX request
+            alert($('#qType').val());
+            tinymce.triggerSave();
+            e.preventDefault();
+            $.ajax({
+                url: 'addquestion.php',
+                crossDomain: true,
+                type: 'POST', // making a POST request
+                dataType: "json",
+                data: $('#form' + ($('#qType').val())).serialize(),
+                success: function (data) {
+                    alert("diljit");
+                    // this function will be trigger when our PHP successfully
+                    // response (does not mean it will successfully add to database)
+                    $('#status').html(data);
+                    $('#status').show();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    //$("#compile").removeAttr("disabled");
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
