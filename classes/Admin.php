@@ -24,6 +24,25 @@ class Admin
 
     }
 
+    public static function addChallenge($challengeName,$challengeDesc,$startDate,$endDate,$userId,$type)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'INSERT INTO  Challenge(cId,cName,cDesc,startDate,endDate,Type) VALUES(:cName,:cDesc,:startDate,:endDate,:userId,:type)';
+
+        $bindings = array(
+            'cName' => $challengeName,
+            'cDesc' => $challengeDesc,
+            'startDate' => $startDate,
+            'endDate'=> $endDate,
+            'userId'=>$userId,
+            'type' => $type
+
+        );
+        $isInsertSuccessful = $db->insert($queryString,$bindings);
+        $challengeId = $db->getLastInsertId();
+        return $isInsertSuccessful;
+    }
+
 
     public static function addTestCases($questionId,$inputCases,$outputCases,$isSample)
     {

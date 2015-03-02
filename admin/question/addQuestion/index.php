@@ -147,6 +147,7 @@ if (Authenticate::getUserType() != "ADMIN")
             </div>
             </form>
                 <form class="form" id="form1" method="post">
+                    <input type="text" value="Challenge" name="type" hidden/>
                 <div class="form-group">
                     <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
                     <div class="col-sm-10">
@@ -178,7 +179,7 @@ if (Authenticate::getUserType() != "ADMIN")
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10 pull-right">
-                        <button id="submit" name="addChallenge" type="submit" class="btn btn-default btn-lg btn-success pull-right">Add Challenge</button>
+                        <input type="submit" id="submit" name="addChallenge" value="addChallenge" class="btn btn-default btn-lg btn-success pull-right"/>
                     </div>
                 </div>
                 </form>

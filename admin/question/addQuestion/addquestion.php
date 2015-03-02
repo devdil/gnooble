@@ -42,6 +42,23 @@ if(isset($_POST['type']))
 		else
 			$status = 'Something Went Wrong!Please Try Again';
 	}
+	if($_POST['type'] === 'Challenge')
+	{
+		$challengeName      = htmlspecialchars($_POST['input-qName']);
+		$challengeStatement = htmlspecialchars($_POST['input-qDesc']);
+		$startDate          = $_POST['startDate'];
+		$endDate            = $_POST['endDate'];
+		$userId             = $_SESSION['userid'];
+		$type               = $_POST['cType'];
+		//assign difficult a integer value corresponding to their difficulty.
+		$isChallengeAddSuccessful = Admin::addChallenge($challengeName,$challengeStatement,$startDate,$endDate,$userId,$type);
+		// var_dump($isQuestionAddSuccessful);
+		if ($isChallengeAddSuccessful)
+			$status  = 'Challenge Added Successfully!';
+		else
+			$status = 'Something Went Wrong!Please Try Again';
+
+	}
 
 	echo json_encode($status);
 
