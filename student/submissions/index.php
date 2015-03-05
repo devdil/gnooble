@@ -80,9 +80,7 @@ $queryResult = Student::getMySubmissions($_SESSION['userid']);
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
 				<li><a href="/student/practice/">Practice</a></li>
 				<li class="active"><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+				<li><a href="/student/contests/">Contests</a></li>
 			</ul>
 
 		</section>

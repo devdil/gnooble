@@ -13,8 +13,12 @@ if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
+$scoreboardType = $_GET['type'];
+	if ($scoreboardType=== 'cgf')
+		$queryResult = Student::viewScoreboardbySourceCodeLength($_GET['qid']);
+	elseif (($scoreboardType=== 'practice'))
+		$queryResult = Student::viewScoreboard($_GET['qid']);
 
-$queryResult = Student::viewScoreboard($_GET['qid']);
 $index = 0;
 
 ?>
@@ -79,10 +83,9 @@ $index = 0;
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
 				<li ><a href="/student/practice/">Practice</a></li>
-				<li class="active"><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+				<li ><a href="/student/submissions/">MySubmissions</a></li>
+				<li><a href="/student/contests/">Contests</a></li>
+				<li class="active"><a href="/student/submissions/">Scoreboard</a></li>
 			</ul>
 
 		</section>
@@ -114,6 +117,8 @@ $index = 0;
 								<?php echo $result["Status"]; ?>
 							</td>
 							<td><?php echo $result["solvedIn"]  ?></td>
+							<td><?php echo $result["Time"]  ?></td>
+							<td><?php echo $result["Memory"]  ?></td>
 
 						</tr>
 					<?php endforeach; ?>

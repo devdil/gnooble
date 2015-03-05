@@ -12,8 +12,8 @@ class Student
 
     public static function viewPracticeQuestions()
     {
-           $db =  DatabaseManager::getConnection();
-           $query = "SELECT count(Scoreboard.UserId) as attempted,AuthoredBy,PracticeQuestions.questionId as questionId,questionName,difficulty,SUM(CASE WHEN Scoreboard.Status = 'Solved' THEN 1 ELSE 0 END) AS solved
+        $db =  DatabaseManager::getConnection();
+        $query = "SELECT count(Scoreboard.UserId) as attempted,AuthoredBy,PracticeQuestions.questionId as questionId,questionName,difficulty,SUM(CASE WHEN Scoreboard.Status = 'Solved' THEN 1 ELSE 0 END) AS solved
                      FROM
                           (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,difficulty
                            FROM UserDetails JOIN PracticeQuestions
@@ -38,18 +38,18 @@ class Student
     public static function isSolvedQuestion($userId,$questionId)
     {
 
-            $db    =  DatabaseManager::getConnection();
-            $query = 'SELECT Status FROM Scoreboard WHERE UserId=:userId and questionId=:qid';
-            $bindings = array(
-                                    'userId' =>$userId,
-                                    'qid' => $questionId
-                                );
-            $result = $db->select($query,$bindings);
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT Status FROM Scoreboard WHERE UserId=:userId and questionId=:qid';
+        $bindings = array(
+            'userId' =>$userId,
+            'qid' => $questionId
+        );
+        $result = $db->select($query,$bindings);
 
-            if ($result[0]['Status'] == 'Solved')
-                return true;
-             else
-                return false;
+        if ($result[0]['Status'] == 'Solved')
+            return true;
+        else
+            return false;
 
     }
 
@@ -102,7 +102,7 @@ class Student
     public static function viewScoreboard($questionId)
     {
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
@@ -190,6 +190,47 @@ class Student
 
         );
         return $db->select($queryString,$bindings);
+
+    }
+
+    public static function viewChallenges()
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'SELECT * FROM Challenge';
+
+        return $db->select($queryString);
+    }
+
+    public static function viewChallengeQuestions($challengeId)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'SELECT PracticeQuestions.questionId as questionId,PracticeQuestions.questionName as questionName,PracticeQuestions.difficulty as difficulty
+                  FROM ChallengeQuestions join PracticeQuestions ON ChallengeQuestions.questionId = PracticeQuestions.questionId
+                  WHERE ChallengeQuestions.cId=:cId';
+
+        $bindings = array(
+            'cId'=> $challengeId
+
+        );
+        return $db->select($queryString,$bindings);
+    }
+
+    public static function updateMyCustomScoreBoard($questionId,$userId,$status,$sourceCode,$solvedTime,$Time,$Memory,$length)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode,endTime=:endTime,Time=:time,Memory=:memory,charsInCode=:len WHERE questionID=:qid and UserId=:userId';
+        $bindings = array(
+            'qid' => $questionId,
+            'status'=> $status,
+            'sourceCode'=> $sourceCode,
+            'userId' => $userId,
+            'endTime' => $solvedTime,
+            'time' => $Time,
+            'memory' => $Memory,
+            'len' => $length
+        );
+
+        $db->insert($queryString,$bindings);
 
     }
 

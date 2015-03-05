@@ -78,9 +78,7 @@
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
 				<li class="active"><a href="/student/practice/">Practice</a></li><li><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+				<li><a href="/student/contests/">Contests</a></li>
 			</ul>
 
 		</section>
@@ -107,7 +105,7 @@
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
 					<td><?php echo ++$index; ?></td>
-		      		<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
+		      		<td><?php echo "<a href='../editor/editor.php?id=".$result["questionId"]."&type=practice"."'"."</a>".$result["questionName"]; ?></td>
 		      		<td><?php echo $result["AuthoredBy"]; ?></td>
 		      		<td><?php switch($result["difficulty"])
                         {
@@ -130,7 +128,7 @@
 								echo "0%";
 						    else
 								echo ((($result["solved"])/($result["attempted"]))*100)."%";?></td>
-					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Scoreboard"; ?></td>
+					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=practice"."'"."</a>"."Scoreboard"; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
 		        

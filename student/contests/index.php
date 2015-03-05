@@ -13,8 +13,13 @@ if (Authenticate::getUserType() != "STUDENT")
 	Authenticate::redirect();
 }
 
-$queryResult = Student::viewPracticeQuestions();
-
+$queryResult = Student::viewChallenges();
+date_default_timezone_set('Asia/Kolkata');
+$currentTime = new DateTime();
+$startTime = new DateTime();
+$endTime = new DateTime();
+$currentTime->setTimestamp(strtotime(date('Y-m-d H:i:s')));
+$index = 0;
 
 
 ?>
@@ -37,7 +42,6 @@ $queryResult = Student::viewPracticeQuestions();
 		ga('send', 'pageview');
 
 	</script>
-
 </head>
 <body>
 
@@ -79,15 +83,56 @@ $queryResult = Student::viewPracticeQuestions();
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
 				<li><a href="/student/practice/">Practice</a></li><li><a href="/student/submissions/">MySubmissions</a></li>
-				<li class="active"><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+				<li  class="active"><a href="/student/contests/">Contests</a></li>
 			</ul>
 
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h1 class="page-header">Tutorials</h1>
-			<p class="lead">More to Come</p>
+			<h1 class="page-header">Practice</h1>
+			<p class="lead">Start working on your coding skills right away.</p>
+
+
+
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Sl no</th>
+						<th>Contest Name</th>
+						<th>Contest Description</th>
+						<th>Starts On</th>
+						<th>Ends On</th>
+						<th>Enter Challenge</th>
+					</tr>
+					</thead>
+					<?php if (($queryResult)): ?>
+						<tbody>
+						<?php foreach($queryResult as $result): ?>
+							<tr>
+								<td><?php echo ++$index; ?></td>
+								<td><?php echo $result['cName']; ?></td>
+								<td><?php echo $result["cDesc"]; ?></td>
+								<td><?php echo ($result["startDate"]);?></td>
+								<td><?php echo ($result["endDate"]);?></td>
+								<td><?php
+
+
+									$startTime->setTimestamp(strtotime(($result["startDate"])));
+									$endTime->setTimestamp(strtotime($result["endDate"]));
+									if ($currentTime>=$startTime && $currentTime<=$endTime)
+										echo "<a href='viewchallenge/index.php?cid=".$result["cId"]."&type=".$result["Type"]."'"."</a>"."Enter Challenge";
+									else
+										echo "Contest Ended";
+
+									?></td>
+
+							</tr>
+						<?php endforeach; ?>
+
+						</tbody>
+					<?php endif; ?>
+				</table>
+			</div>
 
 
 

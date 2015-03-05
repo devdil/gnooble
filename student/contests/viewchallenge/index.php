@@ -1,6 +1,6 @@
 <?php 
-		include '../../includes/Authenticate.php';
-		include '../../classes/student.php';
+		include '../../../includes/Authenticate.php';
+		include '../../../classes/student.php';
 
 		//check whether the user is logged in or not,
 		if (!Authenticate::isLoggedIn())
@@ -13,9 +13,9 @@
 			Authenticate::redirect();
 		}
 
-		$queryResult = Student::viewPracticeQuestions();
+		$queryResult = Student::viewChallengeQuestions($_GET['cid']);
 
-
+		$index = 0;
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +25,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Gnooble: Student</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../assets/css/main.css">
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -37,7 +37,6 @@
 		ga('send', 'pageview');
 
 	</script>
-
 </head>
 <body>
 
@@ -78,25 +77,65 @@
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li><a href="/student/practice/">Practice</a></li><li><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li class="active"><a href="/student/algorithms/">Training</a></li>
+				<li ><a href="/student/practice/">Practice</a></li><li><a href="/student/submissions/">MySubmissions</a></li>
+				<li class="active"><a href="/student/contests/">Contests</a></li>
 			</ul>
 
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		  <h1 class="page-header">Training</h1>
-		  <p class="lead">More to Come</p>
+		  <h1 class="page-header">Practice</h1>
+		  <p class="lead">Start working on your coding skills right away.</p>
+
+		  <div class="table-responsive">
+		    <table class="table">
+		      <thead>
+		        <tr>
+				  <th>Sl no</th>
+		          <th>Question</th>
+		          <th>Difficulty</th>
+		          <th>Accuracy</th>
+				  <th>Scoreboard</th>
+		        </tr>
+		      </thead>
+				<?php if (($queryResult)): ?>
+		      <tbody>
+		      	<?php foreach($queryResult as $result): ?>
+		      	<tr>
+					<td><?php echo ++$index; ?></td>
+		      		<td><?php echo "<a href='../../editor/editor.php?id=".$result["questionId"]."&type=".$_GET["type"]."'"."</a>".$result["questionName"]; ?></td>
+		      		<td><?php switch($result["difficulty"])
+                        {
+                            case 20:
+                                echo "Easy";
+                                break;
+                            case 50:
+                                echo "Medium";
+                                break;
+                            case 100:
+                                echo "Hard";
+                                break;
+                            default:
+                                echo "Not Assigned";
+                        }
+                        ?>
+                    </td>
+					<td><?php echo "<a href='../../../student/scoreboard/index.php?qid=".$result["questionId"]."&type=".$_GET["type"]."'"."</a>"."Scoreboard"; ?></td>
+		      	</tr>
+		      <?php endforeach; ?>
+		        
+		      </tbody>
+				<?php endif; ?>
+		    </table>
+		  </div>
 
 
 
 		</section>
 	</div>	
 	</div>
-	
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="../../assets/js/bootstrap.min.js"></script>
+	<script src="../../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>

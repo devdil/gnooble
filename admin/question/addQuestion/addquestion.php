@@ -17,6 +17,7 @@ if(isset($_POST['type']))
 {
 	if($_POST['type'] === 'Question')
 	{
+
 		$questionName = htmlspecialchars($_POST['input-qName']);
 		$questionStatement= htmlspecialchars($_POST['input-qDesc']);
 		$inputCases = trim(str_replace("\r\n","\n",$_POST['input-inputTestCase']));
@@ -34,36 +35,51 @@ if(isset($_POST['type']))
 				$difficulty = 100;
 				break;
 		}
+		if (isset($_POST["challengeId"]))
+		{
+			    $challengeId = $_POST['challengeId'];
+			    $isChallengeQuestionAddSuccessful = Admin::addChallengeQuestions($challengeId,$questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId);
+			    if($isChallengeQuestionAddSuccessful)
+				{
+					$status = array("result" => "QSuccess", "outcome" => "Challenge Question Added Successfully!");
+				}
+			else
+			{
+				$status = array("result" => "QFailed", "outcome" => "Challenge Question Could not be Added");
+			}
+		}
+		else {
 
-		$isQuestionAddSuccessful = Admin::addQuestion($questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId);
-		// var_dump($isQuestionAddSuccessful);
-		if ($isQuestionAddSuccessful)
-			$status  = 'Question Added Successfully!';
-		else
-			$status = 'Something Went Wrong!Please Try Again';
+			$isQuestionAddSuccessful = Admin::addQuestion($questionName, $questionStatement, $inputCases, $outputCases, $difficulty, $userId);
+			// var_dump($isQuestionAddSuccessful);
+			if ($isQuestionAddSuccessful)
+				$status = array("result" => "QSuccess", "outcome" => "Question Added Successfully!");
+			else
+				$status = array("result" => "QFailed", "outcome" => "Question Could not be Added");
+		}
 	}
-	if($_POST['type'] === 'Challenge')
-	{
-		$challengeName      = htmlspecialchars($_POST['input-qName']);
+	if($_POST['type'] === 'Challenge') {
+		$challengeName = htmlspecialchars($_POST['input-qName']);
 		$challengeStatement = htmlspecialchars($_POST['input-qDesc']);
-		$startDate          = $_POST['startDate'];
-		$endDate            = $_POST['endDate'];
-		$userId             = $_SESSION['userid'];
-		$type               = $_POST['cType'];
+		$startDate = $_POST['startDate'];
+		$endDate = $_POST['endDate'];
+		$userId = $_SESSION['userid'];
+		$type = $_POST['cType'];
 		//assign difficult a integer value corresponding to their difficulty.
-		$isChallengeAddSuccessful = Admin::addChallenge($challengeName,$challengeStatement,$startDate,$endDate,$userId,$type);
+		$isChallengeAddSuccessful = Admin::addChallenge($challengeName, $challengeStatement, $startDate, $endDate, $type, $userId);
 		// var_dump($isQuestionAddSuccessful);
-		if ($isChallengeAddSuccessful)
-			$status  = 'Challenge Added Successfully!';
-		else
-			$status = 'Something Went Wrong!Please Try Again';
-
+		if (!$isChallengeAddSuccessful) {
+			$status = array("result" => "CFailed","outcome" => "Challenge Could not be Added!");;
+		} else {
+			$status = array("result" => "CSuccess","outcome" => $isChallengeAddSuccessful);
+		}
 	}
+
 
 	echo json_encode($status);
 
 
-}
+	}
 else
 	echo json_encode($_POST);
 

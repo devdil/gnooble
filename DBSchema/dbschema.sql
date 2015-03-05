@@ -68,14 +68,15 @@ CREATE TABLE IF NOT EXISTS Scoreboard
 
  );
 
- CREATE TABLE IF NOT EXISTS ChallengeQuestions
+CREATE TABLE IF NOT EXISTS ChallengeQuestions
  (
         cId INT NOT NULL,
         questionId INT NOT NULL,
         FOREIGN KEY(cId) REFERENCES Challenge(cId),
-        FOREIGN KEY(cId) REFERENCES PracticeQuestions(questionId),
+        FOREIGN KEY(questionId) REFERENCES PracticeQuestions(questionId),
         PRIMARY KEY(questionId)
  );
+
 
 
 

@@ -4,7 +4,7 @@ include '../../../includes/Authenticate.php';
 include '../../../classes/Admin.php';
 
 
-		//check whether the user is logged in or not,
+//check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
 {
     Authenticate::logout();
@@ -39,7 +39,7 @@ if (Authenticate::getUserType() != "ADMIN")
         ga('send', 'pageview');
 
     </script>
-    </head>
+</head>
 <body>
 
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -93,14 +93,14 @@ if (Authenticate::getUserType() != "ADMIN")
 
             <div class="alert-success" id="status"></div>
 
-                <label>Select Question Type</label>
-                <select  id="qType" name="qType">
-                    <option value="0">Practice Question</option>
-                    <option value="1">Challenge</option>
-                </select>
-                <form class="form" id="form0">
+            <label>Select Question Type</label>
+            <select  id="qType" name="qType">
+                <option value="0">Practice Question</option>
+            </select>
+            <form class="form" id="form0">
                 <div class="form-group">
                     <input type="text" value="Question" name="type" hidden/>
+                    <input type="text" value="<?php echo $_GET['cid'];?>" name="challengeId" hidden/>
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
@@ -112,77 +112,40 @@ if (Authenticate::getUserType() != "ADMIN")
                         <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"></textarea>
                     </div>
                 </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Test Cases</label>
-                <div class="col-sm-10">
-                    <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Expected Input</th>
-                            <th>Expected Output</th>
-                        </tr>
-                        <tr>
-                            <td><textarea id="input-expected" name="input-inputTestCase"></textarea></td>
-                            <td><textarea id="output-expected" name="output-outputTestCase"></textarea></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
-                <div class="col-sm-10">
-                    <select id="difficulty" name="difficulty" class="form-control">
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10 pull-right">
-                    <input type="submit" id="submit" name="addQuestion" value="addQuestion" class="btn btn-default btn-lg btn-success pull-right">
-                </div>
-            </div>
-            </form>
-                <form class="form" id="form1" method="post">
-                    <input type="text" value="Challenge" name="type" hidden/>
                 <div class="form-group">
-                    <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
+                    <label class="col-sm-2 control-label">Test Cases</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
+                        <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Expected Input</th>
+                                <th>Expected Output</th>
+                            </tr>
+                            <tr>
+                                <td><textarea id="input-expected" name="input-inputTestCase"></textarea></td>
+                                <td><textarea id="output-expected" name="output-outputTestCase"></textarea></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="input-qDesc" class="col-sm-2 control-label">Challenge Description</label>
+                    <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-                    <input type="datetime-local" id="startDate" name="startDate">
-                </div>
-                <div class="form-group">
-                    <label for="endDate" class="col-sm-2 control-label">End Date</label>
-                    <input type="datetime-local+" id="endDate" name="endDate">
-                </div>
-                <div class="form-group">
-                    <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
-                    <div class="col-sm-10">
-                        <select id="cType" name="cType" class="form-control">
-                            <option value="Contest">Contest</option>
-                            <option value="Assignment">Assignment</option>
+                        <select id="difficulty" name="difficulty" class="form-control">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10 pull-right">
-                        <input type="submit" id="submit" name="addChallenge" value="addChallenge" class="btn btn-default btn-lg btn-success pull-right"/>
+                        <input type="submit" id="submit" name="addQuestion" value="addQuestion" class="btn btn-default btn-lg btn-success pull-right">
                     </div>
                 </div>
-                </form>
+            </form>
         </section>
     </div>
 </div>
@@ -246,44 +209,44 @@ if (Authenticate::getUserType() != "ADMIN")
 </script>
 <script>
     // AJAX Code Here
-        $('.form').on('submit', function (e) {
-            // Okay, we need to get value from textbox name and score
-            // When user click on the add button
-            // Let make a AJAX request
-            alert($('#qType').val());
-            tinymce.triggerSave();
-            e.preventDefault();
-            $.ajax({
-                url: 'addquestion.php',
-                crossDomain: true,
-                type: 'POST', // making a POST request
-                dataType: "json",
-                data: $('#form' + ($('#qType').val())).serialize(),
-                success: function (data) {
-                    alert("diljit");
-                    // this function will be trigger when our PHP successfully
-                    // response (does not mean it will successfully add to database)
-                    if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-                    }
-                    else if (data["result"] == "CSuccess") {
-                        window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
-                    }
-
-                    else if (data["result"] == "CFailed")
-                    {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-
-                    }
-                },
-                error: function (msg) {
-                    console.log(msg);
-                    //$("#compile").removeAttr("disabled");
+    $('.form').on('submit', function (e) {
+        // Okay, we need to get value from textbox name and score
+        // When user click on the add button
+        // Let make a AJAX request
+        alert($('#qType').val());
+        tinymce.triggerSave();
+        e.preventDefault();
+        $.ajax({
+            url: 'addquestion.php',
+            crossDomain: true,
+            type: 'POST', // making a POST request
+            dataType: "json",
+            data: $('#form' + ($('#qType').val())).serialize(),
+            success: function (data) {
+                alert("diljit");
+                // this function will be trigger when our PHP successfully
+                // response (does not mean it will successfully add to database)
+                if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
+                    $('#status').html(data["outcome"]);
+                    $('#status').show();
                 }
-            });
+                else if (data["result"] == "CSuccess") {
+                    window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
+                }
+
+                else if (data["result"] == "CFailed")
+                {
+                    $('#status').html(data["outcome"]);
+                    $('#status').show();
+
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+                //$("#compile").removeAttr("disabled");
+            }
         });
+    });
 </script>
 </body>
 </html>

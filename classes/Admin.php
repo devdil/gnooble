@@ -24,10 +24,10 @@ class Admin
 
     }
 
-    public static function addChallenge($challengeName,$challengeDesc,$startDate,$endDate,$userId,$type)
+    public static function addChallenge($challengeName,$challengeDesc,$startDate,$endDate,$type,$userId)
     {
         $db = DatabaseManager::getConnection();
-        $queryString = 'INSERT INTO  Challenge(cId,cName,cDesc,startDate,endDate,Type) VALUES(:cName,:cDesc,:startDate,:endDate,:userId,:type)';
+        $queryString = 'INSERT INTO  Challenge(cName,cDesc,startDate,endDate,Type,userId) VALUES(:cName,:cDesc,:startDate,:endDate,:type,:userId)';
 
         $bindings = array(
             'cName' => $challengeName,
@@ -39,9 +39,49 @@ class Admin
 
         );
         $isInsertSuccessful = $db->insert($queryString,$bindings);
-        $challengeId = $db->getLastInsertId();
-        return $isInsertSuccessful;
+        if ($isInsertSuccessful)
+        {
+            $challengeId = $db->getLastInsertId();
+            return $challengeId;
+
+        }
+        else
+            return false;
     }
+
+    public static function addChallengeQuestions($challengeId,$questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'INSERT INTO  PracticeQuestions(questionName,questionStatement,difficulty,UserId) VALUES(:qName,:qDesc,:diff,:userId)';
+
+        $bindings = array(
+            'qName' => $questionName,
+            'qDesc' => $questionStatement,
+            'diff' => $difficulty,
+            'userId'=> $userId
+
+        );
+        $isInsertSuccessful = $db->insert($queryString,$bindings);
+        $questionId = $db->getLastInsertId();
+        $isTestCaseSuccessful = self::addTestCases($questionId,$inputCases,$outputCases,'Y');
+
+        if ($isInsertSuccessful && $isTestCaseSuccessful)
+        {
+            $queryString = 'INSERT INTO ChallengeQuestions(cId,questionId) VALUES(:cid,:questionId)';
+            $bindings = array(
+                'cid' => $challengeId,
+                'questionId' => $questionId
+
+            );
+            $isChallengeQuestionAddSuccessful = $db->insert($queryString,$bindings);
+            return $isChallengeQuestionAddSuccessful;
+        }
+        else
+            return false;
+
+
+    }
+
 
 
     public static function addTestCases($questionId,$inputCases,$outputCases,$isSample)

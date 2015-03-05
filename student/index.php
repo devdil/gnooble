@@ -81,9 +81,7 @@ if (Authenticate::getUserType() != "STUDENT")
                 <li class="active"><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
                 <li><a href="practice/">Practice</a></li>
                 <li><a href="submissions/">MySubmissions</a></li>
-                <li><a href="tutorials/">Tutorials</a></li>
-                <li><a href="algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="training/">Training</a></li>
+                <li><a href="contests/">Contests</a></li>
             </ul>
 
 		</section>
