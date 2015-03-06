@@ -105,7 +105,7 @@
 		      	<?php foreach($queryResult as $result): ?>
 		      	<tr>
 					<td><?php echo ++$index; ?></td>
-		      		<td><?php echo "<a href='../editor/editor.php?id=".$result["questionId"]."&type=practice"."'"."</a>".$result["questionName"]; ?></td>
+		      		<td><?php echo "<a href='../editor/editor.php?id=".$result["questionId"]."&type=prc"."'"."</a>".$result["questionName"]; ?></td>
 		      		<td><?php echo $result["AuthoredBy"]; ?></td>
 		      		<td><?php switch($result["difficulty"])
                         {
@@ -128,7 +128,7 @@
 								echo "0%";
 						    else
 								echo ((($result["solved"])/($result["attempted"]))*100)."%";?></td>
-					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=practice"."'"."</a>"."Scoreboard"; ?></td>
+					<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=prc"."'"."</a>"."Scoreboard"; ?></td>
 		      	</tr>
 		      <?php endforeach; ?>
 		        

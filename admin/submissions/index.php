@@ -95,8 +95,6 @@ $queryResult = Student::viewPracticeQuestions();
                         <th>Difficulty</th>
                         <th>Scoreboard(Solved/Attempted)</th>
                         <th>Edit</th>
-                        <th>Preview</th>
-                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -121,9 +119,7 @@ $queryResult = Student::viewPracticeQuestions();
                                 ?>
                             </td>
                             <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>".$result["solved"]."/".$result["attempted"];?></td>
-                            <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Edit";?></td>
-                            <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Preview";?></td>
-                            <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>"."Delete";?></td>
+                            <td><?php echo "<a href='../question/editQuestion/index.php?qid=".$result["questionId"]."'"."</a>"."Edit";?></td>
                         </tr>
                     <?php endforeach; ?>
 

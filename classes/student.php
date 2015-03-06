@@ -234,6 +234,23 @@ class Student
 
     }
 
+    public static function viewScoreboardBySourceCodeLength($questionId)
+    {
+
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.charsInCode as lengthSourceCode
+                  FROM Scoreboard join UserDetails
+                  ON Scoreboard.UserId = UserDetails.UserId
+                  where Scoreboard.questionId=:qid
+                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),lengthSourceCode ASC,solvedIn ASC
+                  ';
+
+        $bindings = array('qid' => $questionId);
+
+        return $db->select($query,$bindings);
+
+    }
+
 
 
 }

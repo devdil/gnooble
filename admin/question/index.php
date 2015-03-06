@@ -1,7 +1,7 @@
 <?php
 
 include '../../includes/Authenticate.php';
-include '../../classes/student.php';
+include '../../classes/Admin.php';
 
 		//check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -14,7 +14,7 @@ if (Authenticate::getUserType() != "ADMIN")
 	Authenticate::redirect();
 }
 
-		$queryResult = Student::viewPracticeQuestions();
+		$queryResult = Admin::viewPracticeQuestionsByUser($_SESSION['userid']);
 
 
 ?>
@@ -101,16 +101,15 @@ if (Authenticate::getUserType() != "ADMIN")
 					<thead>
 					<tr>
 						<th>Question</th>
-						<th>Authored By</th>
 						<th>Difficulty</th>
-						<th>Scoreboard(Solved/Attempted)</th>
+						<th>Scoreboard</th>
+						<th>Edit</th>
 					</tr>
 					</thead>
 					<tbody>
 					<?php foreach($queryResult as $result): ?>
 					<tr>
 						<td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
-						<td><?php echo $result["AuthoredBy"]; ?></td>
 						<td><?php switch($result["difficulty"])
                         {
                             case 20:
@@ -127,7 +126,8 @@ if (Authenticate::getUserType() != "ADMIN")
                         }
                         ?>
 						</td>
-						<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>".$result["solved"]."/".$result["attempted"];?></td>
+						<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=prc"."'"."</a>"."Scoreboard";?></td>
+						<td><?php echo "<a href='editQuestion/index.php?qid=".$result["questionId"]."'"."</a>"."Edit";?></td>
 					</tr>
 					<?php endforeach; ?>
 

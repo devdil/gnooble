@@ -59,6 +59,8 @@ if(isset($_POST['type']))
 		}
 	}
 	if($_POST['type'] === 'Challenge') {
+
+
 		$challengeName = htmlspecialchars($_POST['input-qName']);
 		$challengeStatement = htmlspecialchars($_POST['input-qDesc']);
 		$startDate = $_POST['startDate'];
