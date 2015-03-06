@@ -114,8 +114,8 @@ $queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
 								}
 								?>
 							</td>
-							<td><?php echo "<a href='editChallenge/index.php?cid=".$result["cId"]."'"."</a>"."Edit:";?></td>
-							<td><?php echo "<a href='editChallenge/index.php?cid=".$result["cId"]."'"."</a>"."Delete:";?></td>
+							<td><?php echo "<a href='scoreboard/index.php?cid=".$result["cId"]."'"."</a>"."Scoreboard:";?></td>
+							<td><?php echo "<a href='editChallenge/index.php?cid=".$result["cId"]."'"."</a>"."Edit";?></td>
 						</tr>
 					<?php endforeach; ?>
 
