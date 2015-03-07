@@ -25,10 +25,10 @@ if (Authenticate::getUserType() != "ADMIN")
     <title>Gnooble: Student</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="../../scripts/addQuestion.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../../../assets/css/main.css">
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -91,16 +91,16 @@ if (Authenticate::getUserType() != "ADMIN")
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Add Questions</h1>
 
-            <div class="alert-success" id="status"></div>
+            <div class="alert-success hidden" id="status"></div>
 
                 <label>Select Question Type</label>
-                <select  id="qType" name="qType">
-                    <option value="0">Practice Question</option>
-                    <option value="1">Challenge</option>
+                <select id="qType" name="qType">
+                    <option value="question">Practice Question</option>
+                    <option value="challenge">Challenge</option>
                 </select>
-                <form class="form" id="form0">
+                <form class="question-form form-horizontal" id="question-form">
                 <div class="form-group">
-                    <input type="text" value="Question" name="type" hidden/>
+                    <input type="hidden" value="Question" name="type" />
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
@@ -122,8 +122,8 @@ if (Authenticate::getUserType() != "ADMIN")
                             <th>Expected Output</th>
                         </tr>
                         <tr>
-                            <td><textarea id="input-expected" name="input-inputTestCase"></textarea></td>
-                            <td><textarea id="output-expected" name="output-outputTestCase"></textarea></td>
+                            <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"></textarea></td>
+                            <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"></textarea></td>
                         </tr>
                     </table>
                 </div>
@@ -142,12 +142,12 @@ if (Authenticate::getUserType() != "ADMIN")
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 pull-right">
-                    <input type="submit" id="submit" name="addQuestion" value="addQuestion" class="btn btn-default btn-lg btn-success pull-right">
+                    <input type="submit" id="submit" name="addQuestion" value="Add Question" class="btn btn-default btn-lg btn-success pull-right">
                 </div>
             </div>
             </form>
-                <form class="form" id="form1" method="post">
-                    <input type="text" value="Challenge" name="type" hidden/>
+                <form class="challenge-form form-horizontal" id="challenge-form" method="post">
+                    <input type="hidden" value="Challenge" name="type" />
                 <div class="form-group">
                     <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
                     <div class="col-sm-10">
@@ -162,11 +162,17 @@ if (Authenticate::getUserType() != "ADMIN")
                 </div>
                 <div class="form-group">
                     <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-                    <input type="datetime-local" id="startDate" name="startDate">
+                   <div class="col-sm-10">
+                      <input class="datetime-control form-control" type="text" id="startDate" name="startDate">
+                   </div>
+
                 </div>
                 <div class="form-group">
                     <label for="endDate" class="col-sm-2 control-label">End Date</label>
-                    <input type="datetime-local+" id="endDate" name="endDate">
+                   <div class="col-sm-10">
+                      <input class="datetime-control form-control" type="text" id="endDate" name="endDate">
+                   </div>
+
                 </div>
                 <div class="form-group">
                     <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
@@ -179,14 +185,16 @@ if (Authenticate::getUserType() != "ADMIN")
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10 pull-right">
-                        <input type="submit" id="submit" name="addChallenge" value="addChallenge" class="btn btn-default btn-lg btn-success pull-right"/>
+                        <input type="submit" id="submit" name="addChallenge" value="Add Challenge" class="btn btn-default btn-lg btn-success pull-right"/>
                     </div>
                 </div>
                 </form>
         </section>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
 <script src="../../../assets/js/bootstrap.min.js"></script>
 <script src="../../../assets/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
@@ -236,17 +244,20 @@ if (Authenticate::getUserType() != "ADMIN")
 </script>
 <script>
     $(document).ready(function(){
-        $('#status').hide();
-        $('#form1').hide();
+       $('.datetime-control').datetimepicker();
+       // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
+
+       $('#challenge-form').hide();
+
         $('#qType').change(function() {
-            $('.form').hide();
-            $('#form' + this.value).show();
+            $('form').hide();
+            $('#'+this.value+'-form').show();
         });
     });
 </script>
 <script>
     // AJAX Code Here
-        $('.form').on('submit', function (e) {
+        $('.question-form').on('submit', function (e) {
             // Okay, we need to get value from textbox name and score
             // When user click on the add button
             // Let make a AJAX request
@@ -258,7 +269,7 @@ if (Authenticate::getUserType() != "ADMIN")
                 crossDomain: true,
                 type: 'POST', // making a POST request
                 dataType: "json",
-                data: $('#form' + ($('#qType').val())).serialize(),
+                data: $('#question-form' + ($('#qType').val())).serialize(),
                 success: function (data) {
                     alert("diljit");
                     // this function will be trigger when our PHP successfully

@@ -118,14 +118,14 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                 <div class="form-group">
                     <label for="startDate" class="col-sm-2 control-label">Start Date</label>
                     <div class="col-sm-10">
-                       <input class="form-control" type="text" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
+                       <input class="form-control datetime-control" type="text" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
                     </div>
 
                 </div>
                 <div class="form-group">
                     <label for="endDate" class="col-sm-2 control-label">End Date</label>
                     <div class="col-sm-10">
-                       <input class="form-control" type="text" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
+                       <input class="form-control datetime-control" type="text" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
                     </div>
 
                 </div>
@@ -200,7 +200,7 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
 </script>
 <script>
     $(document).ready(function(){
-        $('#startDate').datetimepicker();
+        $('.datetime-control').datetimepicker();
         // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
 
        // AJAX Code Here
