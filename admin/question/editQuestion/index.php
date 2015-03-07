@@ -18,6 +18,8 @@ if (Authenticate::getUserType() != "ADMIN")
 $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
 $testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
 
+$testCaseCount = count($testCases);
+
 ?>
 
 
@@ -100,7 +102,7 @@ $testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
                     <option value="0">Practice Question</option>
                     <option value="1">Challenge</option>
                 </select>
-                <form class="form" id="form0">
+                <form class="question-form form-horizontal" id="question-form">
                  <?php if(isset($queryResult[0]["questionName"])): ?>
                 <div class="form-group">
                     <input type="text" value="Question" name="type" hidden/>
@@ -135,17 +137,20 @@ $testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
                             <label class="col-sm-2 control-label">Test Cases</label>
                             <div class="col-sm-10">
                                 <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
-                                <?php foreach($testCases as $testCases):?>
+                               <?php $counter = 1; ?>
+                               <?php foreach($testCases as $testCase):?>
                                 <table class="table table-bordered">
+                                   <caption><strong>Test Case <?php echo $counter; ?></strong></caption>
                                     <tr>
                                         <th>Expected Input</th>
                                         <th>Expected Output</th>
                                     </tr>
                                     <tr>
-                                        <td><textarea id="input-expected" name="input-inputTestCase"><?php echo $testCases["inputCase"];?></textarea></td>
-                                        <td><textarea id="output-expected" name="output-outputTestCase"><?php echo $testCases["outputCase"];?></textarea></td>
+                                        <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"><?php echo $testCase["inputCase"];?></textarea></td>
+                                        <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"><?php echo $testCase["outputCase"];?></textarea></td>
                                     </tr>
                                 </table>
+                                <?php $counter++; ?>
                             <?php endforeach;?>
                             </div>
                         </div>
@@ -216,7 +221,7 @@ $testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
 </script>
 <script>
     // AJAX Code Here
-        $('.form').on('submit', function (e) {
+        $('.question-form').on('submit', function (e) {
             // Okay, we need to get value from textbox name and score
             // When user click on the add button
             // Let make a AJAX request
@@ -227,7 +232,7 @@ $testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
                 crossDomain: true,
                 type: 'POST', // making a POST request
                 dataType: "json",
-                data: $('#form' + ($('#qType').val())).serialize(),
+                data: $('#question-form' + ($('#qType').val())).serialize(),
                 success: function (data) {
                     // this function will be trigger when our PHP successfully
                     // response (does not mean it will successfully add to database)
