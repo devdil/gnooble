@@ -82,7 +82,7 @@ if (Authenticate::getUserType() == "ADMIN")
 		$avgMem = $avgMem/$index;
         $avgTime = $avgTime/$index;
 
-		$compilerOutput["compilationError"] = $result->getCompileMessage();
+		$compilerOutput["compilationMessage"] = $result->getCompileMessage();
 		$compilerOutput["compilationResult"] = $jsonOutput;
 
 		if ($areAllPassed)

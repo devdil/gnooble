@@ -115,7 +115,7 @@ class Compiler
 	public function getCompileMessage()
 	{
 		if(empty($this->apiOutput["result"]["compilemessage"]))
-			return "Compiled Successfully!";
+			return true;
 		else
 			return $this->apiOutput["result"]["compilemessage"];
 	}
