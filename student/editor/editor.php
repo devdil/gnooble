@@ -180,6 +180,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<input type="text" value="<?php  $_GET['type']; ?>" id="qType" hidden>
 			<p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
 
 
@@ -225,7 +226,9 @@ if (Authenticate::getUserType() != "STUDENT")
 						<option value="5">Python</option>
 						<option value="3">Java</option>
 					</select>
-					<input type="text" id="qtype" name="type" value="<?php echo $_GET['type']; ?>" hidden>
+						<?php if(isset($_GET['type'])): ?>
+						<input type="text" id="qtype" name="type" value="<?php echo $_GET['type']; ?>" hidden>
+						<?php endif;?>
 					<label id="status-compiling" style="display: none">Compiling....</label>
 					<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/></div>
 					<input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="compile" id="compile">
