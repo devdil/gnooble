@@ -150,9 +150,24 @@ class Admin
     {
         $db = DatabaseManager::getConnection();
         $queryString = 'SELECT *
-                        FROM PracticeQuestions JOIN TestCases
-                        ON PracticeQuestions.questionId=TestCases.qid
+                        FROM PracticeQuestions
                         WHERE questionId=:questionId';
+
+        $bindings = array(
+
+            'questionId' => $questionId
+        );
+
+
+        return $db->select($queryString,$bindings);
+
+    }
+    public static function getTestCasesByQuestionId($questionId)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = 'SELECT *
+                        FROM TestCases
+                        WHERE qid=:questionId';
 
         $bindings = array(
 

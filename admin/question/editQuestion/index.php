@@ -14,7 +14,9 @@ if (Authenticate::getUserType() != "ADMIN")
 {
     Authenticate::redirect();
 }
+
 $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
+$testCases = Admin::getTestCasesByQuestionId($_GET['qid']);
 
 ?>
 
@@ -30,7 +32,6 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
     <link rel="stylesheet" href="../../../assets/css/main.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="../../scripts/addQuestion.js" type="text/javascript"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -92,7 +93,6 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Edit Question</h1>
-
             <div class="alert-success" id="status"></div>
 
                 <label>Select Question Type</label>
@@ -100,58 +100,64 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
                     <option value="0">Practice Question</option>
                     <option value="1">Challenge</option>
                 </select>
-            <?php if(isset($queryResult)):?>
-            <?php foreach ($queryResult as $queryResult) :?>
                 <form class="form" id="form0">
+                 <?php if(isset($queryResult[0]["questionName"])): ?>
                 <div class="form-group">
                     <input type="text" value="Question" name="type" hidden/>
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-qName" value="<?php echo $queryResult["questionName"]; ?>" name="input-qName" placeholder="What's the programming question? Be specific." >
+                        <input type="text" class="form-control" id="input-qName" value="<?php echo $queryResult[0]["questionName"]; ?>" name="input-qName" placeholder="What's the programming question? Be specific." >
                     </div>
                 </div>
+                 <?php endif; ?>
+                 <?php if(isset($queryResult[0]["questionStatement"])): ?>
                 <div class="form-group">
                     <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"><?php echo $queryResult["questionStatement"]; ?></textarea>
+                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"><?php echo $queryResult[0]["questionStatement"]; ?></textarea>
                     </div>
                 </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Test Cases</label>
-                <div class="col-sm-10">
-                    <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Expected Input</th>
-                            <th>Expected Output</th>
-                        </tr>
-                        <tr>
-                            <td><textarea id="input-expected" name="input-inputTestCase"><?php echo $queryResult["inputCase"];?></textarea></td>
-                            <td><textarea id="output-expected" name="output-outputTestCase"><?php echo $queryResult["outputCase"];?></textarea></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                    <?php endif;?>
+                    <?php if(isset($queryResult[0]["difficulty"])): ?>
+                    <div class="form-group">
+                        <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
+                        <div class="col-sm-10">
+                            <select id="difficulty" name="difficulty" class="form-control">
+                                <option value="Easy" <?php if($queryResult[0]["difficulty"]=== "20") echo "selected";?>>Easy</option>
+                                <option value="Medium" <?php if($queryResult[0]["difficulty"]=== "50") echo "selected";?>>Medium</option>
+                                <option value="Hard" <?php if($queryResult[0]["difficulty"]=== "100") echo "selected";?>>Hard</option>
+                            </select>
+                        </div>
+                    </div>
+                        <?php endif;?>
 
-            <div class="form-group">
-                <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
-                <div class="col-sm-10">
-                    <select id="difficulty" name="difficulty" class="form-control">
-                        <option value="Easy" <?php if($queryResult["difficulty"]=== "20") echo "selected";?>>Easy</option>
-                        <option value="Medium" <?php if($queryResult["difficulty"]=== "50") echo "selected";?>>Medium</option>
-                        <option value="Hard" <?php if($queryResult["difficulty"]=== "100") echo "selected";?>>Hard</option>
-                    </select>
-                </div>
-            </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Test Cases</label>
+                            <div class="col-sm-10">
+                                <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
+                                <?php foreach($testCases as $testCases):?>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Expected Input</th>
+                                        <th>Expected Output</th>
+                                    </tr>
+                                    <tr>
+                                        <td><textarea id="input-expected" name="input-inputTestCase"><?php echo $testCases["inputCase"];?></textarea></td>
+                                        <td><textarea id="output-expected" name="output-outputTestCase"><?php echo $testCases["outputCase"];?></textarea></td>
+                                    </tr>
+                                </table>
+                            <?php endforeach;?>
+                            </div>
+                        </div>
 
+            <?php if(isset($queryResult[0]["questionName"])): ?>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 pull-right">
                     <input type="submit" id="submit" name="updateQuestion" value="Update Question" class="btn btn-default btn-lg btn-success pull-right">
                 </div>
             </div>
-            </form>
-            <?php endforeach;?>
             <?php endif;?>
+            </form>
         </section>
     </div>
 </div>
