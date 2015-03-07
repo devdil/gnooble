@@ -105,6 +105,14 @@ if (Authenticate::getUserType() != "STUDENT")
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
 						$('#compilationError').find(".content").text(compilationError);
+
+                       if(compilationMessage === true){
+                          $('#compilationError').removeClass('alert-danger').addClass('alert-success');
+                       }
+                       else{
+                          $('#compilationError').removeClass('alert-success').addClass('alert-danger');
+                       }
+
 						$("#compile").removeAttr("disabled");
 						$('#output').show();
 						$(responseTable).show();
