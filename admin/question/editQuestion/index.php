@@ -102,7 +102,7 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
                 </select>
             <?php if(isset($queryResult)):?>
             <?php foreach ($queryResult as $queryResult) :?>
-                <form class="form" id="form0">
+                <form class="add-question-form form-horizontal" id="add-question-form">
                 <div class="form-group">
                     <input type="text" value="Question" name="type" hidden/>
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
@@ -119,15 +119,15 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
             <div class="form-group">
                 <label class="col-sm-2 control-label">Test Cases</label>
                 <div class="col-sm-10">
-                    <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
+                    <p class="help-block">Put the expected input and outputs in the respective textareas below. Only one input/output per line please.</p>
                     <table class="table table-bordered">
                         <tr>
                             <th>Expected Input</th>
                             <th>Expected Output</th>
                         </tr>
                         <tr>
-                            <td><textarea id="input-expected" name="input-inputTestCase"><?php echo $queryResult["inputCase"];?></textarea></td>
-                            <td><textarea id="output-expected" name="output-outputTestCase"><?php echo $queryResult["outputCase"];?></textarea></td>
+                            <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"><?php echo $queryResult["inputCase"];?></textarea></td>
+                            <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"><?php echo $queryResult["outputCase"];?></textarea></td>
                         </tr>
                     </table>
                 </div>
@@ -210,7 +210,7 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
 </script>
 <script>
     // AJAX Code Here
-        $('.form').on('submit', function (e) {
+        $('.add-question-form').on('submit', function (e) {
             // Okay, we need to get value from textbox name and score
             // When user click on the add button
             // Let make a AJAX request
@@ -221,7 +221,7 @@ $queryResult = Admin::getQuestionByQuestionId($_GET['qid']);
                 crossDomain: true,
                 type: 'POST', // making a POST request
                 dataType: "json",
-                data: $('#form' + ($('#qType').val())).serialize(),
+                data: $('#add-question-form' + ($('#qType').val())).serialize(),
                 success: function (data) {
                     // this function will be trigger when our PHP successfully
                     // response (does not mean it will successfully add to database)
