@@ -83,7 +83,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					dataType: "json",
 					success:function(result){
 						var trHTML = '',
-							compilationError = result["compilationError"];
+							compilationMessage = result["compilationMessage"];
 						var showExpctdOutput ='';
 
 						$.each(result["compilationResult"], function (i, item) {
@@ -104,7 +104,7 @@ if (Authenticate::getUserType() != "STUDENT")
 						});
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
-						$('#compilationError').find(".content").text(compilationError);
+						$('#compilationError').find(".content").text(compilationMessage);
 
                        if(compilationMessage === true){
                           $('#compilationError').removeClass('alert-danger').addClass('alert-success');
@@ -236,7 +236,7 @@ if (Authenticate::getUserType() != "STUDENT")
 									<label id="count"></label>
 								</div>
 						<?php endif; ?>
-					<?php endif;?>
+					<?php endif; ?>
 					<div id="editor"></div>
 
 				</form>
