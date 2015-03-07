@@ -58,11 +58,10 @@ if (Authenticate::getUserType() != "STUDENT")
 		 editor.setTheme("ace/theme/monokai");
 		 editor.getSession().setMode("ace/mode/c_cpp");*/
 		$(document).ready(function(){
-		    var responseTable = document.getElementById('compiler-response'),
-                compilationErrorAlert = $('#compilationError');
+		    var responseTable = document.getElementById('compiler-response');
 			$('#output').hide();
 			$(responseTable).hide();
-            compilationErrorAlert.hide();
+            $('#compilationError').hide();
 			$('#compile').click(function (e) {
 				$(this).attr("disabled", "disabled");
 				$(responseTable).hide();
@@ -104,13 +103,13 @@ if (Authenticate::getUserType() != "STUDENT")
 						});
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
-                       compilationErrorAlert.find(".content").text(compilationMessage);
+                        $('#compilationError').find(".content").text(compilationMessage);
 
                         if(compilationMessage === true){
-                           compilationErrorAlert.removeClass('alert-danger').addClass('alert-success');
+                           $('#compilationError').removeClass('alert-danger').addClass('alert-success');
                         }
                         else{
-                           compilationErrorAlert.removeClass('alert-success').addClass('alert-danger');
+                           $('#compilationError').removeClass('alert-success').addClass('alert-danger');
                         }
 
 						$("#compile").removeAttr("disabled");
