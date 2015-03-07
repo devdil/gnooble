@@ -58,10 +58,11 @@ if (Authenticate::getUserType() != "STUDENT")
 		 editor.setTheme("ace/theme/monokai");
 		 editor.getSession().setMode("ace/mode/c_cpp");*/
 		$(document).ready(function(){
-		    var responseTable = document.getElementById('compiler-response');
+		    var responseTable = document.getElementById('compiler-response'),
+                compilationErrorAlert = $('#compilationError');
 			$('#output').hide();
 			$(responseTable).hide();
-			$('#compilationError').hide();
+            compilationErrorAlert.hide();
 			$('#compile').click(function (e) {
 				$(this).attr("disabled", "disabled");
 				$(responseTable).hide();
@@ -82,7 +83,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					dataType: "json",
 					success:function(result){
 						var trHTML = '',
-							compilationError = result["compilationError"];
+							compilationMessage = result["compilationMessage"];
 						var showExpctdOutput ='';
 
 						$.each(result["compilationResult"], function (i, item) {
@@ -103,7 +104,15 @@ if (Authenticate::getUserType() != "STUDENT")
 						});
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
-						$('#compilationError').find(".content").text(compilationError);
+                       compilationErrorAlert.find(".content").text(compilationMessage);
+
+                        if(compilationMessage === true){
+                           compilationErrorAlert.removeClass('alert-danger').addClass('alert-success');
+                        }
+                        else{
+                           compilationErrorAlert.removeClass('alert-success').addClass('alert-danger');
+                        }
+
 						$("#compile").removeAttr("disabled");
 						$('#output').show();
 						$(responseTable).show();

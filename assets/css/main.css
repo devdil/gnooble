@@ -265,9 +265,13 @@ section.col-sm-3.col-md-2.sidebar{
 
 #editor{
    width: 100% !important;
-	min-height: 50em;
+	min-height: 25em;
 	max-width: 100%;
 	border-radius: 4px;
+}
+
+#tinymce{
+   font-size: 14px !important;
 }
 
 div.mce-edit-area, .mce-window .mce-container-body{
