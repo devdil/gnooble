@@ -180,7 +180,6 @@ if (Authenticate::getUserType() != "STUDENT")
 
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<input type="text" value="<?php  $_GET['type']; ?>" id="qType" hidden>
 			<p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
 
 
@@ -227,7 +226,7 @@ if (Authenticate::getUserType() != "STUDENT")
 						<option value="3">Java</option>
 					</select>
 						<?php if(isset($_GET['type'])): ?>
-						<input type="text" id="qtype" name="type" value="<?php echo $_GET['type']; ?>" hidden>
+						<input type="hidden" id="qtype" name="type" value="<?php echo $_GET['type']; ?>">
 						<?php endif;?>
 					<label id="status-compiling" style="display: none">Compiling....</label>
 					<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/></div>
@@ -235,7 +234,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					<br><br>
 					<?php if(isset($_GET['type'])): ?>
 						<?php	if ($_GET['type'] === 'cgf'): ?>
-								<div>No of char:
+								<div>Character Count:
 									<label id="count"></label>
 								</div>
 						<?php endif; ?>
@@ -294,15 +293,13 @@ if (Authenticate::getUserType() != "STUDENT")
 		enableSnippets: true,
 		enableLiveAutocompletion: true
 	});
-	<?php if (isset($_GET['type'])):?>
-	<?php if ($_GET['type'] === 'cgf'): ?>
-	 editor.getSession().on('change', function(e) {
-		document.getElementById("count").innerHTML = editor.getValue().length;
-	});
+    var qType = document.getElementById('qtype').value;
 
-	<? endif;?>
-
-	<? endif;?>
+    if(qType === "cgf"){
+       editor.getSession().on('change', function(e) {
+          document.getElementById("count").innerHTML = editor.getValue().length;
+       });
+    }
 	editor.setValue("#include<stdio.h>\n int main()\n{\n//Your Code Here\n\n\n return 0;\n} ");
 	function changeLanguage()
 	{
