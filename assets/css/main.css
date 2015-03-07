@@ -168,8 +168,9 @@ html, body{
 		border-right: 1px solid hsla(193, 67%, 9%, 1);
 	}
 
-section.col-sm-3.col-md-2.sidebar{
-}}
+   section.col-sm-3.col-md-2.sidebar{
+   }
+}
 
 .nav-sidebar {
 	margin-right: -21px;

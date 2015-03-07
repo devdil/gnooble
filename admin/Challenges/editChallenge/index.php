@@ -101,7 +101,7 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                 <select  id="qType" name="qType">
                     <option value="1">Challenge</option>
                 </select>
-                <form class="form" id="challenge-form" method="post">
+                <form class="form-horizontal" id="challenge-form" method="post">
                     <input type="text" value="Challenge" name="type" hidden/>
                 <div class="form-group">
                     <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
@@ -117,13 +117,18 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                 </div>
                 <div class="form-group">
                     <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-                    <input type="text" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
+                    <div class="col-sm-10">
+                       <input class="form-control" type="text" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="endDate" class="col-sm-2 control-label">End Date</label>
-                    <input type="text" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
+                    <div class="col-sm-10">
+                       <input class="form-control" type="text" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
+                    </div>
+
                 </div>
-                   <input type="time" value=""/>
                 <div class="form-group">
                     <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
                     <div class="col-sm-10">
@@ -199,7 +204,7 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
         // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
 
        // AJAX Code Here
-       $('.form').on('submit', function (e) {
+       $('#challenge-form').on('submit', function (e) {
           // Okay, we need to get value from textbox name and score
           // When user click on the add button
           // Let make a AJAX request
@@ -211,7 +216,7 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
              crossDomain: true,
              type: 'POST', // making a POST request
              dataType: "json",
-             data: $('#form' + ($('#qType').val())).serialize(),
+             data: $('#challenge-form' + ($('#qType').val())).serialize(),
              success: function (data) {
                 alert("diljit");
                 // this function will be trigger when our PHP successfully
