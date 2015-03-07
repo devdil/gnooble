@@ -27,10 +27,10 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
     <title>Gnooble: Student</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css"/>
     <link rel="stylesheet" href="../../../assets/css/main.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="../../scripts/addQuestion.js" type="text/javascript"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -95,13 +95,13 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
          <?php if(isset($queryResult)):?>
             <?php foreach ($queryResult as $queryResult) :?>
 
-            <div class="alert-success" id="status"></div>
+            <div class="alert-success hidden" id="status"></div>
 
                 <label>Select Question Type</label>
                 <select  id="qType" name="qType">
                     <option value="1">Challenge</option>
                 </select>
-                <form class="form" id="form1" method="post">
+                <form class="form" id="challenge-form" method="post">
                     <input type="text" value="Challenge" name="type" hidden/>
                 <div class="form-group">
                     <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
@@ -112,17 +112,18 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                 <div class="form-group">
                     <label for="input-qDesc" class="col-sm-2 control-label">Challenge Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc"name="input-qDesc" placeholder="Describe the problem statement"required><?php echo $queryResult["cDesc"];?></textarea>
+                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"required><?php echo $queryResult["cDesc"];?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-                    <input type="datetime-local" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
+                    <input type="text" value="<?php echo $queryResult["startDate"]; ?>" id="startDate" name="startDate" required>
                 </div>
                 <div class="form-group">
                     <label for="endDate" class="col-sm-2 control-label">End Date</label>
-                    <input type="datetime-local" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
+                    <input type="text" value="<?php echo $queryResult["endDate"]; ?>" id="endDate" name="endDate" required>
                 </div>
+                   <input type="time" value=""/>
                 <div class="form-group">
                     <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
                     <div class="col-sm-10">
@@ -142,7 +143,9 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
         </section>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
 <script src="../../../assets/js/bootstrap.min.js"></script>
 <script src="../../../assets/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
@@ -192,51 +195,52 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
 </script>
 <script>
     $(document).ready(function(){
-        $('#status').hide();
-        $('#form1').hide();
-        });
+        $('#startDate').datetimepicker();
+        // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
+
+       // AJAX Code Here
+       $('.form').on('submit', function (e) {
+          // Okay, we need to get value from textbox name and score
+          // When user click on the add button
+          // Let make a AJAX request
+          alert($('#qType').val());
+          tinymce.triggerSave();
+          e.preventDefault();
+          $.ajax({
+             url: 'editChallenge.php',
+             crossDomain: true,
+             type: 'POST', // making a POST request
+             dataType: "json",
+             data: $('#form' + ($('#qType').val())).serialize(),
+             success: function (data) {
+                alert("diljit");
+                // this function will be trigger when our PHP successfully
+                // response (does not mean it will successfully add to database)
+                if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
+                   $('#status').html(data["outcome"]);
+                   $('#status').show();
+                }
+                else if (data["result"] == "CSuccess") {
+                   window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
+                }
+
+                else if (data["result"] == "CFailed")
+                {
+                   $('#status').html(data["outcome"]);
+                   $('#status').show();
+
+                }
+             },
+             error: function (msg) {
+                console.log(msg);
+                //$("#compile").removeAttr("disabled");
+             }
+          });
+       });
     });
 </script>
 <script>
-    // AJAX Code Here
-        $('.form').on('submit', function (e) {
-            // Okay, we need to get value from textbox name and score
-            // When user click on the add button
-            // Let make a AJAX request
-            alert($('#qType').val());
-            tinymce.triggerSave();
-            e.preventDefault();
-            $.ajax({
-                url: 'editChallenge.php',
-                crossDomain: true,
-                type: 'POST', // making a POST request
-                dataType: "json",
-                data: $('#form' + ($('#qType').val())).serialize(),
-                success: function (data) {
-                    alert("diljit");
-                    // this function will be trigger when our PHP successfully
-                    // response (does not mean it will successfully add to database)
-                    if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-                    }
-                    else if (data["result"] == "CSuccess") {
-                        window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
-                    }
 
-                    else if (data["result"] == "CFailed")
-                    {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-
-                    }
-                },
-                error: function (msg) {
-                    console.log(msg);
-                    //$("#compile").removeAttr("disabled");
-                }
-            });
-        });
 </script>
 </body>
 </html>
