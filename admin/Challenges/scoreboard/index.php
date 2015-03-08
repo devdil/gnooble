@@ -1,7 +1,7 @@
 <?php
 
-include '../../includes/Authenticate.php';
-include '../../classes/student.php';
+include '../../../includes/Authenticate.php';
+include '../../../classes/student.php';
 
 //check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -9,7 +9,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() != "STUDENT")
+if (Authenticate::getUserType() != "ADMIN")
 {
 	Authenticate::redirect();
 }
@@ -29,8 +29,8 @@ $index = 0;
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Gnooble: Student</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../assets/css/main.css">
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -70,7 +70,7 @@ $index = 0;
 						<li><a href="#">Settings</a></li>
 						<li><a href="#">Scoreboard</a></li>
 						<li class="divider"></li>
-						<li><a href="../../logout/">Logout</a></li>
+						<li><a href="../../../logout/">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -98,13 +98,14 @@ $index = 0;
 					<table class="table">
 						<thead>
 						<tr>
-							<th>Sl no</th>
+							<th>Student Rank</th>
 							<th>Name</th>
 							<th>Status</th>
 							<th>Solved In(secs)</th>
-							<th>Chars</th>
+							<th>Code Length</th>
 							<th>Time</th>
 							<th>Memory</th>
+                            <th>Phone number</th>
 
 						</tr>
 						</thead>
@@ -112,9 +113,9 @@ $index = 0;
 							<tr>
 								<td><?php echo ++$index; ?></td>
 								<td><?php echo $result["Name"]; ?></td>
-								<td  style="color:<?php if ($result["Status"] == 'Solved') echo "#398439";
-								if ($result["Status"] == 'Failed') echo "#c12e2a";
-								if ($result["Status"] == 'Attempted')echo "#eb9316";?>">
+								<td  class="alert <?php if ($result["Status"] == 'Solved') echo "alert-success";
+								if ($result["Status"] == 'Failed') echo "alert-danger";
+								if ($result["Status"] == 'Attempted')echo "alert-warning";?>">
 									<?php echo $result["Status"]; ?>
 								</td>
 								<td><?php echo $result["solvedIn"]  ?></td>
@@ -134,11 +135,10 @@ $index = 0;
 				<table class="table">
 					<thead>
 					<tr>
-						<th>Sl no</th>
+						<th>Student Rank</th>
 						<th>Name</th>
 						<th>Status</th>
 						<th>Solved In(secs)</th>
-						<th>Chars</th>
 						<th>Time</th>
 						<th>Memory</th>
 
@@ -171,6 +171,6 @@ $index = 0;
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>
