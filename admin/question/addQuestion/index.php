@@ -142,49 +142,6 @@ if (Authenticate::getUserType() != "ADMIN")
                 </div>
             </div>
             </form>
-                <form class="challenge-form form-horizontal" id="challenge-form" method="post">
-                    <input type="hidden" value="Challenge" name="type" />
-                <div class="form-group">
-                    <label for="input-qname" class="col-sm-2 control-label">Challenge Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="input-qDesc" class="col-sm-2 control-label">Challenge Description</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement" ></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-                   <div class="col-sm-10">
-                      <input class="datetime-control form-control" type="text" id="startDate" name="startDate">
-                   </div>
-
-                </div>
-                <div class="form-group">
-                    <label for="endDate" class="col-sm-2 control-label">End Date</label>
-                   <div class="col-sm-10">
-                      <input class="datetime-control form-control" type="text" id="endDate" name="endDate">
-                   </div>
-
-                </div>
-                <div class="form-group">
-                    <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
-                    <div class="col-sm-10">
-                        <select id="cType" name="cType" class="form-control">
-                            <option value="Contest">Contest</option>
-                            <option value="Assignment">Assignment</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10 pull-right">
-                        <input type="submit" id="submit" name="addChallenge" value="Add Challenge" class="btn btn-default btn-lg btn-success pull-right"/>
-                    </div>
-                </div>
-                </form>
         </section>
     </div>
 </div>
@@ -251,7 +208,6 @@ if (Authenticate::getUserType() != "ADMIN")
             // Okay, we need to get value from textbox name and score
             // When user click on the add button
             // Let make a AJAX request
-            alert($('#qType').val());
             tinymce.triggerSave();
             e.preventDefault();
             $.ajax({
@@ -267,18 +223,7 @@ if (Authenticate::getUserType() != "ADMIN")
                         $('#status').html(data["outcome"]);
                         $('#status').show();
                     }
-                    else if (data["result"] == "CSuccess") {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-                        //window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
-                    }
 
-                    else if (data["result"] == "CFailed")
-                    {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-
-                    }
                 },
                 error: function (msg) {
                     console.log(msg);

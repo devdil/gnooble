@@ -96,11 +96,6 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
             <?php foreach ($queryResult as $queryResult) :?>
 
             <div class="alert-success hidden" id="status"></div>
-
-                <label>Select Question Type</label>
-                <select  id="qType" name="qType">
-                    <option value="1">Challenge</option>
-                </select>
                 <form class="form-horizontal" id="challenge-form" method="post">
                     <input type="text" value="Challenge" name="type" hidden/>
                 <div class="form-group">

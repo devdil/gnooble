@@ -30,7 +30,7 @@ if(isset($_POST['type']))
 		if (!$isChallengeAddSuccessful) {
 			$status = array("result" => "CFailed","outcome" => "Challenge Could not be Added!");;
 		} else {
-			$status = array("result" => "CSuccess","outcome" => $isChallengeAddSuccessful);
+			$status = array("result" => "CSuccess","outcome" => $startDate);
 		}
 	}
 
