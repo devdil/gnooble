@@ -83,6 +83,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					dataType: "json",
 					success:function(result){
 						var trHTML = '',
+                            testCaseTable = $('#test-case-details').find('tbody'),
 							compilationMessage = result["compilationMessage"];
 						var showExpctdOutput ='';
 
@@ -270,6 +271,32 @@ if (Authenticate::getUserType() != "STUDENT")
 				   </tbody>
 				</table>
 			   </div>
+
+               <div class="modal fade" id="testcase-modal">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                           <h4 class="modal-title">Test Case Details</h4>
+                        </div>
+                        <div class="modal-body">
+                           <table id="test-case-details">
+                              <th>Expected Output</th>
+                              <th>Code Output</th>
+                              <tbody>
+
+                              </tbody>
+                           </table>
+                        </div>
+                     </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+               </div><!-- /.modal -->
+
+                     <!-- Button trigger modal -->
+               <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#testcase-modal">
+                  Launch demo modal
+               </a>
+
 			</div>
 		</section>
 	</div>
