@@ -184,7 +184,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
 
 			<div role="tabpanel" class="col-md-12 col-sm-12">
-				<a class="btn btn-success pull-right" href="../scoreboard/index.php<?php echo "?qid=".$_GET['id']."&type=".$_GET['type']; ?>">View Scoreboard</a>
+				<a class="btn btn-default pull-right" target="_blank" href="../scoreboard/index.php<?php echo "?qid=".$_GET['id']."&type=".$_GET['type']; ?>">View Scoreboard</a>
 				<a class="btn btn-success pull-right" href="#solve">Solve Question</a>
 
 				<!-- Nav tabs -->

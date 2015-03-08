@@ -192,7 +192,7 @@ if (Authenticate::getUserType() != "ADMIN")
 <script>
     $(document).ready(function(){
        $('.datetime-control').datetimepicker({
-          dateFormat: 'dd-mm-yy',
+          dateFormat: 'yy-mm-dd',
           timeFormat: 'HH:mm'
        });
        // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
