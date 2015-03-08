@@ -89,59 +89,10 @@ if (Authenticate::getUserType() != "ADMIN")
             </ul>
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Add Questions</h1>
+            <h1 class="page-header">Add Challenge</h1>
 
             <div class="alert-success hidden" id="status"></div>
 
-                <label>Select Question Type</label>
-                <form class="question-form form-horizontal" id="question-form">
-                <div class="form-group">
-                    <input type="hidden" value="Question" name="type" />
-                    <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="input-qDesc" class="col-sm-2 control-label">Question Description</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" id="input-qDesc" name="input-qDesc" placeholder="Describe the problem statement"></textarea>
-                    </div>
-                </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Test Cases</label>
-                <div class="col-sm-10">
-                    <p class="help-block">Put the expected input and expected output in a text file and upload it here.</p>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Expected Input</th>
-                            <th>Expected Output</th>
-                        </tr>
-                        <tr>
-                            <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"></textarea></td>
-                            <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"></textarea></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="difficulty" class="col-sm-2 control-label">Difficulty Level</label>
-                <div class="col-sm-10">
-                    <select id="difficulty" name="difficulty" class="form-control">
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10 pull-right">
-                    <input type="submit" id="submit" name="addQuestion" value="Add Question" class="btn btn-default btn-lg btn-success pull-right">
-                </div>
-            </div>
-            </form>
                 <form class="challenge-form form-horizontal" id="challenge-form" method="post">
                     <input type="hidden" value="Challenge" name="type" />
                 <div class="form-group">
@@ -247,27 +198,22 @@ if (Authenticate::getUserType() != "ADMIN")
 </script>
 <script>
     // AJAX Code Here
-        $('.question-form').on('submit', function (e) {
+        $('#challenge-form').on('submit', function (e) {
             // Okay, we need to get value from textbox name and score
             // When user click on the add button
             // Let make a AJAX request
-            alert($('#qType').val());
             tinymce.triggerSave();
             e.preventDefault();
             $.ajax({
-                url: 'addquestion.php',
+                url: 'addchallenge.php',
                 crossDomain: true,
                 type: 'POST', // making a POST request
                 dataType: "json",
-                data: $("#question-form").serialize(),
+                data: $("#challenge-form").serialize(),
                 success: function (data) {
                     // this function will be trigger when our PHP successfully
                     // response (does not mean it will successfully add to database)
-                    if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
-                        $('#status').html(data["outcome"]);
-                        $('#status').show();
-                    }
-                    else if (data["result"] == "CSuccess") {
+                   if (data["result"] == "CSuccess") {
                         $('#status').html(data["outcome"]);
                         $('#status').show();
                         //window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];

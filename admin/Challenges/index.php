@@ -75,7 +75,7 @@ $queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="row">
 				<h1 style="margin-top: 0;" class="pull-left">Challenges</h1><br><br>
-				<a href="addQuestion/" class="btn btn-success btn-lg pull-right">Add Challenge</a>
+				<a href="addChallenge/" class="btn btn-success btn-lg pull-right">Add Challenge</a>
 			</div>
 
 			<hr>
@@ -95,7 +95,7 @@ $queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
 					<?php foreach($queryResult as $result): ?>
 						<tr>
 							<td><?php echo $result["cName"]; ?></td>
-							<td><?php echo $result["cDesc"]; ?></td>
+							<td><?php echo html_entity_decode($result["cDesc"]); ?></td>
 							<td><?php echo $result["startDate"]; ?></td>
 							<td><?php echo $result["endDate"]; ?></td>
 							<td><?php switch($result["Type"])
