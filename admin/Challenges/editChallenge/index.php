@@ -200,7 +200,10 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
 </script>
 <script>
     $(document).ready(function(){
-        $('.datetime-control').datetimepicker();
+        $('.datetime-control').datetimepicker({
+           dateFormat: 'dd-mm-yy',
+           timeFormat: 'HH:mm:ss'
+        });
         // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
 
        // AJAX Code Here
