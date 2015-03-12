@@ -82,20 +82,25 @@ if (Authenticate::getUserType() != "STUDENT")
 					},
 					dataType: "json",
 					success:function(result){
-						var trHTML = '',
+						var trHTML = '',testHTMl,
                             testCaseTable = $('#test-case-details').find('tbody'),
 							compilationMessage = result["compilationMessage"];
 						var showExpctdOutput ='';
 
 						$.each(result["compilationResult"], function (i, item) {
-							trHTML += '<tr>';
+							trHTML += "<tr>";
 							if (item.sample == true) {
+								testHTML = '<tr id="test-case" '+i+">";
 								trHTML += "<td>"+"TestCase " + (i + 1) + "(Sample)"+"</td>";
-								showExpctdOutput = '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
+								showExpctdOutput = '<td><a href="#" class="text-primary" data-toggle="modal" data-target="#testcase-modal">Details</a></td>';
+								testHTMl = '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
+								testHTML = '</tr>';
 							}
 							if (item.sample == false) {
+								testHTML = '<tr id="test-case" '+i+">";
 								trHTML += "<td>"+"TestCase " + (i + 1)+"</td>";
 								showExpctdOutput = '<td>------</td><td>-----</td>';
+								testHTML = '</tr>';
 							}
 							if (item.isPassed == "Passed")
 								trHTML +=  '<td class="alert alert-success">' + item.isPassed+"</td>";
@@ -106,10 +111,12 @@ if (Authenticate::getUserType() != "STUDENT")
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
 						$('#compilationError').find(".content").text(compilationMessage);
+						$(testCaseTable).append(testHTMl);
 
                        if(compilationMessage === true){
                           $('#compilationError').removeClass('alert-danger').addClass('alert-success');
-                       }
+						   $('#testcase-modal').modal('show')
+					   }
                        else{
                           $('#compilationError').removeClass('alert-success').addClass('alert-danger');
                        }
@@ -259,8 +266,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					<tr>
 					   <th>TestCase</th>
 					   <th>Status</th>
-					   <th>Expected Output</th>
-					   <th>Code Output</th>
+					   <th>TestCase Details</th>
 					   <th>Time</th>
 					   <th>Memory</th>
 					   <th>Standard Error</th>
@@ -293,9 +299,6 @@ if (Authenticate::getUserType() != "STUDENT")
                </div><!-- /.modal -->
 
                      <!-- Button trigger modal -->
-               <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#testcase-modal">
-                  Launch demo modal
-               </a>
 
 			</div>
 		</section>
