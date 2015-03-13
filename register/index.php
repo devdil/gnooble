@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 
 				$type = User::getUserType($secureid);
 				//register the user
-				$isRegistrationSuccessful = User::register($name,$emailid,$department,$contactnumber,$type,md5($password));
+				$isRegistrationSuccessful = User::register($name,$emailid,$department,$contactnumber,$type,$password);
 
 				if ($isRegistrationSuccessful === DatabaseManager::PRIMARY_KEY_VIOLATED)
 					$status = "Email Id already Exists!";
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		    <div class="col-sm-offset-4 col-sm-8">
 		      <button type="submit" name="submit" class="btn btn-success pull-right">Register</button>
 		    </div>
-			<a style="padding-left:20px;" href="../login" class="link pull-left">I already have an account..</a>
+			<a style="padding-left:20px;" href="../login/" class="link pull-left">I already have an account..</a>
 			
 		  </div>
 
