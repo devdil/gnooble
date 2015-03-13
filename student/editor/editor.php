@@ -22,7 +22,7 @@ if (Authenticate::getUserType() != "STUDENT")
 		$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['id']);
 		if($isUserInScoreboard == false) {
 			//var_dump($isUserInScoreboard);
-			Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid'],$attemptedTime,$endTime);
+			Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid'],$attemptedTime,$endTime,"NA","NA");
 		}
 
 ?>
@@ -69,7 +69,7 @@ if (Authenticate::getUserType() != "STUDENT")
 				e.preventDefault();
 				$("#loading").show(); //show loading
 				$("#status-compiling").show(); //show loading
-				$('#compilationError').show();
+				$('#compilationError').hide();
 				var sourcecode = editor.getValue(),language = $('#language').val();
 				var type = $('#qtype').val();
 				$.ajax({
@@ -82,25 +82,27 @@ if (Authenticate::getUserType() != "STUDENT")
 					},
 					dataType: "json",
 					success:function(result){
-						var trHTML = '',testHTMl,
+						var trHTML = '',testHTML = '',
                             testCaseTable = $('#test-case-details').find('tbody'),
 							compilationMessage = result["compilationMessage"];
 						var showExpctdOutput ='';
-
+						$('#test-case-details').find('tbody tr').remove();
 						$.each(result["compilationResult"], function (i, item) {
 							trHTML += "<tr>";
 							if (item.sample == true) {
-								testHTML = '<tr id="test-case" '+i+">";
+
+								testHTML += '<tr id=test-case'+i+'>';
 								trHTML += "<td>"+"TestCase " + (i + 1) + "(Sample)"+"</td>";
 								showExpctdOutput = '<td><a href="#" class="text-primary" data-toggle="modal" data-target="#testcase-modal">Details</a></td>';
-								testHTMl = '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
-								testHTML = '</tr>';
+								item.expectedOutput = item.expectedOutput.replace(/(?:\r\n|\r|\n)/g, '<br />');
+								item.codeOutput =  item.codeOutput.replace(/(?:\r\n|\r|\n)/g, '<br />');
+								testHTML += '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
+								testHTML += '</tr>';
 							}
 							if (item.sample == false) {
-								testHTML = '<tr id="test-case" '+i+">";
 								trHTML += "<td>"+"TestCase " + (i + 1)+"</td>";
 								showExpctdOutput = '<td>------</td><td>-----</td>';
-								testHTML = '</tr>';
+
 							}
 							if (item.isPassed == "Passed")
 								trHTML +=  '<td class="alert alert-success">' + item.isPassed+"</td>";
@@ -111,14 +113,15 @@ if (Authenticate::getUserType() != "STUDENT")
 						///$('#compile-message').html(compileMessage);
 						$(responseTable).append(trHTML);
 						$('#compilationError').find(".content").text(compilationMessage);
-						$(testCaseTable).append(testHTMl);
-
+						$(testCaseTable).append(testHTML);
                        if(compilationMessage === true){
                           $('#compilationError').removeClass('alert-danger').addClass('alert-success');
-						   $('#testcase-modal').modal('show')
+
+						   $('#testcase-modal').modal('show');
 					   }
                        else{
-                          $('#compilationError').removeClass('alert-success').addClass('alert-danger');
+						   $(testCaseTable).append(testHTMl);
+                           $('#compilationError').removeClass('alert-success').addClass('alert-danger');
                        }
 
 						$("#compile").removeAttr("disabled");
@@ -287,8 +290,11 @@ if (Authenticate::getUserType() != "STUDENT")
                         </div>
                         <div class="modal-body">
                            <table id="test-case-details">
-                              <th>Expected Output</th>
-                              <th>Code Output</th>
+                              <thead>
+							  	<tr>
+									<th>Expected Output</th>
+                              		<th>Code Output</th>
+							  </thead>
                               <tbody>
 
                               </tbody>
@@ -298,7 +304,6 @@ if (Authenticate::getUserType() != "STUDENT")
                   </div><!-- /.modal-dialog -->
                </div><!-- /.modal -->
 
-                     <!-- Button trigger modal -->
 
 			</div>
 		</section>

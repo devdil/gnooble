@@ -43,9 +43,6 @@
                         <?php echo $_SESSION['username']; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Scoreboard</a></li>
-                        <li class="divider"></li>
                         <li><a href="../../logout/">Logout</a></li>
                     </ul>
                 </li>

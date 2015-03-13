@@ -15,10 +15,11 @@ class Student
         $db =  DatabaseManager::getConnection();
         $query = "SELECT count(Scoreboard.UserId) as attempted,AuthoredBy,PracticeQuestions.questionId as questionId,questionName,difficulty,SUM(CASE WHEN Scoreboard.Status = 'Solved' THEN 1 ELSE 0 END) AS solved
                      FROM
-                          (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,difficulty
+                          (SELECT UserDetails.Name as AuthoredBY,questionId,questionName,difficulty,isPrivate
                            FROM UserDetails JOIN PracticeQuestions
                            ON UserDetails.UserId = PracticeQuestions.UserId )AS PracticeQuestions LEFT OUTER JOIN Scoreboard
                       ON Scoreboard.questionId = PracticeQuestions.questionId
+                      WHERE PracticeQuestions.isPrivate='N'
                       GROUP BY questionId";
 
         return  $db->select($query);
@@ -46,7 +47,7 @@ class Student
         );
         $result = $db->select($query,$bindings);
 
-        if ($result[0]['Status'] == 'Solved')
+        if ($result[0]['Status'] === 'Solved')
             return true;
         else
             return false;
@@ -152,14 +153,16 @@ class Student
     public static function insertIntoScoreboard($questionId,$userId,$startTime,$endTime)
     {
         $db = DatabaseManager::getConnection();
-        $queryString = 'INSERT INTO  Scoreboard(questionId,Status,UserId,startTime,endTime) VALUES(:qid,:status,:userid,:startTime,:endTime)';
+        $queryString = 'INSERT INTO  Scoreboard(questionId,Status,UserId,startTime,endTime,Time,Memory) VALUES(:qid,:status,:userid,:startTime,:endTime,:Time,:Memory)';
 
         $bindings = array(
             'qid' => $questionId,
             'status' => 'Attempted',
             'userid' => $userId,
             'startTime' => $startTime,
-            'endTime' => $endTime
+            'endTime' => $endTime,
+            'Time' => "NA",
+            'Memory' => "NA"
 
         );
         $db->insert($queryString,$bindings);

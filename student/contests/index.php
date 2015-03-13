@@ -26,8 +26,8 @@ $index = 0;
 <?php
 include '../../views/template_header.php';
 ?>
-			<h1 class="page-header">Practice</h1>
-			<p class="lead">Start working on your coding skills right away.</p>
+			<h1 class="page-header">Contests</h1>
+			<p class="lead">Challenge Yourself Right Away</p>
 
 
 
@@ -48,8 +48,8 @@ include '../../views/template_header.php';
 						<?php foreach($queryResult as $result): ?>
 							<tr>
 								<td><?php echo ++$index; ?></td>
-								<td><?php echo $result['cName']; ?></td>
-								<td><?php echo $result["cDesc"]; ?></td>
+								<td><?php echo html_entity_decode($result['cName']); ?></td>
+								<td><?php echo html_entity_decode($result["cDesc"]); ?></td>
 								<td><?php echo ($result["startDate"]);?></td>
 								<td><?php echo ($result["endDate"]);?></td>
 								<td><?php

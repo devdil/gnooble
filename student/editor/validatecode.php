@@ -84,7 +84,7 @@ $avgTime = $avgTime/$index;
 
 $compilerOutput["compilationMessage"] = $result->getCompileMessage();
 $compilerOutput["compilationResult"] = $jsonOutput;
-
+$isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
 if ($areAllPassed)
 {
 
@@ -94,7 +94,7 @@ if ($areAllPassed)
 	//get the time
 	date_default_timezone_set('Asia/Kolkata');
 	$solvedTime = date('Y-m-d H:i:s');
-	$isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
+
 
 	// if the user hasn't solved the question then update the scoreboard
 
@@ -106,9 +106,6 @@ else
 {
 
 	$status = 'All Test Cases Failed!';
-	Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Attempted",$sourceCode,'0000-00-00 00:00:00',"NA","NA");
-
-
 
 }
 

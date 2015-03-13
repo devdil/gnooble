@@ -18,7 +18,7 @@ $queryResult = Student::viewDetailsSourceCode($_GET['qid'],$_SESSION['userid']);
 
 ?>
 <?php
-include '../../views/template_header.php';
+include '../../../views/template_header.php';
 ?>
 			<h1 class="page-header">Source Code</h1>
 			<p class="lead">Here is the detailed description</p>
@@ -41,5 +41,5 @@ include '../../views/template_header.php';
 
 
 <?php
-include '../../views/template_footer.php';
+include '../../../views/template_footer.php';
 ?>

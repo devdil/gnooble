@@ -223,7 +223,7 @@ if (Authenticate::getUserType() != "ADMIN")
             dataType: "json",
             data: $('#form' + ($('#qType').val())).serialize(),
             success: function (data) {
-                alert("diljit");
+                //alert("diljit");
                 // this function will be trigger when our PHP successfully
                 // response (does not mean it will successfully add to database)
                 if (data["result"] == "QSuccess" || data["result"] == "QFailed") {

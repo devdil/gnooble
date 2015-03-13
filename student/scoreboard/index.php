@@ -69,11 +69,10 @@ include '../../views/template_header.php';
 				<table class="table">
 					<thead>
 					<tr>
-						<th>Sl no</th>
+						<th>Rank</th>
 						<th>Name</th>
 						<th>Status</th>
 						<th>Solved In(secs)</th>
-						<th>Chars</th>
 						<th>Time</th>
 						<th>Memory</th>
 
