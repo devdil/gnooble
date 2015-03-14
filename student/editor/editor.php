@@ -298,7 +298,7 @@ if (Authenticate::getUserType() != "STUDENT")
                            <h4 class="modal-title">Test Case Details</h4>
                         </div>
                         <div class="modal-body">
-                           <table id="test-case-details">
+                           <table id="test-case-details" class="table">
                               <thead>
 							  	<tr>
 									<th>Expected Output</th>
