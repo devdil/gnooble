@@ -3,15 +3,7 @@
 		include '../../classes/student.php';
 
 		//check whether the user is logged in or not,
-		if (!Authenticate::isLoggedIn())
-		{
-			Authenticate::logout();
-		}
-		//protects the student section
-		if (Authenticate::getUserType() != "STUDENT")
-		{
-			Authenticate::redirect();
-		}
+	Authenticate::preventUnauthorisedLogin();
 
 		$queryResult = Student::viewPracticeQuestions();
 
