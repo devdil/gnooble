@@ -191,14 +191,11 @@ if (Authenticate::getUserType() != "STUDENT")
 
 <div class="container-fluid">
 	<div class="row">
-		<section class="col-sm-3 col-md-2 sidebar">
-			<ul class="nav nav-sidebar">
+		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
 				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li class="active"><a href="/student/practice/">Practice</a></li>
-				<li><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/tutorials/">Tutorials</a></li>
-				<li><a href="/student/algorithms/">Algorithms and Data Structures</a></li>
-				<li><a href="/student/algorithms/">Training</a></li>
+				<li ><a href="/student/practice/">Practice</a></li>
+				<li ><a href="/student/submissions/">MySubmissions</a></li>
+				<li><a href="/student/contests/">Contests</a></li>
 			</ul>
 
 		</section>

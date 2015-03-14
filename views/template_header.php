@@ -39,14 +39,11 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <?php echo $_SESSION['username']; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Scoreboard</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/logout/">Logout</a></li>
+                        <li><a href="logout/">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -60,7 +57,6 @@
                 <li ><a href="/student/practice/">Practice</a></li>
                 <li ><a href="/student/submissions/">MySubmissions</a></li>
                 <li><a href="/student/contests/">Contests</a></li>
-                <li><a href="/student/submissions/">Scoreboard</a></li>
             </ul>
 
         </section>

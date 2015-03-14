@@ -37,11 +37,6 @@ include '../views/template_header.php';
 
 					<p class="dept meta"><?php echo $queryUserDetails[0]['EmailId'];?></p>
 
-					<p class="contact meta"><strong>Rank: </strong>10000</p>
-
-					<p class="meta addr"><strong>Questions Solved: </strong><?php if (isset($queryResult[0]['questionsSolved'])) echo $queryResult[0]['questionsSolved']?></p>
-
-					<p class="meta streak"><strong>Highest Streak: </strong>8 days</p>
 
 				<?php endif; ?>
 
