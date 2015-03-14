@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 
 	   <form action="/register/" method="post" class="form-horizontal col-xs-5 center-block register-form pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
+		  
 		  <h3>Register with an account. <br><small>Its free!</small></h3>
             <?php if(isset($status) && isset($_POST['submit'])): ?>
                 <div class="alert alert-danger alert-dismissable">
@@ -98,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		    <label for="input-email" class="col-sm-4 control-label">Email</label>
 		    <div class="col-sm-8">
 		      <input required type="email" class="form-control" name="emailid" id="input-email" placeholder="Your email address?">
+			  
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -135,6 +137,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))
 		    <div class="col-sm-offset-4 col-sm-8">
 		      <button type="submit" name="submit" class="btn btn-success pull-right">Register</button>
 		    </div>
+			<a style="padding-left:20px;" href="../login/" class="link pull-left">I already have an account..</a>
+			
 		  </div>
 
 		</form>

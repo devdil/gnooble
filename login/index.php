@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
         <!-- action="/login/-->
 		<form method="post" action="/login/" class="clearfix col-xs-4 login-form center-block pull-none entry-form">
 		  <h1 class="page-header">Gnooble</h1>
+		  <a href="../register" class="link pull-right">Create a new account</a>
 		  <h3>Login</h3>
             <?php if (!empty($status) && isset($status)): ?>
                 <div class="alert alert-danger alert-dismissable">
@@ -77,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 		  </div>
 		  
 		  <button type="submit" name="login" class="btn btn-success pull-right">Submit</button>
+		  
 		</form>
 	</div>
 	
