@@ -82,6 +82,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					},
 					dataType: "json",
 					success:function(result){
+						if(result["compilationMessage"] === true) {
 						var trHTML = '',testHTML = '',
                             testCaseTable = $('#test-case-details').find('tbody'),
 							compilationMessage = result["compilationMessage"];
@@ -95,13 +96,16 @@ if (Authenticate::getUserType() != "STUDENT")
 								trHTML += "<td>"+"TestCase " + (i + 1) + "(Sample)"+"</td>";
 								showExpctdOutput = '<td><a href="#" class="text-primary" data-toggle="modal" data-target="#testcase-modal">Details</a></td>';
 								item.expectedOutput = item.expectedOutput.replace(/(?:\r\n|\r|\n)/g, '<br />');
-								item.codeOutput =  item.codeOutput.replace(/(?:\r\n|\r|\n)/g, '<br />');
-								testHTML += '<td>' + item.expectedOutput + '</td><td>' + item.codeOutput + '</td>';
+								testHTML += '<td>' + item.expectedOutput + '</td>';
+								if (item.codeOutput!=null) {
+									item.codeOutput = item.codeOutput.replace(/(?:\r\n|\r|\n)/g, '<br />');
+									testHTML += '<td>' + item.codeOutput + '</td>';
+								}
 								testHTML += '</tr>';
 							}
 							if (item.sample == false) {
 								trHTML += "<td>"+"TestCase " + (i + 1)+"</td>";
-								showExpctdOutput = '<td>------</td><td>-----</td>';
+								showExpctdOutput = '<td>------</td>';
 
 							}
 							if (item.isPassed == "Passed")
@@ -111,27 +115,35 @@ if (Authenticate::getUserType() != "STUDENT")
 							trHTML += showExpctdOutput+'<td >' + item.time + '</td><td>' + item.memory + '</td><td>' + item.stderror + '</td><td>' + item.message + '</td></tr>';
 						});
 						///$('#compile-message').html(compileMessage);
-						$(responseTable).append(trHTML);
-						$('#compilationError').find(".content").text(compilationMessage);
-						$(testCaseTable).append(testHTML);
-                       if(compilationMessage === true){
-                          $('#compilationError').removeClass('alert-danger').addClass('alert-success');
 
+
+                           $('#compilationError').removeClass('alert-danger').addClass('alert-success');
+						   $(responseTable).append(trHTML);
+						   $('#compilationError').find(".content").text(compilationMessage);
+						   $(testCaseTable).append(testHTML);
+						   $(responseTable).show();
+						   $('#output').show();
+						   responseTable.scrollIntoView();
 						   $('#testcase-modal').modal('show');
+						   $('#compilationError').show();
 					   }
                        else{
-						   $(testCaseTable).append(testHTMl);
+
                            $('#compilationError').removeClass('alert-success').addClass('alert-danger');
+						   $('#compilationError').find(".content").text(result["compilationMessage"]);
+						   $('#compilationError').show();
                        }
 
 						$("#compile").removeAttr("disabled");
-						$('#output').show();
-						$(responseTable).show();
-					    responseTable.scrollIntoView();
+						$("#loading").hide(); //hide loading here
+						$("#status-compiling").hide();
+
+
 					},
 					complete: function(){
 						$("#loading").hide(); //hide loading here
 						$("#status-compiling").hide();
+						$("#compile").removeAttr("disabled");
 					},
 					error: function (msg) {
 						console.log(msg);
@@ -365,39 +377,24 @@ if (Authenticate::getUserType() != "STUDENT")
 		editor.getSession().setMode("ace/mode/"+ace_lang);
 
 	}
-</script>
-<script>
-	// AJAX Code Here
-	$('#submit').click(function() {
-		// Okay, we need to get value from textbox name and score
-		var txtname = $('#name').val();
-		var txtvalue = $('#score').val(); // silly me
 
-		// When user click on the add button
+	editor.getSession().on('change', function(e) {
+		var sourcecode =  editor.getValue();
+
+		// When user click on the add buttoni
 		// Let make a AJAX request
 		$.ajax({
-			url: 'ajax.php',
+			url : 'updateCode.php',
 			dataType: 'json',
 			type: 'POST', // making a POST request
 			data: {
-				name: txtname,
-				score: txtvalue
+				sourceCode : sourcecode
 			},
 
 			success: function(data) {
-				// this function will be trigger when our PHP successfully
-				// response (does not mean it will successfully add to database)
-
-				// select the table body
-				var row = "<tr>";
-				row += "<td>" + data.id + "</td>";
-				row += "<td>" + data.name + "</td>";
-				row += "<td>" + data.score + "</td>";
-				row += "</tr>";
-
-				$('#list tbody').prepend(row);
+				alert(data);
 			}
-		})
+		});
 	});
 </script>
 </body>

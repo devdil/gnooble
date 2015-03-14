@@ -254,6 +254,17 @@ class Student
 
     }
 
+    public static function updateSourceCode($sourceCode)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $queryString = 'UPDATE Scoreboard SET SourceCode=:sourceCode WHERE questionID=:qid and UserId=:userId';
+        $bindings = array(
+            'sourceCode'=> $sourceCode
+        );
+
+        $db->insert($queryString,$bindings);
+    }
+
 
 
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2015 at 05:03 PM
+-- Generation Time: Mar 14, 2015 at 08:58 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -34,14 +34,19 @@ CREATE TABLE IF NOT EXISTS `Challenge` (
   `endDate` datetime NOT NULL,
   `Type` varchar(100) NOT NULL,
   `userId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Challenge`
 --
 
 INSERT INTO `Challenge` (`cId`, `cName`, `cDesc`, `startDate`, `endDate`, `Type`, `userId`) VALUES
-(13, 'ram', 'ram', '2015-03-05 14:30:59', '2015-03-07 12:25:26', 'cgf', 22);
+(13, 'ram', 'ram', '2015-03-05 14:30:33', '2015-03-07 12:25:26', 'cgf', 22),
+(14, 'lalala', '&lt;p&gt;lll&lt;/p&gt;', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Contest', 22),
+(15, 'lop', '&lt;p&gt;lop&lt;/p&gt;', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Contest', 22),
+(16, 'aa', '&lt;p&gt;aa&lt;/p&gt;', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Contest', 22),
+(17, 'diljit', '&lt;p&gt;diljit&lt;/p&gt;', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Contest', 22),
+(18, 'lop', '&lt;p&gt;lop&lt;/p&gt;', '2015-03-08 12:17:00', '2015-03-08 12:17:00', 'Contest', 22);
 
 -- --------------------------------------------------------
 
@@ -72,23 +77,24 @@ CREATE TABLE IF NOT EXISTS `PracticeQuestions` (
   `questionName` text NOT NULL,
   `questionStatement` longtext NOT NULL,
   `difficulty` int(11) NOT NULL,
-  `UserId` int(11) NOT NULL
+  `UserId` int(11) NOT NULL,
+  `isPrivate` varchar(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `PracticeQuestions`
 --
 
-INSERT INTO `PracticeQuestions` (`questionId`, `questionName`, `questionStatement`, `difficulty`, `UserId`) VALUES
-(31, 'EasyAsPie', '&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;Alice and Bob are great friends.Alice has recently been introducted to computer Programming and is eager to introduce Bob the fun of programming.To make things interesting,Alice decided to teach BOB programming in a different way.Alice wants BOB to write a program which would&lt;strong&gt;&lt;em&gt; increment a number given by Alice and print them back on the screen.&lt;/em&gt;&lt;/strong&gt;Its so simple as it could get.However BOB is so lazy to write a program now.So ,he wants you to write a program for him.Help Bob to write a program.The format in which Alice will be giving numbers to BOB will be in the following way.&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;First Line&lt;/strong&gt; will be an integer &lt;strong&gt;''T''&lt;/strong&gt; representing the sets of &amp;nbsp;number Alice will be giving.(TestCases)&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Second Line&lt;/strong&gt; will be an integer &lt;strong&gt;''N''&lt;/strong&gt; representing the numbers of size N followed by&lt;strong&gt; 1...N numbers&lt;/strong&gt; each number seperated by a new line.&lt;/p&gt;\r\n&lt;p&gt;Each number ''I'' may be anywhere between&lt;strong&gt; 1&amp;lt;= I &amp;lt;= 1000&lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Note : Make sure you print a newline after you increment and print the number on the screen.&lt;/strong&gt;&lt;/p&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Input Format&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;3&lt;/p&gt;\r\n&lt;p&gt;1&lt;/p&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;5&lt;/p&gt;\r\n&lt;p&gt;1&lt;/p&gt;\r\n&lt;p&gt;9&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Output Format&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;3&lt;/p&gt;\r\n&lt;p&gt;6&lt;/p&gt;\r\n&lt;p&gt;10&lt;/p&gt;\r\n&lt;h3&gt;&amp;nbsp;&lt;/h3&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Explanation :&lt;/strong&gt;&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2 is the number of the testcases.&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;First test case: &lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;3 is the size of the numbers which Alice will be giving followed by 3 numbers. which are 1 ,2 and 5 respectively.&lt;/p&gt;\r\n&lt;p&gt;According to the Alice,the expected output will be 2,3 and 6 since 2=(1+1),3=(2+1) and 6 =(5+!1).&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Second Test Case :&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;1 is the size of the numbers which Alice will be giving followed by 1 number. which is &amp;nbsp;10&lt;/p&gt;\r\n&lt;p&gt;Since 10 = (9+1).&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', 20, 22),
-(32, 'Hello World', '&lt;h4&gt;Write a program that prints &quot;Hello World!&quot; &amp;nbsp;N times where ''N'' is an integer that lies between 1&amp;lt;=N&amp;lt;=1000.Each &quot;Hello World!&quot; must be seperated by a new Line&lt;/h4&gt;\r\n&lt;h4&gt;First Line will be an integer n where 1&amp;lt;= N and &amp;lt;=1000,specifiying the number of times &quot;Hello World!&quot; has to be printed!&lt;/h4&gt;\r\n&lt;h4&gt;&amp;nbsp;&lt;/h4&gt;\r\n&lt;h2&gt;&lt;strong&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Input Format&lt;/span&gt;&lt;/strong&gt;&lt;/h2&gt;\r\n&lt;h4&gt;5&lt;/h4&gt;\r\n&lt;h2&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Output Format&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello Wordl!&lt;/h4&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;h2&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Explanation :&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\r\n&lt;h4&gt;From the given input 5 is the number of times to be printed,&quot;Hello World!&quot; has been printed 5 times each seperated by new Line.&lt;/h4&gt;\r\n&lt;h4&gt;&amp;nbsp;&lt;/h4&gt;', 20, 22),
-(37, 'oLLAA', '&lt;h2&gt;&lt;strong&gt;OLLAAAA&lt;/strong&gt;&lt;/h2&gt;', 20, 22),
-(38, 'pola', '&lt;p&gt;pola&lt;/p&gt;', 20, 22),
-(39, 'aaa', '&lt;p&gt;aaaaa&lt;/p&gt;', 20, 22),
-(40, 'lop', '&lt;p&gt;lop&lt;/p&gt;', 20, 22),
-(41, 'aa', '&lt;p&gt;aa&lt;/p&gt;', 20, 22),
-(42, 'potla', '&lt;p&gt;potla&lt;/p&gt;', 20, 22),
-(43, 'ram', '&lt;p&gt;ram&lt;/p&gt;', 20, 22);
+INSERT INTO `PracticeQuestions` (`questionId`, `questionName`, `questionStatement`, `difficulty`, `UserId`, `isPrivate`) VALUES
+(31, 'EasyAsPie', '&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;Alice and Bob are great friends.Alice has recently been introducted to computer Programming and is eager to introduce Bob the fun of programming.To make things interesting,Alice decided to teach BOB programming in a different way.Alice wants BOB to write a program which would&lt;strong&gt;&lt;em&gt; increment a number given by Alice and print them back on the screen.&lt;/em&gt;&lt;/strong&gt;Its so simple as it could get.However BOB is so lazy to write a program now.So ,he wants you to write a program for him.Help Bob to write a program.The format in which Alice will be giving numbers to BOB will be in the following way.&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;First Line&lt;/strong&gt; will be an integer &lt;strong&gt;''T''&lt;/strong&gt; representing the sets of &amp;nbsp;number Alice will be giving.(TestCases)&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Second Line&lt;/strong&gt; will be an integer &lt;strong&gt;''N''&lt;/strong&gt; representing the numbers of size N followed by&lt;strong&gt; 1...N numbers&lt;/strong&gt; each number seperated by a new line.&lt;/p&gt;\r\n&lt;p&gt;Each number ''I'' may be anywhere between&lt;strong&gt; 1&amp;lt;= I &amp;lt;= 1000&lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Note : Make sure you print a newline after you increment and print the number on the screen.&lt;/strong&gt;&lt;/p&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Input Format&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;3&lt;/p&gt;\r\n&lt;p&gt;1&lt;/p&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;5&lt;/p&gt;\r\n&lt;p&gt;1&lt;/p&gt;\r\n&lt;p&gt;9&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Output Format&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2&lt;/p&gt;\r\n&lt;p&gt;3&lt;/p&gt;\r\n&lt;p&gt;6&lt;/p&gt;\r\n&lt;p&gt;10&lt;/p&gt;\r\n&lt;h3&gt;&amp;nbsp;&lt;/h3&gt;\r\n&lt;h3&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Explanation :&lt;/strong&gt;&lt;/span&gt;&lt;/h3&gt;\r\n&lt;p&gt;2 is the number of the testcases.&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;First test case: &lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;3 is the size of the numbers which Alice will be giving followed by 3 numbers. which are 1 ,2 and 5 respectively.&lt;/p&gt;\r\n&lt;p&gt;According to the Alice,the expected output will be 2,3 and 6 since 2=(1+1),3=(2+1) and 6 =(5+!1).&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Second Test Case :&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\r\n&lt;p&gt;1 is the size of the numbers which Alice will be giving followed by 1 number. which is &amp;nbsp;10&lt;/p&gt;\r\n&lt;p&gt;Since 10 = (9+1).&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;', 20, 22, 'N'),
+(32, 'Hello World', '&lt;h4&gt;Write a program that prints &quot;Hello World!&quot; &amp;nbsp;N times where ''N'' is an integer that lies between 1&amp;lt;=N&amp;lt;=1000.Each &quot;Hello World!&quot; must be seperated by a new Line&lt;/h4&gt;\r\n&lt;h4&gt;First Line will be an integer n where 1&amp;lt;= N and &amp;lt;=1000,specifiying the number of times &quot;Hello World!&quot; has to be printed!&lt;/h4&gt;\r\n&lt;h4&gt;&amp;nbsp;&lt;/h4&gt;\r\n&lt;h2&gt;&lt;strong&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Input Format&lt;/span&gt;&lt;/strong&gt;&lt;/h2&gt;\r\n&lt;h4&gt;5&lt;/h4&gt;\r\n&lt;h2&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Output Format&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello World!&lt;/h4&gt;\r\n&lt;h4&gt;Hello Wordl!&lt;/h4&gt;\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n&lt;h2&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;strong&gt;Explanation :&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\r\n&lt;h4&gt;From the given input 5 is the number of times to be printed,&quot;Hello World!&quot; has been printed 5 times each seperated by new Line.&lt;/h4&gt;\r\n&lt;h4&gt;&amp;nbsp;&lt;/h4&gt;', 20, 22, 'N'),
+(37, 'oLLAA', '&lt;h2&gt;&lt;strong&gt;OLLAAAA&lt;/strong&gt;&lt;/h2&gt;', 20, 22, 'Y'),
+(38, 'pola', '&lt;p&gt;pola&lt;/p&gt;', 20, 22, 'Y'),
+(39, 'aaa', '&lt;p&gt;aaaaa&lt;/p&gt;', 20, 22, 'Y'),
+(40, 'lop', '&lt;p&gt;lop&lt;/p&gt;', 20, 22, 'Y'),
+(41, 'aa', '&lt;p&gt;aa&lt;/p&gt;', 20, 22, 'Y'),
+(42, 'potla', '&lt;p&gt;potla&lt;/p&gt;', 20, 22, 'Y'),
+(43, 'ram', '&lt;p&gt;ram&lt;/p&gt;', 20, 22, 'Y');
 
 -- --------------------------------------------------------
 
@@ -113,9 +119,9 @@ CREATE TABLE IF NOT EXISTS `Scoreboard` (
 --
 
 INSERT INTO `Scoreboard` (`questionId`, `Status`, `SourceCode`, `UserId`, `startTime`, `endTime`, `Time`, `Memory`, `charsInCode`) VALUES
-(31, 'Attempted', '#include<stdio.h>\n int main()\n{\n//Your Code Here\n\nprint("Hello World!\\n\\n\\n");\n return 0;\n} ', 1, '2015-02-07 19:17:38', '0000-00-00 00:00:00', 'NA', 'NA', NULL),
+(31, 'Attempted', '#Your Solution Here\nx = int(raw_input())\nfor x in range(x):\n    print "Hello World!\\n"', 1, '2015-02-07 19:17:38', '0000-00-00 00:00:00', 'NA', 'NA', NULL),
 (31, 'Attempted', NULL, 23, '2015-02-08 18:49:29', '0000-00-00 00:00:00', '', '', NULL),
-(32, 'Solved', '#Your Solution Here\nprint "Hello World!"*10;', 1, '2015-02-09 14:58:34', '2015-03-07 21:31:37', '0.01', '3964000', NULL),
+(32, 'Solved', '#include<stdio.h>\nint main()\n{\n//Your Code Here\n\n printf("Hello World\\nHello World\\nHello World\\n");\n return 0;\n}  ', 1, '2015-02-09 14:58:34', '2015-03-12 22:12:07', '0', '9360000', NULL),
 (32, 'Attempted', NULL, 25, '2015-02-10 21:33:45', '0000-00-00 00:00:00', '', '', NULL),
 (32, 'Attempted', NULL, 26, '2015-02-10 22:36:14', '0000-00-00 00:00:00', '', '', NULL),
 (32, 'Attempted', NULL, 27, '2015-02-13 14:34:31', '0000-00-00 00:00:00', '', '', NULL),
@@ -135,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `TestCases` (
   `inputCase` longtext NOT NULL,
   `outputCase` longtext NOT NULL,
   `isSample` char(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TestCases`
@@ -143,16 +149,17 @@ CREATE TABLE IF NOT EXISTS `TestCases` (
 
 INSERT INTO `TestCases` (`qid`, `tid`, `inputCase`, `outputCase`, `isSample`) VALUES
 (31, 9, '2\n3\n1\n2\n5\n1\n9', '2\n3\n6\n10', 'Y'),
-(31, 10, '1\r\n3\r\n1\r\n2\r\n3', '2\r\n3\r\n4', 'N'),
-(31, 11, '1\r\n5\r\n1\r\n2\r\n3\r\n4\r\n5', '2\r\n3\r\n4\r\n5\r\n6', 'N'),
-(32, 12, '11', 'Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!', 'Y'),
+(31, 10, '2\n3\n1\n2\n5\n1\n9', '2\n3\n6\n10', 'N'),
+(31, 11, '2\n3\n1\n2\n5\n1\n9', '2\n3\n6\n10', 'N'),
+(32, 12, '3', 'Hello World\nHello World\nHello World', 'Y'),
 (37, 17, '1\n2\n3', '1\n2\n3', 'Y'),
 (38, 18, '1\n2\n3', '1\n2\n3', 'Y'),
 (39, 19, '12345', '12345', 'Y'),
 (40, 20, '123', '123', 'Y'),
 (41, 21, 'aa', 'aa', 'Y'),
 (42, 22, 'potal', 'potal', 'Y'),
-(43, 23, 'ram', 'ram', 'Y');
+(43, 23, 'ram', 'ram', 'Y'),
+(32, 24, '5', 'Hello World\nHello World\nHello World\nHello World\nHello World\n', 'N');
 
 -- --------------------------------------------------------
 
@@ -231,7 +238,7 @@ ALTER TABLE `UserDetails`
 -- AUTO_INCREMENT for table `Challenge`
 --
 ALTER TABLE `Challenge`
-MODIFY `cId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `cId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `PracticeQuestions`
 --
@@ -241,7 +248,7 @@ MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 -- AUTO_INCREMENT for table `TestCases`
 --
 ALTER TABLE `TestCases`
-MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `UserDetails`
 --

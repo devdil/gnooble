@@ -10,7 +10,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() == "ADMIN")
+if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
