@@ -17,9 +17,17 @@ class Admin
         );
         $isInsertSuccessful = $db->insert($queryString,$bindings);
         $questionId = $db->getLastInsertId();
-        $isTestCaseSuccessful = self::addTestCases($questionId,$inputCases,$outputCases,'Y');
+        $isTestCaseSuccessfulFlag=false;
+        for($index=0;$index<count($inputCases);$index++)
+        {
+            $isTestCaseSuccessful = self::addTestCases($questionId,$inputCases[$index],$outputCases[$index],'Y');
+            if($isInsertSuccessful)
+                $isTestCaseSuccessfulFlag = true;
 
-        return $isInsertSuccessful && $isTestCaseSuccessful;
+
+        }
+
+        return $isInsertSuccessful && $isTestCaseSuccessfulFlag;
 
 
     }
@@ -88,7 +96,6 @@ class Admin
     {
         $db = DatabaseManager::getConnection();
         $queryString = 'INSERT INTO TestCases(qId,inputCase,outputCase,isSample) VALUES(:qId,:inputCase,:outputCase,:isSample)';
-
         $bindings = array(
 
             'qId' => $questionId,
@@ -96,18 +103,17 @@ class Admin
             'outputCase' => $outputCases,
              'isSample' => $isSample
         );
-
         return $db->insert($queryString,$bindings);
     }
 
-    public static function updateTestCase($questionId,$inputCases,$outputCases)
+    public static function updateTestCase($testCaseId,$inputCases,$outputCases,$isSample)
     {
         $db = DatabaseManager::getConnection();
-        $queryString = 'UPDATE TestCases SET inputCase=:inputCase,outputCase=:outputCase WHERE qid=:questionId';
+        $queryString = 'UPDATE TestCases SET inputCase=:inputCase,outputCase=:outputCase WHERE tid=:testCaseId';
 
         $bindings = array(
 
-            'questionId' => $questionId,
+            'testCaseId' => $testCaseId,
             'inputCase' => $inputCases,
             'outputCase' => $outputCases
         );
@@ -178,7 +184,7 @@ class Admin
         return $db->select($queryString,$bindings);
 
     }
-    public static function updateQuestionByQuestionId($questionId,$questionName,$questionStatement,$inputCase,$outputCase,$difficulty)
+    public static function updateQuestionByQuestionId($questionId,$questionName,$questionStatement,$inputCase,$outputCase,$difficulty,$testCaseIds)
     {
 
         $db = DatabaseManager::getConnection();
@@ -192,10 +198,17 @@ class Admin
 
         );
         $isUpdateSuccessful = $db->insert($queryString,$bindings);
-        if ($isUpdateSuccessful)
-         $isTestCaseUpdateSuccessful = self::updateTestCase($questionId,$inputCase,$outputCase);
+        $isTestCaseSuccessfulFlag=false;
+        for($index=0;$index<count($testCaseIds);$index++)
+        {
+            $isTestCaseSuccessful = self::updateTestCase($testCaseIds[$index],$inputCase[$index],$outputCase[$index],'Y');
+            if($isTestCaseSuccessful)
+                $isTestCaseSuccessfulFlag = true;
 
-        return $isUpdateSuccessful && $isTestCaseUpdateSuccessful;
+
+        }
+
+        return $isUpdateSuccessful && $isTestCaseSuccessfulFlag;
 
 
     }
@@ -212,5 +225,69 @@ class Admin
 
         return $db->select($queryString,$bindings);
 
+    }
+
+    public static function viewQuestionsByChallengeId($challengeId)
+    {
+        $db = DatabaseManager::getConnection();
+        $queryString = "SELECT *
+                        FROM PracticeQuestions JOIN ChallengeQuestions
+                        ON PracticeQuestions.questionId=ChallengeQuestions.questionId
+                        WHERE ChallengeQuestions.cId=:challengeId";
+
+        $bindings = array(
+
+            'challengeId' => $challengeId
+        );
+
+        return $db->select($queryString,$bindings);
+    }
+    public static function viewScoreboardBySourceCodeLength($questionId)
+    {
+
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.charsInCode as lengthSourceCode
+                  FROM Scoreboard join UserDetails
+                  ON Scoreboard.UserId = UserDetails.UserId
+                  where Scoreboard.questionId=:qid
+                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),lengthSourceCode ASC
+                  ';
+
+        $bindings = array('qid' => $questionId);
+
+        return $db->select($query,$bindings);
+
+    }
+    public static function viewScoreboard($questionId)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
+                  FROM Scoreboard join UserDetails
+                  ON Scoreboard.UserId = UserDetails.UserId
+                  where Scoreboard.questionId=:qid
+                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),solvedIn ASC
+                  ';
+
+        $bindings = array('qid' => $questionId);
+
+        return $db->select($query,$bindings);
+    }
+    public static function UpdateChallengeInfo($challengeId,$challengeName,$challengeStatement,$startDate,$endDate,$type)
+    {
+
+        $db = DatabaseManager::getConnection();
+        $queryString = 'UPDATE Challenge SET cName=:cName,cDesc=:cDesc,startDate=:startDate,endDate=:endDate,Type=:type WHERE cId=:challengeId';
+
+        $bindings = array(
+            'cName' => $challengeName,
+            'cDesc' => $challengeStatement,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'challengeId'=> $challengeId,
+            'type'=> $type
+
+        );
+        $isUpdateSuccessful = $db->insert($queryString,$bindings);
+        return $isUpdateSuccessful;
     }
 }

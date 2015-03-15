@@ -82,15 +82,10 @@ $testCaseCount = count($testCases);
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="../">Home</a></li>
-                <li class="active"><a href="../">Practice Questions <span class="sr-only">(current)</span></a></li>
+                <li><a href="../../">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="../../question/">Practice Questions</a></li>
                 <li><a href="../../submissions/">My Submissions</a></li>
-                <li><a href="../../reports/">Reports</a></li>
-                <li><a href="../../assignments/">Assignments</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Add Tutorials</a></li>
-                <li><a href="">Notifications</a></li>
+                <li><a href="../../Challenges/">Challenges</a></li>
             </ul>
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -100,7 +95,6 @@ $testCaseCount = count($testCases);
                 <label>Select Question Type</label>
                 <select  id="qType" name="qType">
                     <option value="0">Practice Question</option>
-                    <option value="1">Challenge</option>
                 </select>
                 <form class="question-form form-horizontal" id="question-form">
                  <?php if(isset($queryResult[0]["questionName"])): ?>
@@ -146,8 +140,8 @@ $testCaseCount = count($testCases);
                                         <th>Expected Output</th>
                                     </tr>
                                     <tr>
-                                        <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"><?php echo $testCase["inputCase"];?></textarea></td>
-                                        <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"><?php echo $testCase["outputCase"];?></textarea></td>
+                                        <td><textarea class="form-control" id="input-expected" name='input-inputTestCase-<?php echo $testCase['tid'];    ?>' ><?php echo $testCase["inputCase"];?></textarea></td>
+                                        <td><textarea class="form-control" id="output-expected" name='output-outputTestCase-<?php echo $testCase['tid']; ?>' ><?php echo $testCase["outputCase"];?></textarea></td>
                                     </tr>
                                 </table>
                                 <?php $counter++; ?>
@@ -232,7 +226,7 @@ $testCaseCount = count($testCases);
                 crossDomain: true,
                 type: 'POST', // making a POST request
                 dataType: "json",
-                data: $('#question-form' + ($('#qType').val())).serialize(),
+                data: $("#question-form").serialize(),
                 success: function (data) {
                     // this function will be trigger when our PHP successfully
                     // response (does not mean it will successfully add to database)

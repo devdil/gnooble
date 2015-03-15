@@ -8,8 +8,6 @@ include '../classes/student.php';
  $queryResult = Student::getQuestionsSolved($_SESSION['userid']);
  $queryUserDetails = Student::getUserDetails($_SESSION['userid']);
 
-?>
-<?php
 include '../views/template_header.php';
 ?>
 		  <h1 class="page-header">Home</h1>
@@ -25,7 +23,7 @@ include '../views/template_header.php';
 					<h2><strong><?php echo $queryUserDetails[0]['Name'];?></strong></h2>
 
 					<p class="dept meta"><?php echo $queryUserDetails[0]['Department'];?></p>
-
+					<p class="text-primary">Unique Student ID: <?php echo $_SESSION['userid']; ?></p>
 					<p class="dept meta"><?php echo $queryUserDetails[0]['EmailId'];?></p>
 
 

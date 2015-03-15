@@ -14,6 +14,7 @@ if (Authenticate::getUserType() != "STUDENT")
 //check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
 //retrieve the question from the database
 		$queryResult = Student::getQuestion($_GET['id']);
+        //$isSourceCodeAvailable = Student::getSourceCode($_SESSION['userid'],$_GET['id']);
 
 		date_default_timezone_set('Asia/Kolkata');
 		$attemptedTime = date('Y-m-d H:i:s');
@@ -25,7 +26,7 @@ if (Authenticate::getUserType() != "STUDENT")
 			Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid'],$attemptedTime,$endTime,"NA","NA");
 		}
 
-?>
+?>s
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +74,7 @@ if (Authenticate::getUserType() != "STUDENT")
 				var sourcecode = editor.getValue(),language = $('#language').val();
 				var type = $('#qtype').val();
 				$.ajax({
-					url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id'];?>",
+					url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id']."&type=".$_GET['type'];?>",
 					type : "POST",
 					crossDomain: true,
 					data:{ sourcecode: sourcecode,
@@ -242,8 +243,6 @@ if (Authenticate::getUserType() != "STUDENT")
 					<div class="col-sm-5 pull-left"><label for="language">Select Language:</label>
 					<select name="language" id="language" onchange="changeLanguage()">
 						<option value="1">C</option>
-						<option value="5">Python</option>
-						<option value="3">Java</option>
 					</select>
 						<?php if(isset($_GET['type'])): ?>
 						<input type="hidden" id="qtype" name="type" value="<?php echo $_GET['type']; ?>">
@@ -298,7 +297,7 @@ if (Authenticate::getUserType() != "STUDENT")
                            <h4 class="modal-title">Test Case Details</h4>
                         </div>
                         <div class="modal-body">
-                           <table id="test-case-details" class="table">
+                           <table id="test-case-details" class="table table-bordered">
                               <thead>
 							  	<tr>
 									<th>Expected Output</th>
@@ -345,7 +344,7 @@ if (Authenticate::getUserType() != "STUDENT")
        });
     }
 	editor.setValue("#include<stdio.h>\n int main()\n{\n//Your Code Here\n\n\n return 0;\n} ");
-	function changeLanguage()
+	/*function changeLanguage()
 	{
 		var ace_lang;
 		var language = document.getElementById("language").value;
@@ -373,26 +372,9 @@ if (Authenticate::getUserType() != "STUDENT")
 		//alert(ace_lang);
 		editor.getSession().setMode("ace/mode/"+ace_lang);
 
-	}
+	}*/
 
-	editor.getSession().on('change', function(e) {
-		var sourcecode =  editor.getValue();
 
-		// When user click on the add buttoni
-		// Let make a AJAX request
-		$.ajax({
-			url : 'updateCode.php',
-			dataType: 'json',
-			type: 'POST', // making a POST request
-			data: {
-				sourceCode : sourcecode
-			},
-
-			success: function(data) {
-				alert(data);
-			}
-		});
-	});
 </script>
 </body>
 </html>

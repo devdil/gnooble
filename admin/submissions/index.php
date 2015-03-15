@@ -67,15 +67,10 @@ $queryResult = Student::viewPracticeQuestions();
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="../">Home</a></li>
-                <li><a href="../question/">Practice Questions <span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="/">My Submissions</a></li>
-                <li><a href="../reports/">Reports</a></li>
-                <li><a href="../assignments/">Assignments</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Add Tutorials</a></li>
-                <li><a href="">Notifications</a></li>
+                <li><a href="../">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="../question/">Practice Questions</a></li>
+                <li><a href="../submissions/">My Submissions</a></li>
+                <li><a href="../Challenges/">Challenges</a></li>
             </ul>
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

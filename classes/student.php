@@ -103,7 +103,7 @@ class Student
     public static function viewScoreboard($questionId)
     {
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.UserId,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
@@ -172,7 +172,7 @@ class Student
     public static function getUserDetails($userId)
     {
         $db = DatabaseManager::getConnection();
-        $queryString = 'SELECT Name,EmailId,Department,ContactNumber FROM UserDetails WHERE UserId=:userId';
+        $queryString = 'SELECT UserId,Name,EmailId,Department,ContactNumber FROM UserDetails WHERE UserId=:userId';
 
         $bindings = array(
             'userId' => $userId
@@ -241,11 +241,11 @@ class Student
     {
 
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.charsInCode as lengthSourceCode
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.UserId,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.charsInCode as lengthSourceCode
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
-                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),lengthSourceCode ASC,solvedIn ASC
+                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),lengthSourceCode ASC
                   ';
 
         $bindings = array('qid' => $questionId);
@@ -263,6 +263,23 @@ class Student
         );
 
         $db->insert($queryString,$bindings);
+    }
+
+    public static function getSourceCode($userId,$questionId)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $query = 'SELECT SourceCode
+                  FROM Scoreboard
+                  WHERE questionId=:questionId AND UserId=:userId
+                  ';
+
+        $bindings = array(
+            'questionId' => $questionId,
+            'userId' => $userId
+                );
+
+        return $db->select($query,$bindings);
+
     }
 
 

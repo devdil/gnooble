@@ -19,6 +19,7 @@ if (!empty($_POST['sourcecode']))
 
 	$sourceCode = ($_POST['sourcecode']);
 	$language = $_POST['language'];
+	$lengthSourceCode = strlen($sourceCode);
 	//retrieve the number of test cases
 	$queryResult = Validator::getTestCases($_GET['qid']);
 	$isSample = Validator::getIsSample($queryResult);
@@ -97,15 +98,25 @@ if ($areAllPassed)
 
 
 	// if the user hasn't solved the question then update the scoreboard
+	if($_GET['type']='cgf')
+	{
+		Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Solved',$sourceCode,$solvedTime,$avgMem,$avgTime,$lengthSourceCode);
+	}
 
-	if (!$isSolved)
-		Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
-
+	if($_GET['type']='prc')
+	{
+			if (!$isSolved)
+				Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
+		}
 }
 else
 {
 
 	$status = 'All Test Cases Failed!';
+	if($_GET['type']='cgf')
+	{
+		Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Failed',$sourceCode,'0000-00-00 00:00:00',$avgMem,$avgTime,$lengthSourceCode);
+	}
 
 }
 

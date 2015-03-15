@@ -79,15 +79,10 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="../">Home</a></li>
-                <li class="active"><a href="../">Practice Questions <span class="sr-only">(current)</span></a></li>
+                <li><a href="../../">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="../../question/">Practice Questions</a></li>
                 <li><a href="../../submissions/">My Submissions</a></li>
-                <li><a href="../../reports/">Reports</a></li>
-                <li><a href="../../assignments/">Assignments</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Add Tutorials</a></li>
-                <li><a href="">Notifications</a></li>
+                <li><a href="../../Challenges/">Challenges</a></li>
             </ul>
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -128,8 +123,8 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                     <label for="challengeType" class="col-sm-2 control-label">Challenge Type</label>
                     <div class="col-sm-10">
                         <select id="cType" name="cType" class="form-control" required>
-                            <option value="Contest">Contest</option>
-                            <option value="Assignment">Assignment</option>
+                            <option value="cgf">Contest</option>
+                            <option value="ass">Assignment</option>
                         </select>
                     </div>
                 </div>
@@ -196,9 +191,14 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
 <script>
     $(document).ready(function(){
         $('.datetime-control').datetimepicker({
-           dateFormat: 'dd-mm-yy',
-           timeFormat: 'HH:mm'
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'HH:mm'
         });
+        // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
+
+    });
+</script>
+<script>
         // DateTimePicker :: http://trentrichardson.com/examples/timepicker/
 
        // AJAX Code Here
@@ -206,32 +206,20 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
           // Okay, we need to get value from textbox name and score
           // When user click on the add button
           // Let make a AJAX request
-          alert($('#qType').val());
           tinymce.triggerSave();
           e.preventDefault();
           $.ajax({
-             url: 'editChallenge.php',
+             url: 'updateChallenge.php?cid='+"<?php echo $_GET['cid'];?>",
              crossDomain: true,
              type: 'POST', // making a POST request
              dataType: "json",
-             data: $('#challenge-form' + ($('#qType').val())).serialize(),
+             data: $('#challenge-form').serialize(),
              success: function (data) {
-                alert("diljit");
                 // this function will be trigger when our PHP successfully
                 // response (does not mean it will successfully add to database)
-                if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
+                if (data["result"] == "CSuccess" || data["result"] == "CFailed") {
                    $('#status').html(data["outcome"]);
                    $('#status').show();
-                }
-                else if (data["result"] == "CSuccess") {
-                   window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
-                }
-
-                else if (data["result"] == "CFailed")
-                {
-                   $('#status').html(data["outcome"]);
-                   $('#status').show();
-
                 }
              },
              error: function (msg) {

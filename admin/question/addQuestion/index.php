@@ -77,15 +77,10 @@ if (Authenticate::getUserType() != "ADMIN")
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="../">Home</a></li>
-                <li class="active"><a href="../">Practice Questions <span class="sr-only">(current)</span></a></li>
+                <li><a href="../../">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="../../question/">Practice Questions</a></li>
                 <li><a href="../../submissions/">My Submissions</a></li>
-                <li><a href="../../reports/">Reports</a></li>
-                <li><a href="../../assignments/">Assignments</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Add Tutorials</a></li>
-                <li><a href="">Notifications</a></li>
+                <li><a href="../../Challenges/">Challenges</a></li>
             </ul>
         </section>
         <section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -118,8 +113,16 @@ if (Authenticate::getUserType() != "ADMIN")
                             <th>Expected Output</th>
                         </tr>
                         <tr>
-                            <td><textarea class="form-control" id="input-expected" name="input-inputTestCase"></textarea></td>
-                            <td><textarea class="form-control" id="output-expected" name="output-outputTestCase"></textarea></td>
+                            <td><textarea class="form-control" id="input-expected-1" name="input-inputTestCase-1"></textarea></td>
+                            <td><textarea class="form-control" id="output-expected-1" name="output-outputTestCase-1"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" id="input-expected-2" name="input-inputTestCase-2"></textarea></td>
+                            <td><textarea class="form-control" id="output-expected-2" name="output-outputTestCase-2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" id="input-expected-3" name="input-inputTestCase-3"></textarea></td>
+                            <td><textarea class="form-control" id="output-expected-3" name="output-outputTestCase-3"></textarea></td>
                         </tr>
                     </table>
                 </div>

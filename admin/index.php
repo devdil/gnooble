@@ -78,10 +78,9 @@ $queryResult = Student::getQuestionsSolved($_SESSION['userid']);
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Home<span class="sr-only">(current)</span></a></li>
                 <li><a href="question/">Practice Questions</a></li>
                 <li><a href="submissions/">My Submissions</a></li>
-                <li><a href="reports/">Reports</a></li>
                 <li><a href="Challenges/">Challenges</a></li>
             </ul>
         </section>
@@ -96,13 +95,6 @@ $queryResult = Student::getQuestionsSolved($_SESSION['userid']);
 
                     <div class="user-info pull-left col-md-7 col-md-7 col-xs-7">
                         <h2><strong>Sougata Nair</strong></h2>
-
-                        <p class="dept meta">Computer Science Department</p>
-
-                        <p class="contact meta"><strong>Students Signed up: </strong>10000</p>
-
-                        <p class="meta addr"><strong>Average Perfomance </strong><?php if (isset($queryResult[0]['questionsSolved'])) echo $queryResult[0]['questionsSolved']?></p>
-
                         <p class="meta streak"><strong>Highest Streak: </strong>8 days</p>
 
 

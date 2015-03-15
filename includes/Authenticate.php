@@ -45,20 +45,24 @@ class Authenticate
 
     public static function redirect()
     {
-         $serverURL = $_SERVER['SERVER_NAME'];
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
         if (self::getUserType() === "STUDENT") {
-            header('Location: '.$serverURL.'/student/');
+            header('Location: /student/');
             exit(0);
+            return;
         }
         else if (self::getUserType() === "ADMIN")
         {
-            header('Location: '.$serverURL.'/admin/');
+            header('Location: /admin/');
             exit(0);
+            return;
         }
-        else
-            header('Location: '.$serverURL.'/login/');
+        else {
+            header('Location: /login/');
+            exit(0);
+            return;
+        }
     }
 
     public static function getUserType()
@@ -83,7 +87,7 @@ class Authenticate
         session_start();
         session_destroy();
         $_SESSION = array();
-        header('Location: '.$serverURL.'/login/');
+        header('Location: /login/');
         exit(0);
     }
 
@@ -107,10 +111,11 @@ class Authenticate
             Authenticate::logout();
         }
 //protects the student section
-        if (self::getUserType() != "STUDENT" || self::getUserType()!= "ADMIN")
-        {
+        /*if (self::getUserType() != "STUDENT")
             Authenticate::redirect();
-        }
+        else if(self::getUserType()!= "ADMIN")
+            Authenticate::redirect();*/
+
 
     }
 

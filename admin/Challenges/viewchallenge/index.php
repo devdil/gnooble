@@ -1,7 +1,7 @@
 <?php
 
-include '../../includes/Authenticate.php';
-include '../../classes/Admin.php';
+include '../../../includes/Authenticate.php';
+include '../../../classes/Admin.php';
 
 //check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -13,8 +13,13 @@ if (Authenticate::getUserType() != "ADMIN")
 {
 	Authenticate::redirect();
 }
+//view all the questions by challenge Id
 
-$queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
+$queryResult = Admin::viewQuestionsByChallengeId($_GET['cid']);
+
+
+
+$index = 0;
 
 ?>
 
@@ -25,8 +30,8 @@ $queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Gnooble: Student</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../assets/css/main.css">
 
 </head>
 <body>
@@ -66,68 +71,64 @@ $queryResult = Admin::viewChallengesByUser($_SESSION['userid']);
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="../">Home<span class="sr-only">(current)</span></a></li>
-				<li><a href="../question/">Practice Questions</a></li>
-				<li><a href="../submissions/">My Submissions</a></li>
-				<li><a href="../Challenges/">Challenges</a></li>
+				<li><a href="../../">Home<span class="sr-only">(current)</span></a></li>
+				<li><a href="../../question/">Practice Questions</a></li>
+				<li><a href="../../submissions/">My Submissions</a></li>
+				<li><a href="../../Challenges/">Challenges</a></li>
 			</ul>
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<div class="row">
-				<h1 style="margin-top: 0;" class="pull-left">Challenges</h1><br><br>
-				<a href="addChallenge/" class="btn btn-success btn-lg pull-right">Add Challenge</a>
-			</div>
-
-			<hr>
-
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
+			<h1 class="page-header">Scoreboard</h1>
+			<p class="lead">Here are the latest standings.</p>
+<?php if ($queryResult != false): ?>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Sl no</th>
+				<th>Question</th>
+				<th>Difficulty</th>
+				<th>Scoreboard</th>
+			</tr>
+			</thead>
+			<?php if (($queryResult)): ?>
+				<tbody>
+				<?php foreach($queryResult as $result): ?>
 					<tr>
-						<th>cName</th>
-						<th>cDesc</th>
-						<th>Begins At</th>
-						<th>Ends At</th>
-						<th>Type</th>
+						<td><?php echo ++$index; ?></td>
+						<td><?php echo "<a href='../editor/editor.php?id=".$result["questionId"]."&type=prc"."'"."</a>".$result["questionName"]; ?></td>
+						<td><?php switch($result["difficulty"])
+							{
+								case 20:
+									echo "Easy";
+									break;
+								case 50:
+									echo "Medium";
+									break;
+								case 100:
+									echo "Hard";
+									break;
+								default:
+									echo "Not Assigned";
+							}
+							?>
+						</td>
+						<td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=".$_GET['type']."'"."</a>"."Scoreboard"; ?></td>
 					</tr>
-					</thead>
-					<tbody>
-					<?php foreach($queryResult as $result): ?>
-						<tr>
-							<td><?php echo $result["cName"]; ?></td>
-							<td><?php echo html_entity_decode($result["cDesc"]); ?></td>
-							<td><?php echo $result["startDate"]; ?></td>
-							<td><?php echo $result["endDate"]; ?></td>
-							<td><?php switch($result["Type"])
-								{
-									case "cgf":
-										echo "CodeGolf";
-										break;
-									case "beg":
-										echo "Easy";
-										break;
-									case "ult":
-										echo "Ultimate";
-										break;
-									default:
-										echo "Not Assigned";
-								}
-								?>
-							</td>
-							<td><?php echo "<a href='viewchallenge/index.php?cid=".$result["cId"]."&type=".$result["Type"]."'"."</a>"."More Details";?></td>
-							<td><?php echo "<a href='editChallenge/index.php?cid=".$result["cId"]."'"."</a>"."Edit";?></td>
-						</tr>
-					<?php endforeach; ?>
+				<?php endforeach; ?>
 
-					</tbody>
-				</table>
-			</div>
+				</tbody>
+			<?php endif; ?>
+		</table>
+	</div>
+
+<?php endif; ?>
 		</section>
 	</div>
 </div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -23,7 +23,6 @@ include '../../../views/template_header.php';
 				  <th>Sl no</th>
 		          <th>Question</th>
 		          <th>Difficulty</th>
-		          <th>Accuracy</th>
 				  <th>Scoreboard</th>
 		        </tr>
 		      </thead>

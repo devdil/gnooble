@@ -1,7 +1,7 @@
 <?php
 
 include '../../../includes/Authenticate.php';
-include '../../../classes/student.php';
+include '../../../classes/Admin.php';
 
 //check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -15,9 +15,9 @@ if (Authenticate::getUserType() != "ADMIN")
 }
 $scoreboardType = $_GET['type'];
 	if ($scoreboardType=== 'cgf')
-		$queryResult = Student::viewScoreboardBySourceCodeLength($_GET['qid']);
+		$queryResult = Admin::viewScoreboardBySourceCodeLength($_GET['qid']);
 	elseif (($scoreboardType=== 'prc'))
-		$queryResult = Student::viewScoreboard($_GET['qid']);
+		$queryResult = Admin::viewScoreboard($_GET['qid']);
 
 $index = 0;
 
@@ -80,14 +80,13 @@ $index = 0;
 
 <div class="container-fluid">
 	<div class="row">
-		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
-				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li ><a href="/student/practice/">Practice</a></li>
-				<li ><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/contests/">Contests</a></li>
-				<li class="active"><a href="/student/submissions/">Scoreboard</a></li>
+		<section class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li><a href="../../">Home<span class="sr-only">(current)</span></a></li>
+				<li><a href="../../question/">Practice Questions</a></li>
+				<li><a href="../../submissions/">My Submissions</a></li>
+				<li><a href="../../Challenges/">Challenges</a></li>
 			</ul>
-
 		</section>
 		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<h1 class="page-header">Scoreboard</h1>
@@ -100,12 +99,13 @@ $index = 0;
 						<tr>
 							<th>Student Rank</th>
 							<th>Name</th>
+							<th>EmailId</th>
+							<th>ContactNumber</th>
 							<th>Status</th>
 							<th>Solved In(secs)</th>
-							<th>Code Length</th>
+							<th>SourceCode Length</th>
 							<th>Time</th>
 							<th>Memory</th>
-                            <th>Phone number</th>
 
 						</tr>
 						</thead>
@@ -113,6 +113,9 @@ $index = 0;
 							<tr>
 								<td><?php echo ++$index; ?></td>
 								<td><?php echo $result["Name"]; ?></td>
+								<td><?php echo $result["EmailId"]; ?></td>
+								<td><?php echo $result["ContactNumber"]; ?></td>
+
 								<td  class="alert <?php if ($result["Status"] == 'Solved') echo "alert-success";
 								if ($result["Status"] == 'Failed') echo "alert-danger";
 								if ($result["Status"] == 'Attempted')echo "alert-warning";?>">
@@ -148,6 +151,8 @@ $index = 0;
 						<tr>
 							<td><?php echo ++$index; ?></td>
 							<td><?php echo $result["Name"]; ?></td>
+							<td><?php echo $result["EmailId"]; ?></td>
+							<td><?php echo $result["ContactNumber"]; ?></td>
 							<td  style="color:<?php if ($result["Status"] == 'Solved') echo "#398439";
 													if ($result["Status"] == 'Failed') echo "#c12e2a";
 													if ($result["Status"] == 'Attempted')echo "#eb9316";?>">
