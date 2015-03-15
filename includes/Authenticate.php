@@ -48,18 +48,18 @@ class Authenticate
         //redirect to the admin if the userType is admin else to student if the user type is user
         //redirect to student.php if the user is a student else welcome.php for teachers
         if (self::getUserType() === "STUDENT") {
-            header('Location: /student/');
+            header('Location: http://gnooble.org/student/');
             exit(0);
             return;
         }
         else if (self::getUserType() === "ADMIN")
         {
-            header('Location: /admin/');
+            header('Location: http://gnooble.org/admin/');
             exit(0);
             return;
         }
         else {
-            header('Location: /login/');
+            header('Location: http://gnooble.org/login/');
             exit(0);
             return;
         }
@@ -87,7 +87,7 @@ class Authenticate
         session_start();
         session_destroy();
         $_SESSION = array();
-        header('Location: /login/');
+        header('Location: http://gnooble.org/login/');
         exit(0);
     }
 
@@ -111,10 +111,10 @@ class Authenticate
             Authenticate::logout();
         }
 //protects the student section
-        /*if (self::getUserType() != "STUDENT")
+        if (self::getUserType() != "STUDENT")
             Authenticate::redirect();
         else if(self::getUserType()!= "ADMIN")
-            Authenticate::redirect();*/
+            Authenticate::redirect();
 
 
     }
