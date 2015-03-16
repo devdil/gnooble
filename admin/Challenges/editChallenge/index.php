@@ -220,15 +220,16 @@ $queryResult = Admin::viewChallengeByChallengeId($_GET['cid']);
                 if (data["result"] == "CSuccess" || data["result"] == "CFailed") {
                    $('#status').html(data["outcome"]);
                    $('#status').show();
+                   alert(data["outcome"]);
                 }
              },
              error: function (msg) {
+                alert(msg);
                 console.log(msg);
                 //$("#compile").removeAttr("disabled");
              }
           });
        });
-    });
 </script>
 <script>
 

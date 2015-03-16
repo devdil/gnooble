@@ -111,10 +111,7 @@ class Authenticate
             Authenticate::logout();
         }
 //protects the student section
-        if (self::getUserType() != "STUDENT")
-            Authenticate::redirect();
-        else if(self::getUserType()!= "ADMIN")
-            Authenticate::redirect();
+            //self::redirect();
 
 
     }
