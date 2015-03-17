@@ -120,7 +120,7 @@ if (Authenticate::getUserType() != "STUDENT")
 
                            $('#compilationError').removeClass('alert-danger').addClass('alert-success');
 						   $(responseTable).append(trHTML);
-						   $('#compilationError').find(".content").text(compilationMessage);
+						   $('#compilationError').find(".content").text("Compiled Sucessfully!");
 						   $(testCaseTable).append(testHTML);
 						   $(responseTable).show();
 						   $('#output').show();
