@@ -138,6 +138,7 @@ if (Authenticate::getUserType() != "STUDENT")
 						$("#compile").removeAttr("disabled");
 						$("#loading").hide(); //hide loading here
 						$("#status-compiling").hide();
+                       $('#compilationError').show();
 
 
 					},

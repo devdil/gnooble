@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Gnooble: Student</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="<?php echo $_SERVER['SERVER_NAME']; ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $_SERVER['SERVER_NAME']; ?>/assets/css/main.css">
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -41,7 +41,7 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <?php echo "Hello ".$_SESSION['username']." "; ?>
-                        <li><a href="http://gnooble.org/logout/">Logout</a></li>
+                        <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/logout/">Logout</a></li>
                 </li>
             </ul>
         </div>    </div><!-- /.container-fluid -->
@@ -50,10 +50,10 @@
 <div class="container-fluid">
     <div class="row">
         <section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
-                <li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-                <li ><a href="/student/practice/">Practice</a></li>
-                <li ><a href="/student/submissions/">MySubmissions</a></li>
-                <li><a href="/student/contests/">Contests</a></li>
+                <li><a href="<?php echo $_SERVER['SERVER_NAME']; ?>/student/">Home <span class="sr-only">(current)</span></a></li>
+                <li ><a href="<?php echo $_SERVER['SERVER_NAME']; ?>/student/practice/">Practice</a></li>
+                <li ><a href="<?php echo $_SERVER['SERVER_NAME']; ?>/student/submissions/">MySubmissions</a></li>
+                <li><a href="<?php echo $_SERVER['SERVER_NAME']; ?>/student/contests/">Contests</a></li>
             </ul>
 
         </section>
