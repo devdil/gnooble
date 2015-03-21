@@ -28,9 +28,9 @@ if(isset($_POST['type']))
 		$isChallengeAddSuccessful = Admin::addChallenge($challengeName, $challengeStatement, $startDate, $endDate, $type, $userId);
 		// var_dump($isQuestionAddSuccessful);
 		if (!$isChallengeAddSuccessful) {
-			$status = array("result" => "CFailed","outcome" => "Challenge Could not be Added!");;
+			$status = array("result" => "CFailed","outcome" => "Challenge Could not be Added!","challengeId"=>$isChallengeAddSuccessful);;
 		} else {
-			$status = array("result" => "CSuccess","outcome" => "Challenge Successfully Added!");
+			$status = array("result" => "CSuccess","outcome" => "Challenge Successfully Added!","challengeId"=>$isChallengeAddSuccessful);
 		}
 	}
 

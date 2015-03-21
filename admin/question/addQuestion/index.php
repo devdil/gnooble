@@ -92,6 +92,7 @@ if (Authenticate::getUserType() != "ADMIN")
                 <form class="question-form form-horizontal" id="question-form">
                 <div class="form-group">
                     <input type="hidden" value="Question" name="type" />
+                    <input type="text" value="<?php if(isset($_GET['cid'])) echo $_GET['cid'];?>" name="challengeId" hidden/>
                     <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >

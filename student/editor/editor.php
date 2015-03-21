@@ -132,14 +132,14 @@ if (Authenticate::getUserType() != "STUDENT")
                        else{
 
                            $('#compilationError').removeClass('alert-success').addClass('alert-danger');
-						   $('#compilationError').find(".content").text(result["compilationMessage"]);
+						   $('#compilationError').find(".content").html(result["compilationMessage"].replace(/(?:\r\n|\r|\n)/g, '<br />'));
 						   $('#compilationError').show().focus();
                        }
 
 						$("#compile").removeAttr("disabled");
 						$("#loading").hide(); //hide loading here
 						$("#status-compiling").hide();
-                       $('#compilationError').show().focus();
+                        $('#compilationError').show().focus();
 
 
 					},

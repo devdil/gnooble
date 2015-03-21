@@ -101,7 +101,7 @@ if (Authenticate::getUserType() != "ADMIN")
                 <div class="form-group">
                     <input type="text" value="Question" name="type" hidden/>
                     <input type="text" value="<?php echo $_GET['cid'];?>" name="challengeId" hidden/>
-                    <label for="input-qname" class="col-sm-2 control-label">Question Name</label>
+                    <label for="input-qName" class="col-sm-2 control-label">Question Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="input-qName" name="input-qName" placeholder="What's the programming question? Be specific." >
                     </div>
@@ -122,8 +122,16 @@ if (Authenticate::getUserType() != "ADMIN")
                                 <th>Expected Output</th>
                             </tr>
                             <tr>
-                                <td><textarea id="input-expected" name="input-inputTestCase"></textarea></td>
-                                <td><textarea id="output-expected" name="output-outputTestCase"></textarea></td>
+                                <td><textarea class="form-control" id="input-expected-1" name="input-inputTestCase-1"></textarea></td>
+                                <td><textarea class="form-control" id="output-expected-1" name="output-outputTestCase-1"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td><textarea class="form-control" id="input-expected-2" name="input-inputTestCase-2"></textarea></td>
+                                <td><textarea class="form-control" id="output-expected-2" name="output-outputTestCase-2"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td><textarea class="form-control" id="input-expected-3" name="input-inputTestCase-3"></textarea></td>
+                                <td><textarea class="form-control" id="output-expected-3" name="output-outputTestCase-3"></textarea></td>
                             </tr>
                         </table>
                     </div>
@@ -142,7 +150,7 @@ if (Authenticate::getUserType() != "ADMIN")
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10 pull-right">
-                        <input type="submit" id="submit" name="addQuestion" value="addQuestion" class="btn btn-default btn-lg btn-success pull-right">
+                        <input type="submit" id="submit" name="addQuestion" value="Add Question" class="btn btn-default btn-lg btn-success pull-right">
                     </div>
                 </div>
             </form>
@@ -203,7 +211,6 @@ if (Authenticate::getUserType() != "ADMIN")
         // Okay, we need to get value from textbox name and score
         // When user click on the add button
         // Let make a AJAX request
-        alert($('#qType').val());
         tinymce.triggerSave();
         e.preventDefault();
         $.ajax({

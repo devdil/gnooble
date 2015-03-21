@@ -71,9 +71,17 @@ class Admin
         );
         $isInsertSuccessful = $db->insert($queryString,$bindings);
         $questionId = $db->getLastInsertId();
-        $isTestCaseSuccessful = self::addTestCases($questionId,$inputCases,$outputCases,'Y');
+        $isTestCaseSuccessfulFlag=false;
+        for($index=0;$index<count($inputCases);$index++)
+        {
+            $isTestCaseSuccessful = self::addTestCases($questionId,$inputCases[$index],$outputCases[$index],'Y');
+            if($isInsertSuccessful)
+                $isTestCaseSuccessfulFlag = true;
 
-        if ($isInsertSuccessful && $isTestCaseSuccessful)
+
+        }
+
+        if ($isInsertSuccessful && $isTestCaseSuccessfulFlag)
         {
             $queryString = 'INSERT INTO ChallengeQuestions(cId,questionId) VALUES(:cid,:questionId)';
             $bindings = array(

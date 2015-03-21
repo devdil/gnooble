@@ -36,9 +36,6 @@ if(isset($_POST['type'])) {
 
 		}
 
-
-
-
 		$userId = $_SESSION['userid'];
 		//assign difficult a integer value corresponding to their difficulty.
 		switch ($_POST['difficulty']) {
@@ -55,14 +52,16 @@ if(isset($_POST['type'])) {
 		if (isset($_POST["challengeId"]))
 		{
 			    $challengeId = $_POST['challengeId'];
+
 			    $isChallengeQuestionAddSuccessful = Admin::addChallengeQuestions($challengeId,$questionName,$questionStatement,$inputCases,$outputCases,$difficulty,$userId);
-			    if($isChallengeQuestionAddSuccessful)
+			    if(!$isChallengeQuestionAddSuccessful)
 				{
-					$status = array("result" => "QSuccess", "outcome" => "Challenge Question Added Successfully!");
+					$status = array("result" => "QFailed", "outcome" => "Challenge Question Could not be Added");
+
 				}
 			else
 			{
-				$status = array("result" => "QFailed", "outcome" => "Challenge Question Could not be Added");
+				$status = array("result" => "QSuccess", "outcome" => "Challenge Question Added Successfully!");
 			}
 		}
 		else {
@@ -75,32 +74,18 @@ if(isset($_POST['type'])) {
 				$status = array("result" => "QFailed", "outcome" => "Question Could not be Added");
 
 		}
-	}
-	if($_POST['type'] === 'Challenge') {
-
-
-		$challengeName = htmlspecialchars($_POST['input-qName']);
-		$challengeStatement = htmlspecialchars($_POST['input-qDesc']);
-		$startDate = $_POST['startDate'];
-		$endDate = $_POST['endDate'];
-		$userId = $_SESSION['userid'];
-		$type = $_POST['cType'];
-		//assign difficult a integer value corresponding to their difficulty.
-		$isChallengeAddSuccessful = Admin::addChallenge($challengeName, $challengeStatement, $startDate, $endDate, $type, $userId);
-		// var_dump($isQuestionAddSuccessful);
-		if (!$isChallengeAddSuccessful) {
-			$status = array("result" => "CFailed","outcome" => "Challenge Could not be Added!");;
-		} else {
-			$status = array("result" => "CSuccess","outcome" => $isChallengeAddSuccessful);
-		}
+		echo json_encode($status);
 	}
 
+	else
+		echo json_encode("Invalid Data");
 
-	echo json_encode($status);
 
 
-	}
-else
-	echo json_encode($_POST);
+
+
+
+}
+
 
 ?>

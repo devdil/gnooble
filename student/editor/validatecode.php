@@ -86,6 +86,8 @@ $avgTime = $avgTime/$index;
 $compilerOutput["compilationMessage"] = $result->getCompileMessage();
 $compilerOutput["compilationResult"] = $jsonOutput;
 $isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
+date_default_timezone_set('Asia/Kolkata');
+$solvedTime = date('Y-m-d H:i:s');
 if ($areAllPassed)
 {
 
@@ -93,8 +95,7 @@ if ($areAllPassed)
 
 	//check whether the user has already solved the question
 	//get the time
-	date_default_timezone_set('Asia/Kolkata');
-	$solvedTime = date('Y-m-d H:i:s');
+
 
 
 	// if the user hasn't solved the question then update the scoreboard

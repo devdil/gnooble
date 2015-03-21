@@ -215,7 +215,7 @@ if (Authenticate::getUserType() != "ADMIN")
                         $('#status').html(data["outcome"]);
                         $('#status').show();
                         alert(data["outcome"]);
-                        window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
+                        window.location.href = 'addChallengeQuestion.php?cid=' + data["challengeId"];
                     }
 
                     else if (data["result"] == "CFailed")
