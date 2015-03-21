@@ -24,7 +24,7 @@ include '../../../views/template_header.php';
 
 			<?php // The trick is to use a <div> with a contenteditable attribute so that the area grows without any fancy JS! ?>
 			<p>Sourcecode : </p>
-			<div class="well well-sm" contenteditable="true"><?php echo nl2br($item["SourceCode"]); ?> </div>
+			<textarea class="well well-sm" contenteditable="true" style="width: auto;height:1000px;"><?php echo ($item["SourceCode"]); ?></textarea>
 
 
 			<?php endforeach; ?>

@@ -228,6 +228,7 @@ if (Authenticate::getUserType() != "ADMIN")
                     if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
                         $('#status').html(data["outcome"]);
                         $('#status').show();
+                        alert(data["outcome"]);
                     }
 
                 },

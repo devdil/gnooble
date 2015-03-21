@@ -105,14 +105,18 @@ if ($areAllPassed)
 
 	if($_GET['type']='prc')
 	{
-			if (!$isSolved)
-				Student::updateMyScoreBoard($_GET['qid'], $_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
-		}
+		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
+	}
 }
 else
 {
 
 	$status = 'All Test Cases Failed!';
+	if($_GET['type']='prc')
+	{
+		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Failed",$sourceCode,$solvedTime,$avgTime,$avgMem);
+	}
+
 	if($_GET['type']='cgf')
 	{
 		//Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Failed',$sourceCode,'0000-00-00 00:00:00',$avgMem,$avgTime,$lengthSourceCode);

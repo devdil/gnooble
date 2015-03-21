@@ -25,6 +25,7 @@ if (Authenticate::getUserType() != "STUDENT")
 			//var_dump($isUserInScoreboard);
 			Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid'],$attemptedTime,$endTime,"NA","NA");
 		}
+		$sourceCode = Student::getSourceCode($_SESSION['userid'],$_GET['id']);
 
 ?>s
 
@@ -338,13 +339,12 @@ if (Authenticate::getUserType() != "STUDENT")
 		enableLiveAutocompletion: true
 	});
     var qType = document.getElementById('qtype').value;
-
     if(qType === "cgf"){
        editor.getSession().on('change', function(e) {
           document.getElementById("count").innerHTML = editor.getValue().length;
        });
     }
-	editor.setValue("#include<stdio.h>\n int main()\n{\n//Your Code Here\n\n\n return 0;\n} ");
+	editor.setValue("#include<stdio.h>\n int main()\n{\n//Your Code Here\n\n\n return 0;\n}");
 	/*function changeLanguage()
 	{
 		var ace_lang;

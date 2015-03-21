@@ -233,9 +233,11 @@ $testCaseCount = count($testCases);
                     if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
                         $('#status').html(data["outcome"]);
                         $('#status').show();
+                        alert(data["outcome"]);
                     }
                 },
                 error: function (msg) {
+                    alert(msg);
                     console.log(msg);
                     //$("#compile").removeAttr("disabled");
                 }

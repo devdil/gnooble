@@ -198,16 +198,6 @@ if (Authenticate::getUserType() != "ADMIN")
     });
 </script>
 <script>
-    $(document).ready(function(){
-        $('#status').hide();
-        $('#form1').hide();
-        $('#qType').change(function() {
-            $('.form').hide();
-            $('#form' + this.value).show();
-        });
-    });
-</script>
-<script>
     // AJAX Code Here
     $('.form').on('submit', function (e) {
         // Okay, we need to get value from textbox name and score
@@ -229,16 +219,7 @@ if (Authenticate::getUserType() != "ADMIN")
                 if (data["result"] == "QSuccess" || data["result"] == "QFailed") {
                     $('#status').html(data["outcome"]);
                     $('#status').show();
-                }
-                else if (data["result"] == "CSuccess") {
-                    window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
-                }
-
-                else if (data["result"] == "CFailed")
-                {
-                    $('#status').html(data["outcome"]);
-                    $('#status').show();
-
+                    alert(data["outcome"]);
                 }
             },
             error: function (msg) {

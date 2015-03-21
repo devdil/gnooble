@@ -214,14 +214,15 @@ if (Authenticate::getUserType() != "ADMIN")
                    if (data["result"] == "CSuccess") {
                         $('#status').html(data["outcome"]);
                         $('#status').show();
-                        //window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
+                        alert(data["outcome"]);
+                        window.location.href = 'addChallengeQuestion.php?cid=' + data["outcome"];
                     }
 
                     else if (data["result"] == "CFailed")
                     {
                         $('#status').html(data["outcome"]);
                         $('#status').show();
-
+                        alert(data["outcome"]);
                     }
                 },
                 error: function (msg) {

@@ -1,7 +1,7 @@
 <?php
 
 include '../../includes/Authenticate.php';
-include '../../classes/student.php';
+include '../../classes/Admin.php';
 
 //check whether the user is logged in or not,
 if (!Authenticate::isLoggedIn())
@@ -14,7 +14,7 @@ if (Authenticate::getUserType() != "ADMIN")
     Authenticate::redirect();
 }
 
-$queryResult = Student::viewPracticeQuestions();
+$queryResult = Admin::viewPracticeQuestionsByUser($_SESSION['userid']);
 
 
 ?>
@@ -28,6 +28,16 @@ $queryResult = Student::viewPracticeQuestions();
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59768309-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 
 </head>
 <body>
@@ -86,9 +96,8 @@ $queryResult = Student::viewPracticeQuestions();
                     <thead>
                     <tr>
                         <th>Question</th>
-                        <th>Authored By</th>
                         <th>Difficulty</th>
-                        <th>Scoreboard(Solved/Attempted)</th>
+                        <th>Scoreboard</th>
                         <th>Edit</th>
                     </tr>
                     </thead>
@@ -96,7 +105,6 @@ $queryResult = Student::viewPracticeQuestions();
                     <?php foreach($queryResult as $result): ?>
                         <tr>
                             <td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
-                            <td><?php echo $result["AuthoredBy"]; ?></td>
                             <td><?php switch($result["difficulty"])
                                 {
                                     case 20:
@@ -113,8 +121,8 @@ $queryResult = Student::viewPracticeQuestions();
                                 }
                                 ?>
                             </td>
-                            <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."'"."</a>".$result["solved"]."/".$result["attempted"];?></td>
-                            <td><?php echo "<a href='../question/editQuestion/index.php?qid=".$result["questionId"]."'"."</a>"."Edit";?></td>
+                            <td><?php echo "<a href='../scoreboard/index.php?qid=".$result["questionId"]."&type=prc"."'"."</a>"."Scoreboard";?></td>
+                            <td><?php echo "<a href='editQuestion/index.php?qid=".$result["questionId"]."'"."</a>"."Edit";?></td>
                         </tr>
                     <?php endforeach; ?>
 
@@ -126,7 +134,7 @@ $queryResult = Student::viewPracticeQuestions();
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>
 </body>
 </html>
