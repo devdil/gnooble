@@ -86,7 +86,8 @@ class Database
             }
             catch (PDOException $e)
                 {
-                    return $e->getMessage();
+                    return $e->getCode();
+                    //return $e->getMessage();
                 }
 
     }

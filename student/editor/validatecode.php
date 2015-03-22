@@ -115,7 +115,7 @@ else
 	$status = 'All Test Cases Failed!';
 	if($_GET['type']='prc')
 	{
-		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Failed",$sourceCode,$solvedTime,$avgTime,$avgMem);
+		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Attempted",$sourceCode,$solvedTime,$avgTime,$avgMem);
 	}
 
 	if($_GET['type']='cgf')

@@ -103,12 +103,12 @@ class Student
     public static function viewScoreboard($questionId)
     {
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.UserId,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
+        $query = "SELECT Scoreboard.status as Status,UserDetails.UserId,UserDetails.Name as Name,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
-                  ORDER BY (CASE WHEN solvedIn IS NULL then 1 ELSE 0 END),solvedIn ASC
-                  ';
+                  ORDER BY (CASE WHEN Status IS 'Solved' then 1 ELSE 0 END),solvedIn ASC
+                  ";
 
         $bindings = array('qid' => $questionId);
 

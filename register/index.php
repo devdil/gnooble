@@ -8,6 +8,7 @@ Last Modified :6th January 2015.
 
  include '../includes/Authenticate.php';
  include '../classes/User.php';
+ include '../include/Database.php';
 
 
 if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['submit']))

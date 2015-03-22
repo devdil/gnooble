@@ -1,0 +1,280 @@
+html, body{
+	height: 100%;
+}
+
+.landing .jumbotron{
+	background: hsla(193, 67%, 9%, 0.77) url(../images/landing.jpg) no-repeat;
+	background-blend-mode: darken;
+	color: #fff;
+	background-size: cover;
+	padding: 108px 0;
+	text-shadow: 0 0 6px #000;
+}
+
+.alert-default{
+   background-color: #f5f5f5;
+   border: 1px solid #e3e3e3;
+   border-radius: 4px;
+   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+   box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+
+.navbar-inverse{
+	background: hsla(193, 67%, 9%, 1);
+	border-radius: 0;;
+}
+
+.navbar .user-img{
+   max-width: 2em;
+   margin-top: -15px;
+   margin-right: 8px;
+   margin-bottom: -15px;
+}
+
+.gatekeeper{
+   background: url("../images/landing.jpg") no-repeat scroll 0% 0% / cover transparent;
+}
+
+.action-block{
+	margin-top: 60px;
+}
+
+.action-block .btn{
+	margin-left: 10px;
+}
+
+.action-block .btn:first-child{
+	margin-left: 0;
+}
+
+.container{
+	width: 1200px !important;
+}
+
+.landing .container-fluid{
+	max-width: 1200px;
+}
+
+.features{
+	margin: 84px auto;
+}
+
+.feature-img{
+	width: 100px;
+	height: 100px;
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+	transform: translateY(0);
+	-webkit-transition: transform .2s linear;
+	-o-transition: transform .2s linear;
+	transition: transform .2s linear;
+}
+
+.feature-img:hover{
+	-webkit-transform: translateY(-10px);
+	-ms-transform: translateY(-10px);
+	-o-transform: translateY(-10px);
+	transform: translateY(-10px);
+}
+
+.pull-none{
+	float: none;
+}
+
+.navbar{
+	margin-bottom: 0;
+}
+
+.sidebar {
+	display: none;
+}
+
+.page-header{
+	margin-top: 0;
+}
+
+.user-profile, .num-questions{
+   padding: 1em;
+   border: thin solid #cccccc;
+   -webkit-border-radius: 0.5em;
+   -moz-border-radius: 0.5em;
+   border-radius: 0.5em;
+   -webkit-box-shadow: 0 0 4px #cccccc;
+   -moz-box-shadow: 0 0 4px #cccccc;
+   box-shadow: 0 0 4px #cccccc;
+}
+
+.num-questions{
+   margin-left: 1em;
+   padding-bottom: 0;
+}
+
+.num-questions h3{
+   margin-top: 0;
+}
+
+.recent-qlist{
+   margin-bottom: 0;
+}
+
+.recent-qlist li{
+   margin-right: -15px;
+   margin-left: -15px;
+}
+
+.recent-qlist li a{
+   display: block;
+   padding: 10px 15px;
+   border-top: thin solid #d8d8d8;
+}
+
+.recent-qlist li:first-child a{
+   border-top: thin solid #999999;
+}
+
+.user-profile .user-img{
+   margin-right: 1em;
+   padding: 0;
+}
+
+.user-info{
+   padding: 0;
+}
+
+.user-info h2{
+   margin-top: 0.3em;
+}
+
+.user-info .dept{
+   padding-bottom: 1em;
+   border-bottom: thin solid #bbbbbb;
+}
+
+@media (min-width: 768px){
+	.sidebar {
+		position: fixed;
+		top: 51px;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		padding: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: #f5f5f5;
+		background: hsla(193, 67%, 9%, 1);
+		box-shadow: inset -4px 0 7px #000;
+		border-right: 1px solid hsla(193, 67%, 9%, 1);
+	}
+
+   section.col-sm-3.col-md-2.sidebar{
+   }
+}
+
+.nav-sidebar {
+	margin-right: -21px;
+	margin-bottom: 20px;
+	margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+	padding-right: 20px;
+	padding-left: 20px;
+	color: #fff;
+}
+
+.nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus{
+	color: #23527c;
+}
+
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+
+.main {
+	padding: 20px;
+}
+
+@media (min-width: 768px){
+	.main {
+		padding-right: 40px;
+		padding-left: 40px;
+	   margin-top: 51px;
+	}
+}
+
+.question-form{
+	margin-top: 60px;
+}
+
+.question-form textarea{
+	min-height: 100px;
+}
+
+.question-form .btn{
+	margin-top: 20px;
+}
+
+.entry-form{
+	margin: 15% auto 5%;
+	background: #fff;
+	padding: 20px;
+	border-radius: 3px;
+	border: thin solid #525252;
+	box-shadow: 0 0 22px #313111;
+    max-width: 400px;
+    width: 100%;
+}
+
+.entry-form h3{
+	margin-bottom: 28px;
+}
+
+.register-form{
+   max-width: 500px;
+}
+
+.answer-form{
+   margin-bottom: 1em;
+   padding: 1.4em 0;
+}
+
+.answer-form #sourcecode{
+   margin-top: 1em;
+   background-color: #444444;
+   color: #ffffff;
+   font-family: monospace;
+   width: 100%;
+   min-height: 30em;
+}
+
+.answer-form #compile{
+   margin-top: -0.6em;
+}
+
+.answer-block{
+   margin-top: 1em;
+   padding-bottom: 2em;
+   border-top: thin solid #bbbbbb;
+}
+
+.tab-pane{
+   padding: 1em;
+}
+
+#editor{
+   width: 100% !important;
+	min-height: 25em;
+	max-width: 100%;
+	border-radius: 4px;
+}
+
+#tinymce{
+   font-size: 14px !important;
+}
+
+div.mce-edit-area, .mce-window .mce-container-body{
+   padding: .3em;
+}
