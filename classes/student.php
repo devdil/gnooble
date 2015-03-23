@@ -107,7 +107,7 @@ class Student
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
-                  ORDER BY (CASE WHEN Status IS 'Solved' then 1 ELSE 0 END),solvedIn ASC
+                  ORDER BY (CASE WHEN Scoreboard.status='Solved' then 1 ELSE 0 END) DESC,solvedIn ASC,Time ASC,Memory ASC
                   ";
 
         $bindings = array('qid' => $questionId);
