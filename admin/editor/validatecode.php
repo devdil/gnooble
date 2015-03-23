@@ -10,7 +10,7 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() != "STUDENT")
+if (Authenticate::getUserType() != "ADMIN")
 {
 	Authenticate::redirect();
 }
@@ -19,8 +19,6 @@ if (!empty($_POST['sourcecode']))
 
 	$sourceCode = ($_POST['sourcecode']);
 	$language = $_POST['language'];
-	$lengthSourceCode = strlen($sourceCode);
-	//retrieve the number of test cases
 	$queryResult = Validator::getTestCases($_GET['qid']);
 	$isSample = Validator::getIsSample($queryResult);
 	$result = Validator::validateCode($sourceCode,$language,$queryResult);
@@ -39,7 +37,7 @@ if (!empty($_POST['sourcecode']))
 }
 else
 {
-	$qstring = "gnooble.org/student/practice/validatecode.php?id=".$_GET['qid'];
+	$qstring = "gnooble.org/admin/editor/editor.php?id=".$_GET['qid'];
 	header($qstring);
 	exit();
 
@@ -85,9 +83,7 @@ $avgTime = $avgTime/$index;
 
 $compilerOutput["compilationMessage"] = $result->getCompileMessage();
 $compilerOutput["compilationResult"] = $jsonOutput;
-$isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
-date_default_timezone_set('Asia/Kolkata');
-$solvedTime = date('Y-m-d H:i:s');
+
 if ($areAllPassed)
 {
 
@@ -96,32 +92,11 @@ if ($areAllPassed)
 	//check whether the user has already solved the question
 	//get the time
 
-
-
-	// if the user hasn't solved the question then update the scoreboard
-	if($_GET['type']='cgf')
-	{
-		Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Solved',$sourceCode,$solvedTime,$avgTime,$avgMem,$lengthSourceCode);
-	}
-
-	if($_GET['type']='prc')
-	{
-		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
-	}
 }
 else
 {
 
 	$status = 'All Test Cases Failed!';
-	if($_GET['type']='prc')
-	{
-		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Attempted",$sourceCode,$solvedTime,$avgTime,$avgMem);
-	}
-
-	if($_GET['type']='cgf')
-	{
-		//Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Failed',$sourceCode,'0000-00-00 00:00:00',$avgMem,$avgTime,$lengthSourceCode);
-	}
 
 }
 

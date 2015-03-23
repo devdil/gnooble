@@ -7,25 +7,15 @@ if (!Authenticate::isLoggedIn())
 	Authenticate::logout();
 }
 //protects the student section
-if (Authenticate::getUserType() != "STUDENT")
+if (Authenticate::getUserType() != "ADMIN")
 {
 	Authenticate::redirect();
 }
 //check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
 //retrieve the question from the database
-		$queryResult = Student::getQuestion($_GET['id']);
-        //$isSourceCodeAvailable = Student::getSourceCode($_SESSION['userid'],$_GET['id']);
 
-		date_default_timezone_set('Asia/Kolkata');
-		$attemptedTime = date('Y-m-d H:i:s');
-		$endTime = '0000-00-00 00:00:00';
+			$queryResult = Student::getQuestion($_GET['id']);
 
-		$isUserInScoreboard = Student::isUserInScoreboard($_SESSION['userid'],$_GET['id']);
-		if($isUserInScoreboard === false) {
-			//var_dump($isUserInScoreboard);
-			Student::insertIntoScoreboard($_GET['id'],$_SESSION['userid'],$attemptedTime,$endTime,"NA","NA");
-		}
-		$sourceCode = Student::getSourceCode($_SESSION['userid'],$_GET['id']);
 
 ?>s
 
@@ -73,14 +63,12 @@ if (Authenticate::getUserType() != "STUDENT")
 				$("#status-compiling").show(); //show loading
 				$('#compilationError').hide();
 				var sourcecode = editor.getValue(),language = $('#language').val();
-				var type = $('#qtype').val();
 				$.ajax({
-					url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id']."&type=".$_GET['type'];?>",
+					url:"validatecode.php?qid=<?php if (isset($_GET['id'])) echo $_GET['id']; ?>",
 					type : "POST",
 					crossDomain: true,
 					data:{ sourcecode: sourcecode,
-						language: language,
-						type : type
+						language: language
 					},
 					dataType: "json",
 					success:function(result){
@@ -195,10 +183,10 @@ if (Authenticate::getUserType() != "STUDENT")
 <div class="container-fluid">
 	<div class="row">
 		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
-				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li ><a href="/student/practice/">Practice</a></li>
-				<li ><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/contests/">Contests</a></li>
+				<li><a href="/admin/">Home <span class="sr-only">(current)</span></a></li>
+				<li ><a href="/admin/question/">Practice</a></li>
+				<li ><a href="/admin/submissions/">MySubmissions</a></li>
+				<li><a href="/admin/Challenges/">Contests</a></li>
 			</ul>
 
 		</section>
@@ -246,9 +234,6 @@ if (Authenticate::getUserType() != "STUDENT")
 					<select name="language" id="language" onchange="changeLanguage()">
 						<option value="1">C</option>
 					</select>
-						<?php if(isset($_GET['type'])): ?>
-						<input type="hidden" id="qtype" name="type" value="<?php echo $_GET['type']; ?>">
-						<?php endif;?>
 					<label id="status-compiling" style="display: none">Compiling....</label>
 					<img src="compiling.gif" id="loading" height="30" width="30" style="display:none"/></div>
 					<input type="submit" value="Compile and Check" class="btn btn-default btn-success pull-right" name="compile" id="compile">
@@ -338,12 +323,6 @@ if (Authenticate::getUserType() != "STUDENT")
 		enableSnippets: true,
 		enableLiveAutocompletion: true
 	});
-    var qType = document.getElementById('qtype').value;
-    if(qType === "cgf"){
-       editor.getSession().on('change', function(e) {
-          document.getElementById("count").innerHTML = editor.getValue().length;
-       });
-    }
 	editor.setValue("#include<stdio.h>\n int main()\n{\n//Your Code Here\n\n\n return 0;\n}");
 	/*function changeLanguage()
 	{

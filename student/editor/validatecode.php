@@ -39,7 +39,7 @@ if (!empty($_POST['sourcecode']))
 }
 else
 {
-	$qstring = "gnooble.org/student/practice/validatecode.php?id=".$_GET['qid'];
+	$qstring = "gnooble.org/student/practice/editor/editor.php?id=".$_GET['qid'];
 	header($qstring);
 	exit();
 

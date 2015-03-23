@@ -104,7 +104,7 @@ $queryResult = Admin::viewPracticeQuestionsByUser($_SESSION['userid']);
                     <tbody>
                     <?php foreach($queryResult as $result): ?>
                         <tr>
-                            <td><?php echo "<a href='editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
+                            <td><?php echo "<a href='../editor/editor.php?id=".$result["questionId"]."'"."</a>".$result["questionName"]; ?></td>
                             <td><?php switch($result["difficulty"])
                                 {
                                     case 20:
