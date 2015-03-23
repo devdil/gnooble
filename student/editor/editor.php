@@ -127,19 +127,22 @@ if (Authenticate::getUserType() != "STUDENT")
 						   $('#output').show();
 						   responseTable.scrollIntoView();
 						   $('#testcase-modal').modal('show');
-						   $('#compilationError').show().focus();
+						   $('#compilationError').show();
+                           $('#compilationError')[0].scrollIntoView(true);
 					   }
                        else{
 
                            $('#compilationError').removeClass('alert-success').addClass('alert-danger');
 						   $('#compilationError').find(".content").html(result["compilationMessage"].replace(/(?:\r\n|\r|\n)/g, '<br />'));
-						   $('#compilationError').show().focus();
+						   $('#compilationError').show();
+                           $('#compilationError')[0].scrollIntoView(true);
                        }
 
 						$("#compile").removeAttr("disabled");
 						$("#loading").hide(); //hide loading here
 						$("#status-compiling").hide();
-                        $('#compilationError').show().focus();
+                        $('#compilationError').show();
+                       $('#compilationError')[0].scrollIntoView(true);
 
 
 					},
