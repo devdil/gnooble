@@ -26,7 +26,6 @@ include '../views/template_header.php';
 					<p class="text-primary">Unique Student ID: <?php echo $_SESSION['userid']; ?></p>
 					<p class="dept meta"><?php echo $queryUserDetails[0]['EmailId'];?></p>
 
-
 				<?php endif; ?>
 
 				 </div>

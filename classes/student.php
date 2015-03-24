@@ -86,13 +86,12 @@ class Student
     public static function updateMyScoreBoard($questionId,$userId,$status,$sourceCode,$solvedTime,$Time,$Memory)
     {
         $db    =  DatabaseManager::getConnection();
-        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode,endTime=:endTime,Time=:time,Memory=:memory WHERE questionID=:qid and UserId=:userId';
+        $queryString = 'UPDATE Scoreboard SET Status=:status,SourceCode=:sourceCode,Time=:time,Memory=:memory WHERE questionID=:qid and UserId=:userId';
         $bindings = array(
             'qid' => $questionId,
             'status'=> $status,
             'sourceCode'=> $sourceCode,
             'userId' => $userId,
-            'endTime' => $solvedTime,
             'time' => $Time,
             'memory' => $Memory
         );
@@ -227,7 +226,6 @@ class Student
             'status'=> $status,
             'sourceCode'=> $sourceCode,
             'userId' => $userId,
-            'endTime' => $solvedTime,
             'time' => $Time,
             'memory' => $Memory,
             'len' => $length
@@ -265,6 +263,7 @@ class Student
         $db->insert($queryString,$bindings);
     }
 
+
     public static function getSourceCode($userId,$questionId)
     {
         $db    =  DatabaseManager::getConnection();
@@ -281,6 +280,25 @@ class Student
         return $db->select($query,$bindings);
 
     }
+
+    public static function updateCorrectSubmissionTime($userId,$questionId,$solvedTime)
+    {
+        $db    =  DatabaseManager::getConnection();
+        $queryString = 'UPDATE Scoreboard SET endTime=:solvedTime WHERE questionID=:qid and UserId=:userId';
+
+        $bindings = array(
+            'questionId' => $questionId,
+            'userId' => $userId,
+            'solvedTime'=> $solvedTime
+        );
+
+        return $db->insert($queryString,$bindings);
+
+    }
+
+
+
+
 
 
 

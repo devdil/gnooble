@@ -254,7 +254,7 @@ class Admin
     {
 
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.charsInCode as lengthSourceCode
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory,Scoreboard.startTime as startTime,Scoreboard.endTime as endTime,Scoreboard.charsInCode as lengthSourceCode
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid
@@ -269,7 +269,7 @@ class Admin
     public static function viewScoreboard($questionId)
     {
         $db    =  DatabaseManager::getConnection();
-        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.Memory as Memory
+        $query = 'SELECT Scoreboard.status as Status,UserDetails.Name as Name,UserDetails.EmailId as EmailId,UserDetails.ContactNumber as ContactNumber,ABS(TIMESTAMPDIFF(SECOND,Scoreboard.endTime,Scoreboard.startTime)) as solvedIn,Scoreboard.Time as Time,Scoreboard.startTime as startTime,Scoreboard.endTime as endTime,Scoreboard.Memory as Memory
                   FROM Scoreboard join UserDetails
                   ON Scoreboard.UserId = UserDetails.UserId
                   where Scoreboard.questionId=:qid

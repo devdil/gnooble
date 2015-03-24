@@ -1,7 +1,9 @@
 <?php 
 		include '../../../includes/Authenticate.php';
 		include '../../../classes/student.php';
-
+if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
+	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login/');
+	exit(0); }
 		//check whether the user is logged in or not,
 		Authenticate::preventUnauthorisedLogin();
 

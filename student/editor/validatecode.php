@@ -101,11 +101,15 @@ if ($areAllPassed)
 	// if the user hasn't solved the question then update the scoreboard
 	if($_GET['type']='cgf')
 	{
+		if(Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']) === false)
+		   Student::updateCorrectSubmissionTime($_SESSION['userid'],$_GET['qid'],$solvedTime);
 		Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Solved',$sourceCode,$solvedTime,$avgTime,$avgMem,$lengthSourceCode);
 	}
 
 	if($_GET['type']='prc')
 	{
+		if(Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']) === false)
+		   Student::updateCorrectSubmissionTime($_SESSION['userid'],$_GET['qid'],$solvedTime);
 		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Solved",$sourceCode,$solvedTime,$avgTime,$avgMem);
 	}
 }
@@ -115,6 +119,7 @@ else
 	$status = 'All Test Cases Failed!';
 	if($_GET['type']='prc')
 	{
+
 		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Attempted",$sourceCode,$solvedTime,$avgTime,$avgMem);
 	}
 

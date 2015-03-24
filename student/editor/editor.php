@@ -11,6 +11,9 @@ if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
+if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
+	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login/');
+	exit(0); }
 //check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
 //retrieve the question from the database
 		$queryResult = Student::getQuestion($_GET['id']);
@@ -84,7 +87,7 @@ if (Authenticate::getUserType() != "STUDENT")
 					},
 					dataType: "json",
 					success:function(result){
-						if(result["compilationMessage"] === true) {
+						if(result["compilationMessage"] === true || (result["compilationMessage"].search("error") == -1)) {
 						var trHTML = '',testHTML = '',
                             testCaseTable = $('#test-case-details').find('tbody'),
 							compilationMessage = result["compilationMessage"];

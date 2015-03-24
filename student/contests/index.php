@@ -1,10 +1,16 @@
+
 <?php
+
 include '../../includes/Authenticate.php';
 include '../../classes/student.php';
 
+if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
+	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login/');
+	exit(0); }
+
+
 //check whether the user is logged in or not,
 Authenticate::preventUnauthorisedLogin();
-
 $queryResult = Student::viewChallenges();
 date_default_timezone_set('Asia/Kolkata');
 $currentTime = new DateTime();
@@ -19,10 +25,6 @@ $index = 0;
 include '../../views/template_header.php';
 ?>
 			<h1 class="page-header">Contests</h1>
-			<p class="lead">Challenge Yourself Right Away</p>
-
-
-
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
@@ -51,6 +53,8 @@ include '../../views/template_header.php';
 									$endTime->setTimestamp(strtotime($result["endDate"]));
 									if ($currentTime>=$startTime && $currentTime<=$endTime)
 										echo "<a href='viewchallenge/index.php?cid=".$result["cId"]."&type=".$result["Type"]."'"."</a>"."Enter Challenge";
+									else if($currentTime<$startTime)
+										echo "Contest hasn't started! :D";
 									else
 										echo "Contest Ended";
 

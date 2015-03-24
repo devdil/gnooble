@@ -7,9 +7,9 @@ include '../../classes/student.php';
 Authenticate::preventUnauthorisedLogin();
 
 $scoreboardType = $_GET['type'];
-	if ($scoreboardType=== 'cgf')
+	if ($scoreboardType === 'cgf')
 		$queryResult = Student::viewScoreboardBySourceCodeLength($_GET['qid']);
-	elseif (($scoreboardType=== 'prc'))
+	elseif (($scoreboardType === 'prc'))
 		$queryResult = Student::viewScoreboard($_GET['qid']);
 
 $index = 0;
@@ -24,7 +24,7 @@ include '../../views/template_header.php';
 			<p class="lead">Here are the latest standings.</p>
 			<?php if ($queryResult != false): ?>
 
-			<?php if(($_GET['type'])=== 'cgf'): ?>
+			<?php if(($_GET['type']) === 'cgf'): ?>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>

@@ -106,6 +106,8 @@ $index = 0;
 							<th>SourceCode Length</th>
 							<th>Time</th>
 							<th>Memory</th>
+							<th>StartTime</th>
+							<th>EndTime</th>
 
 						</tr>
 						</thead>
@@ -125,7 +127,8 @@ $index = 0;
 								<td><?php echo $result["lengthSourceCode"]  ?></td>
 								<td><?php echo $result["Time"]  ?></td>
 								<td><?php echo $result["Memory"]  ?></td>
-
+								<td><?php echo $result["startTime"]  ?></td>
+								<td><?php echo $result["endTime"]  ?></td>
 							</tr>
 						<?php endforeach; ?>
 
@@ -144,6 +147,8 @@ $index = 0;
 						<th>Solved In(secs)</th>
 						<th>Time</th>
 						<th>Memory</th>
+						<th>StartTime</th>
+						<th>EndTime</th>
 
 					</tr>
 					</thead>
@@ -160,7 +165,9 @@ $index = 0;
 							</td>
 							<td><?php echo $result["solvedIn"]  ?></td>
 							<td><?php echo $result["Time"]  ?></td>
-							<td><?php echo $result["Memory"]  ?></td>
+							<td><?php echo $result["Memmory"]  ?></td>
+							<td><?php echo $result["startTime"]  ?></td>
+							<td><?php echo $result["endTime"]  ?></td>
 
 						</tr>
 					<?php endforeach; ?>
