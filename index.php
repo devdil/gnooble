@@ -152,7 +152,6 @@
          <ul class="text-center list-unstyled list-inline">
             <li>Built by: </li>
             <li><a href="https://www.facebook.com/diljitpr">Diljit</a></li>
-            <li><a href="https://www.facebook.com/arshu2kool">Arshad</a></li>
             <li><a href="http://http://sougatanair.com/">Sougata</a></li>
          </ul>
       </div>
