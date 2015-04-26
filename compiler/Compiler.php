@@ -27,35 +27,7 @@ class Compiler
 	
 	public function compile()
 	{
-		$query['source'] = urlencode($this->sourceCode);
-		//$query['testcases'] = urlencode(json_encode(array($this->inputCases)));
-		$query['testcases'] = urlencode(json_encode($this->inputCases));
-		$query['lang'] = $this->language;
-		$query['api_key'] = urlencode($this->apikey);
-		$url = 'http://api.hackerrank.com/checker/submission.json';
-		$q = array();
-		foreach ($query as $k => $v) {
-			$q[] = "$k=$v";
-		}
-		$q = implode("&", $q);
-		//open connection
-		$ch = curl_init();
-		
-		//set the url, number of POST vars, POST data
-		curl_setopt($ch,CURLOPT_URL, $url);
-		curl_setopt($ch,CURLOPT_POST, count($query));
-		curl_setopt($ch,CURLOPT_POSTFIELDS, $q);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		
-		//execute post
-		$result = curl_exec($ch);
-		
-		//close connection
-		curl_close($ch);
-		
-		
-		
-		$this->apiOutput = json_decode($result,true);
+		//magic code here :)
 	}
 	public function getApiDump()
 	{
