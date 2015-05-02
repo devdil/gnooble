@@ -1,29 +1,42 @@
-Gnooble
+[Gnooble](www.gnooble.org)
 ==============================================
-www.gnooble.org
 
+Gnooble is an intelligent platform to automate programming assignments on the cloud. Built for institutions, trainers and students, it primarily aims to provide a place for students to practice coding challenges and improve their skills. Students can collaborate, track their skills and work together with their peers.
 
-Gnooble is an application to automate programming assignments/programs on the cloud.It thus eliminates the manual labour and to check the correctness of a program.Gnooble is targetted at schools and universities where teachers can leverage this platform to host programming assignments online and grade them remotely.They are also able to gain better insights on a students skill and performance.Students can collaborate,track his skills and scores and work together with this peers.
+Institutions and Trainers can leverage this platform by hosting hackathons and coding competitions and get insights on a student's skills and performance, grade them remotely.
 
+[Sign up](www.gnooble.org) and start practicing right away
 
+##For Students
 
-Technologies Used
+###Practice online
+Gnooble provides an online platform for students to practice programming assignments online. Complete assignments, keep track of your scores, progress and flaunt them to your peers!
+
+###Improve your skills
+Solve numerous challenges on our platform and compete with your peers to improve and work on your problem solving skills. Discuss and brainstorm hard problems with our growing community.
+
+## For Schools
+
+###Coding Platform
+Gnooble is an online platform for colleges and universities as well as employers to host hackathons, code competitions and programming assignments online and grade them remotely.
+
+###Monitor Progress
+We collaborate with universities and colleges to host programming assignments and hackathons online. Teachers can monitor each of their student's work, grade and analyze their progress, thereby being able to teach effectively and improving student's skill through practice.
+
+###Fully Automated
+Run automated public or private programming assignments in the cloud. Add questions, track scores and run competitions at your own convenience.
+
+Our Tech Stack
 ===============================================
 * PHP 
 * MySQl
-* HTML
-* CSS
-* AJAX,Javascript
-
-
-
-
+* Bootstrap
 
 
 Authors:
 =================
 
-Diljit Ramachandran
-Sougata Nair
+* [Diljit Ramachandran](www.facebook.com/diljitpr)
+* [Sougata Nair](https://sougatanair.com)
 
 
