@@ -7,7 +7,7 @@ Institutions and Trainers can leverage this platform by hosting hackathons and c
 
 [Sign up](www.gnooble.org) and start practicing right away
 
-##For Students
+##_For Students_
 
 ###Practice online
 Gnooble provides an online platform for students to practice programming assignments online. Complete assignments, keep track of your scores, progress and flaunt them to your peers!
@@ -15,7 +15,7 @@ Gnooble provides an online platform for students to practice programming assignm
 ###Improve your skills
 Solve numerous challenges on our platform and compete with your peers to improve and work on your problem solving skills. Discuss and brainstorm hard problems with our growing community.
 
-## For Schools
+##_For Schools_
 
 ###Coding Platform
 Gnooble is an online platform for colleges and universities as well as employers to host hackathons, code competitions and programming assignments online and grade them remotely.
