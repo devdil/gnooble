@@ -112,8 +112,16 @@ html, body{
 	display: none;
 }
 
-.page-header{
+.page-header, .page-header > h1{
 	margin-top: 0;
+}
+
+.prc-search{
+   margin: 0.3em 0;
+}
+
+.question-tab .action{
+   margin-right: 0.5em;
 }
 
 .user-profile, .num-questions{
@@ -171,6 +179,105 @@ html, body{
 .user-info .dept{
    padding-bottom: 1em;
    border-bottom: thin solid #bbbbbb;
+}
+
+.questions-container .question{
+   border-bottom: thin solid #dfdfdf;
+   padding: 1.5em 1em 0.2em;
+}
+
+.btn-grey{
+   color: #000000;
+   border: thin solid #b8b8b8;
+   /* IE10 Consumer Preview */
+   background-image: -ms-linear-gradient(top, #F2F2F2 0%, #DEDEDE 100%);
+
+   /* Mozilla Firefox */
+   background-image: -moz-linear-gradient(top, #F2F2F2 0%, #DEDEDE 100%);
+
+   /* Opera */
+   background-image: -o-linear-gradient(top, #F2F2F2 0%, #DEDEDE 100%);
+
+   /* Webkit (Safari/Chrome 10) */
+   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F2F2F2), color-stop(1, #DEDEDE));
+
+   /* Webkit (Chrome 11+) */
+   background-image: -webkit-linear-gradient(top, #F2F2F2 0%, #DEDEDE 100%);
+
+   /* W3C Markup, IE10 Release Preview */
+   background-image: linear-gradient(to bottom, #F2F2F2 0%, #DEDEDE 100%);
+}
+
+.btn-grey:hover, .btn-grey:focus{
+   background: #eeeeee;
+}
+
+.question h4{
+   margin-top: 0;
+}
+
+.question .btn-grey{
+   margin-top: 0.5em;
+}
+
+.question .q-meta{
+   margin-top: 1em;
+}
+
+.question .sb-meta{
+   margin-top: 2em;
+}
+
+.meta-item{
+   width: 15%;
+   display: inline-block;
+}
+
+.sb-meta .meta-item{
+   width: 30%;
+}
+
+.question a:hover, .question a:focus{
+   text-decoration: none;
+}
+
+.questions-container .question:last-child{
+   border-bottom: none;
+}
+
+.question-recap{
+   height: 10em;
+   overflow: hidden;
+}
+
+.question-recap.h-auto{
+   height: auto;
+}
+
+.recap-container{
+   position: relative;
+}
+
+#see-more{
+   position: absolute;
+   bottom: 0.3em;
+   background: #fff;
+   left: 0;
+}
+
+.recap-container{
+   margin-bottom: 1em;
+   padding-bottom: 2em;
+   border-bottom: thin solid #999999;
+}
+
+.stat-list li{
+   font-size: 2.1em;
+}
+
+.stat-list li span{
+   font-size: 1rem;
+   display: block;
 }
 
 @media (min-width: 768px){

@@ -13,7 +13,9 @@ if (Authenticate::getUserType() != "STUDENT")
 }
 if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
 	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login/');
-	exit(0); }
+	exit(0);
+   // TODO: This piece of code is causing undue bugs when I try to browse to the practice questions after logging in.
+}
 //check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
 //retrieve the question from the database
 		$queryResult = Student::getQuestion($_GET['id']);
@@ -212,9 +214,9 @@ if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
 			<p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
 
 
-			<div role="tabpanel" class="col-md-12 col-sm-12">
-				<a class="btn btn-default pull-right" target="_blank" href="../scoreboard/index.php<?php echo "?qid=".$_GET['id']."&type=".$_GET['type']; ?>">View Scoreboard</a>
-				<a class="btn btn-success pull-right" href="#solve">Solve Question</a>
+			<div role="tabpanel" class="question-tab col-md-12 col-sm-12">
+				<a class="btn action btn-grey pull-right" target="_blank" href="../scoreboard/index.php<?php echo "?qid=".$_GET['id']."&type=".$_GET['type']; ?>">View Scoreboard</a>
+				<a class="btn action btn-primary pull-right" href="#solve">Solve Question</a>
 
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
