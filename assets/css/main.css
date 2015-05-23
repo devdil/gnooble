@@ -36,6 +36,17 @@ html, body{
 	border-radius: 0;;
 }
 
+.navbar-inverse .navbar-nav > li > a{
+   color: #cccccc;
+}
+
+.dropdown.profile{
+   margin-left: 1em;
+   padding-left: 1em;
+   border-left: thin solid rgb(153, 153, 153);
+   padding-right: 1em;
+}
+
 .navbar .user-img{
    max-width: 2em;
    margin-top: -15px;

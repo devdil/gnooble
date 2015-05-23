@@ -14,7 +14,7 @@ include '../views/template_header.php';
 		  <p class="lead">Welcome Aboard!</p>
 
 
-		   <div class="row">
+		   <div>
 			  <div class="col-md-6 clearfix user-profile">
 				 <img class="user-img pull-left img-rounded img-responsive col-md-4 col-sm-4 col-xs-4" src="https://cdn2.iconfinder.com/data/icons/flat-style-svg-icons-part-2/512/hacker_user_thief_spy_skull-512.png" alt="Sougata Nair"/>
 
