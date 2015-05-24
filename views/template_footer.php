@@ -1,8 +1,4 @@
 </section>
-<aside class="col-md-3 col-sm-3 aside">
-   <h3>Sidebar</h3>
-   <p>All your sidebar content goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque eum iste molestias reprehenderit suscipit, veritatis voluptate. At eaque iure quasi quo tempora? Beatae commodi debitis minima natus, unde voluptatum!</p>
-</aside>
 </div>
 </div>
 
