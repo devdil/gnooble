@@ -55,4 +55,4 @@
 <div class="container-fluid">
     <div class="row">
 
-        <section class="col-sm-9 col-md-10 main">
+        <section class="col-sm-9 col-md-9 main">
