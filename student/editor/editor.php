@@ -183,34 +183,26 @@ if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						<?php echo $_SESSION['username']; ?>
-						<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings</a></li>
-						<li><a href="#">Scoreboard</a></li>
-						<li class="divider"></li>
-						<li><a href="../../logout/">Logout</a></li>
-					</ul>
-				</li>
-			</ul>
+           <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/student/">Home <span class="sr-only">(current)</span></a></li>
+              <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/student/practice/">Practice</a></li>
+              <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/student/submissions/">My Submissions</a></li>
+              <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/student/contests/">Contests</a></li>
+              <li class="dropdown profile">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $_SESSION['username']." "; ?> <span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/logout/">Logout</a></li>
+                 </ul>
+              </li>
+           </ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
 
 <div class="container-fluid">
 	<div class="row">
-		<section class="col-sm-3 col-md-2 sidebar"><ul class="nav nav-sidebar">
-				<li><a href="/student/">Home <span class="sr-only">(current)</span></a></li>
-				<li ><a href="/student/practice/">Practice</a></li>
-				<li ><a href="/student/submissions/">MySubmissions</a></li>
-				<li><a href="/student/contests/">Contests</a></li>
-			</ul>
 
-		</section>
-		<section class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<section class="col-sm-9 col-md-9 main">
 			<p class="lead"><strong>Question:</strong> <?php echo $queryResult[0]['questionName']; ?></p>
 
 
@@ -325,6 +317,10 @@ if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
 
 			</div>
 		</section>
+       <aside class="col-md-3 col-sm-3 aside">
+          <h3>Sidebar</h3>
+          <p>All your sidebar content goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque eum iste molestias reprehenderit suscipit, veritatis voluptate. At eaque iure quasi quo tempora? Beatae commodi debitis minima natus, unde voluptatum!</p>
+       </aside>
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
