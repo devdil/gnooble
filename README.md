@@ -31,6 +31,8 @@ Our Tech Stack
 * PHP 
 * MySQl
 * Bootstrap
+* JavaScript
+* Jquery
 
 
 Authors:
@@ -38,5 +40,13 @@ Authors:
 
 * [Diljit Ramachandran](www.facebook.com/diljitpr)
 * [Sougata Nair](https://sougatanair.com)
+* 
+
+Roadmap for next release:
+===========================
+*Create dynamic judge for personal use with custom domain name
+*Admin frinedly UI
+*UI fix for student interface
+*Analytics on student's perfomance
 
 
