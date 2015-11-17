@@ -38,15 +38,14 @@ Our Tech Stack
 Authors:
 =================
 
-* [Diljit Ramachandran](www.facebook.com/diljitpr)
+* [Diljit Ramachandran](www.facebook.com/diljitpr) OR (www.diljitpr.net)
 * [Sougata Nair](https://sougatanair.com)
-* 
 
 Roadmap for next release:
 ===========================
-*Create dynamic judge for personal use with custom domain name
-*Admin frinedly UI
-*UI fix for student interface
-*Analytics on student's perfomance
+* Create dynamic judge for personal use with custom domain name
+* Admin frinedly UI
+* UI fix for student interface
+* Analytics on student's perfomance
 
 
