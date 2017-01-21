@@ -4,7 +4,7 @@ include '../includes/Authenticate.php';
 include ('../library/apache-log4php/Logger.php');
 
 Logger::configure('../includes/log_config.xml');
-$LOG = Logger::getLogger("LOGIN");
+$LOG = Logger::getLogger("LOGGER");
  
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 {

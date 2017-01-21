@@ -2,6 +2,11 @@
 include '../../includes/Authenticate.php';
 include '../../classes/student.php';
 //check whether the user is logged in or not,
+
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+
 if (!Authenticate::isLoggedIn())
 {
 	Authenticate::logout();
@@ -11,11 +16,7 @@ if (Authenticate::getUserType() != "STUDENT")
 {
 	Authenticate::redirect();
 }
-if(!isset($_SESSION['allow']) || $_SESSION['allow'] === "false" ){
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login/');
-	exit(0);
-   // TODO: This piece of code is causing undue bugs when I try to browse to the practice questions after logging in.
-}
+
 //check whether user has already attempted the question if yes do nothing if no insert the user into scoreboard
 //retrieve the question from the database
 		$queryResult = Student::getQuestion($_GET['id']);

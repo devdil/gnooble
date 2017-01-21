@@ -5,6 +5,11 @@ include '../../includes/Authenticate.php';
 include '../../compiler/Compiler.php';
 include '../../classes/student.php';
 
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+
+
 if (!Authenticate::isLoggedIn())
 {
 	Authenticate::logout();
@@ -16,7 +21,6 @@ if (Authenticate::getUserType() != "STUDENT")
 }
 if (!empty($_POST['sourcecode']))
 {
-
 	$sourceCode = ($_POST['sourcecode']);
 	$language = $_POST['language'];
 	$lengthSourceCode = strlen($sourceCode);
@@ -82,7 +86,6 @@ for( $index = 0 ; $index < count($isPassed); $index++)
 
 $avgMem = $avgMem/$index;
 $avgTime = $avgTime/$index;
-
 $compilerOutput["compilationMessage"] = $result->getCompileMessage();
 $compilerOutput["compilationResult"] = $jsonOutput;
 $isSolved = Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']);
@@ -99,14 +102,14 @@ if ($areAllPassed)
 
 
 	// if the user hasn't solved the question then update the scoreboard
-	if($_GET['type']='cgf')
+	if($_GET['type']=='cgf')
 	{
 		if(Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']) === false)
 		   Student::updateCorrectSubmissionTime($_SESSION['userid'],$_GET['qid'],$solvedTime);
 		Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Solved',$sourceCode,$solvedTime,$avgTime,$avgMem,$lengthSourceCode);
 	}
 
-	if($_GET['type']='prc')
+	if($_GET['type']=='prc')
 	{
 		if(Student::isSolvedQuestion($_SESSION['userid'],$_GET['qid']) === false)
 		   Student::updateCorrectSubmissionTime($_SESSION['userid'],$_GET['qid'],$solvedTime);
@@ -117,13 +120,13 @@ else
 {
 
 	$status = 'All Test Cases Failed!';
-	if($_GET['type']='prc')
+	if($_GET['type']=='prc')
 	{
 
 		Student::updateMyScoreBoard($_GET['qid'],$_SESSION['userid'],"Attempted",$sourceCode,$solvedTime,$avgTime,$avgMem);
 	}
 
-	if($_GET['type']='cgf')
+	if($_GET['type']=='cgf')
 	{
 		//Student::updateMyCustomScoreBoard($_GET['qid'],$_SESSION['userid'],'Failed',$sourceCode,'0000-00-00 00:00:00',$avgMem,$avgTime,$lengthSourceCode);
 	}

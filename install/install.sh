@@ -9,6 +9,7 @@ then
     sudo apt-get -y install php7.0 libapache2-mod-php7.0 php7.0-mcrypt phpmyadmin;
     sudo apt install -y php7.0-mbstring php7.0-zip php7.0-xml
     sudo apt-get install php7.0-mysql
+    sudo apt-get install php7.0-curl
     sudo chmod 777 -R /var/www/;
     sudo printf "<?php\nphpinfo();\n?>" > /var/www/html/info.php;
     sudo service apache2 restart;
