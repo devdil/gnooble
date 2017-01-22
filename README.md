@@ -46,7 +46,7 @@ Our Tech Stack
 Here is how you can get started:
 
 1) [Sign Up for HackerRank API](https://www.hackerrank.com/api)
-![step1](http://imgur.com/a/tE1gW)
+![step1](https://s27.postimg.org/o5wmqe5f7/hackerrank_api.png)
 
 
 #### 1)  [Spin up a digital ocean linux droplet](https://www.digitalocean.com/)
