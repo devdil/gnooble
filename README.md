@@ -1,4 +1,5 @@
 
+
 Gnooble
 ==============================================
 
@@ -70,6 +71,31 @@ Here is how you can get started:
 
   ``` git clone https://github.com/devdil/gnooble.git```
 
+3) Edit your configuration files for the application
+
+   The application relies on Hackerrank's API to compile and validate your sourcecode and this needs to be saved in our configuration files. The configuration file stores the API key and the password for MYSQL database which you will need later during application installation. Please make sure you use the same password during installation.
+
+```BASH
+$ cd app/compiler/
+$ vi apikey.php
+```
+
+Replace the highlighted area with the HackerRank api key you obtained in Step 1
+
+[![highlighted.png](https://s23.postimg.org/seszsri7f/highlighted.png)](https://postimg.org/image/p7yg94xrb/)
+
+Let's do the same for database configuration as well,
+
+```shell
+$ vi /app/includes/_config.php
+```
+
+Replace the highlighted area with the desired password but make sure you note it down somewhere in a text file. You will need this password during software installation (Step 3)
+
+[![highlighted2.png](https://s27.postimg.org/t5xizyhbn/highlighted2.png)](https://postimg.org/image/i6cbocqwf/)
+
+
+
 #### 3)  Install the application
 
  This includes setting up project files, setting up database, executing user queries,etc.
@@ -96,6 +122,5 @@ Authors:
 
 * [Diljit Ramachandran](www.facebook.com/diljitpr) OR (www.diljitpr.net)
 * [Sougata Nair](https://sougatanair.com)
-
 
 
