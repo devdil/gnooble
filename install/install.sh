@@ -1,4 +1,5 @@
-
+#!/bin/bash
+#Step 1 : Install software dependencies for the project
 if [ "`lsb_release -is`" == "Ubuntu" ] || [ "`lsb_release -is`" == "Debian" ]
 then
     sudo apt-get -y install mysql-server mysql-client mysql-workbench libmysqld-dev;
@@ -31,13 +32,41 @@ else
     echo "Unsupported Operating System";
 fi
 
-# Export software files to /var/www/html
-# Load all schemas and entries to the database
+#Step 2 : Export software files to /var/www/html
+
+echo "Installing software files...   "
 sudo cp -rf ../app/* /var/www/html/
 if [[ $? == 0 ]]
 then
     echo "Successfully installed software files...		[OK]"
+	sudo rm -f /var/www/index.html
 else
-    echo "Failed to copy software files...	                [FAIL]"
+    echo "Failed to copy software files...	            [FAIL]"
 fi
+
+#Step 3 : Initializing LOG directories
+echo "Creating log directories... "
+sudo mkdir -p /var/logs/debugLogs/
+if [[ $? == 0 ]]
+then
+echo     "Log directory successfully created at /var/logs/debugLogs/ [OK]"
+fi
+sudo chmod 777 /var/logs/debugLogs/
+if [[ $? == 0 ]]
+then
+echo "Successfully changed permissions of folder : /var/logs/debugLogs/    [OK]"
+fi
+
+# Step 3 :Loading entries to database
+echo "Installing Database schema and loading entries... "
+username=root
+cat database_init.sql | mysql -u $username -p # type mysql password when asked for it
+if [[ $? == 0 ]]
+then
+	echo "Successfully loaded entries to database...	[OK]"
+else
+	echo "Failed to load entries to database...			[FAIL]"
+fi
+
+
 
