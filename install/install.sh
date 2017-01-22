@@ -34,7 +34,7 @@ fi
 # Export software files to /var/www/html
 # Load all schemas and entries to the database
 sudo cp -rf ../app/* /var/www/html/
-if [[ $? == 0]]
+if [[ $? == 0 ]]
 then
     echo "Successfully installed software files...		[OK]"
 else
