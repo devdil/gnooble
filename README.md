@@ -1,5 +1,6 @@
 
 
+
 Gnooble
 ==============================================
 
@@ -65,8 +66,8 @@ Here is how you can get started:
   Save this key somewhere in a text file, we will be needing this during application configuration.
 
 #### 1)  [Spin up a digital ocean linux droplet](https://www.digitalocean.com/)
+```Choose ubuntu 16.04 or higher, since the script is well tested on Ubuntu and it is assured that it will work. For other operating systems, you may need to tweak the install.sh script```
 
-    Note: Please make sure you have root privelleges before you proceed
 #### 2)  Download this project on your droplet/Linux instance by
 
   ``` git clone https://github.com/devdil/gnooble.git```
@@ -113,6 +114,17 @@ If everything goes well, you will get a message
 
 
 ​     
+####4) Start the application
+
+You may fire up your favourite browser, and type the digital ocean IP address that you've got in Step 1 in the address bar, if you see a awesome screen like down below, you are ready and set  to go my boy!!! 
+
+You can login with default credentials:
+```
+   emailid/username : admin@gnooble.com
+   password 		: admin123
+```
+
+[![home screen.png](https://s23.postimg.org/qvsi3cy17/home_screen.png)](https://postimg.org/image/i0rnsu98n/)
 
 
 
