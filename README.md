@@ -46,7 +46,7 @@ Our Tech Stack
 Here is how you can get started:
 
 1) [Sign Up for HackerRank API](https://www.hackerrank.com/api)
-
+![step1](http://imgur.com/a/tE1gW)
 
 
 #### 1)  [Spin up a digital ocean linux droplet](https://www.digitalocean.com/)
@@ -62,16 +62,15 @@ Here is how you can get started:
 
 
 ``` $ cd install
-     $ chmod 755 install.sh
-     $ ./install.sh
+    $ chmod 755 install.sh
+    $ ./install.sh
 ```
 
 If everything goes well, you will get a message
-​        ``` Successfully installed application```
+       ``` Successfully installed application```
 
 
-
-​     
+     
 
 
 
