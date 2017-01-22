@@ -48,11 +48,20 @@ Here is how you can get started:
 1) [Sign Up for HackerRank API](https://www.hackerrank.com/api)
 
 * Click on get started
-![step1](https://s27.postimg.org/o5wmqe5f7/hackerrank_api.png)
+
+  ​
+
+  ![step1](https://s27.postimg.org/o5wmqe5f7/hackerrank_api.png)
+
+  ​
 
 * Give a name, description and click on "Generate your API code"
-[![step2.png](https://s23.postimg.org/db3xoh2p7/step2.png)](https://postimg.org/image/ongj69bdz/)
-Save this key somewhere in a text file, we will be needing this during application configuration.
+
+  ​
+
+  [![step2.png](https://s23.postimg.org/db3xoh2p7/step2.png)](https://postimg.org/image/ongj69bdz/)
+
+  Save this key somewhere in a text file, we will be needing this during application configuration.
 
 #### 1)  [Spin up a digital ocean linux droplet](https://www.digitalocean.com/)
 
@@ -66,16 +75,18 @@ Save this key somewhere in a text file, we will be needing this during applicati
  This includes setting up project files, setting up database, executing user queries,etc.
 
 
-``` $ cd install
-    $ chmod 755 install.sh
-    $ ./install.sh
+```bash
+$ cd install
+$ chmod 755 install.sh
+$ ./install.sh
 ```
+
 
 If everything goes well, you will get a message
        ``` Successfully installed application```
 
 
-     
+​     
 
 
 
