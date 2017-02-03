@@ -1,5 +1,7 @@
 #!/bin/bash
 #Step 1 : Install software dependencies for the project
+#variables here
+IS_SUCCESSFULLY_INSTALLED=false
 if [ "`lsb_release -is`" == "Ubuntu" ] || [ "`lsb_release -is`" == "Debian" ]
 then
     sudo apt-get -y install mysql-server mysql-client mysql-workbench libmysqld-dev;
@@ -39,7 +41,8 @@ sudo cp -rf ../app/* /var/www/html/
 if [[ $? == 0 ]]
 then
     echo "Successfully installed software files...		[OK]"
-	sudo rm -f /var/www/index.html
+    sudo rm -f /var/www/index.html
+    IS_SUCCESSFULLY_INSTALLED=true
 else
     echo "Failed to copy software files...	            [FAIL]"
 fi
@@ -50,11 +53,15 @@ sudo mkdir -p /var/logs/debugLogs/
 if [[ $? == 0 ]]
 then
 echo     "Log directory successfully created at /var/logs/debugLogs/ [OK]"
+IS_SUCCESSFULLY_INSTALLED=true
+
 fi
 sudo chmod 777 /var/logs/debugLogs/
 if [[ $? == 0 ]]
 then
 echo "Successfully changed permissions of folder : /var/logs/debugLogs/    [OK]"
+IS_SUCCESSFULLY_INSTALLED=true
+
 fi
 
 # Step 3 :Loading entries to database
@@ -64,8 +71,16 @@ cat database_init.sql | mysql -u $username -p # type mysql password when asked f
 if [[ $? == 0 ]]
 then
 	echo "Successfully loaded entries to database...	[OK]"
+IS_SUCCESSFULLY_INSTALLED=true
 else
 	echo "Failed to load entries to database...			[FAIL]"
+fi
+
+if [[ $IS_SUCCESSFULLY_INSTALLED == "true" ]]
+then
+   echo "Successfully installed"
+else
+   echo "Something went wrong during installation.. Contact the author"
 fi
 
 
