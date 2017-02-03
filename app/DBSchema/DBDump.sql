@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `UserDetails` (
 
 INSERT INTO `UserDetails` (`Name`, `EmailId`, `Department`, `Type`, `Password`, `UserId`, `ContactNumber`) VALUES
 ('Diljit', 'diljitpr@gmail.com', 'CSE', 'S', 'diljit123', 1, '8335974888'),
-('admin', 'admin@gmail.com', 'CSE', 'T', '9903423072', 22, '123'),
+('admin', 'admin@myemail.com', 'CSE', 'T', 'admin123', 22, '123'),
 ('Tony', 'tony@gmail.com', 'CSE', 'S', '14300', 26, '8335974888');
 
 --
