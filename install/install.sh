@@ -4,10 +4,10 @@
 IS_SUCCESSFULLY_INSTALLED=false
 if [ "`lsb_release -is`" == "Ubuntu" ] || [ "`lsb_release -is`" == "Debian" ]
 then
+    sudo apt-get update;
     sudo apt-get -y install mysql-server mysql-client mysql-workbench libmysqld-dev;
     sudo apt-get install -y language-pack-en-base;
     sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php;
-    sudo apt-get update;
     sudo apt-get -y install apache2;
     sudo apt-get install mysql-server
     sudo apt-get -y install php7.0 libapache2-mod-php7.0 php7.0-mcrypt phpmyadmin;
@@ -77,7 +77,7 @@ else
 	echo "Failed to load entries to database...			[FAIL]"
 fi
 
-if [[ $IS_SUCCESSFULLY_INSTALLED == "true" ]]
+if [[ $IS_SUCCESSFULLY_INSTALLED == true ]]
 then
    echo "Successfully installed application"
 else
