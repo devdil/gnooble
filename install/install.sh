@@ -26,7 +26,7 @@ then
     sudo chmod 777 -R /var/www/;
     sudo printf "<?php\nphpinfo();\n?>" > /var/www/html/info.php;
     sudo service mysqld restart;
-    sudo service httpd restart;
+     sudo service httpd restart;
     sudo chkconfig httpd on;
     sudo chkconfig mysqld on;
 
@@ -78,7 +78,7 @@ fi
 
 if [[ $IS_SUCCESSFULLY_INSTALLED == "true" ]]
 then
-   echo "Successfully installed"
+   echo "Successfully installed application"
 else
    echo "Something went wrong during installation.. Contact the author"
 fi
