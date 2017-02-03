@@ -77,7 +77,7 @@ Here is how you can get started:
    The application relies on Hackerrank's API to compile and validate your sourcecode and this needs to be saved in our configuration files. The configuration file stores the API key and the password for MYSQL database which you will need later during application installation. Please make sure you use the same password during installation.
 
 ```BASH
-$ cd app/compiler/
+$ cd gnooble/app/compiler/
 $ vi apikey.php
 ```
 
@@ -88,7 +88,7 @@ Replace the highlighted area with the HackerRank api key you obtained in Step 1
 Let's do the same for database configuration as well,
 
 ```shell
-$ vi /app/includes/_config.php
+$ vi gnooble/app/includes/_config.php
 ```
 
 Replace the highlighted area with the desired password but make sure you note it down somewhere in a text file. You will need this password during software installation (Step 3)
