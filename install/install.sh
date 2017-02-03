@@ -42,7 +42,7 @@ sudo cp -rf ../app/* /var/www/html/
 if [[ $? == 0 ]]
 then
     echo "Successfully installed software files...		[OK]"
-    sudo rm -f /var/www/index.html
+    sudo rm -f /var/www/html/index.html
     IS_SUCCESSFULLY_INSTALLED=true
 else
     echo "Failed to copy software files...	            [FAIL]"
